@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsup src/index.tsx --format cjs,esm --dts",
-    "publish": "npm run build && npm publish --access public"
+    "publishPublicly": "npm publish --access public"
   },
   "keywords": [
     "asafarim",

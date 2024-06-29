@@ -1,5 +1,3 @@
-Sure, here’s a comprehensive `README.md` for your `asafarim-navlinks` package:
-
 # React component asafarim-navlinks
 
 `asafarim-navlinks` is a simple React component for rendering navigation link items. It takes an array of link objects and returns a rendered navigation menu.
