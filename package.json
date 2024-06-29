@@ -1,7 +1,7 @@
 {
   "name": "asafarim-navlinks",
   "private": false,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "index.tsx",
   "scripts": {
     "build": "tsup src/index.tsx --format cjs,esm --dts",
