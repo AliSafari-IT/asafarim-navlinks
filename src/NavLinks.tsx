@@ -26,6 +26,20 @@ const NavLinks: React.FC<NavLinksProps> = ({ links, className, style, baseLinkSt
     setOpenDropdown(null);
   };
 
+  const renderSubNav = (subNav: NavLink[] | undefined) => {
+    if (!subNav) return null;
+    return (
+      <ul style={{ ...subLinkStyle, position: 'absolute', top: '100%', left: 0, backgroundColor: 'white', border: '1px solid #ccc', padding: '10px', zIndex: 100 }}>
+        {subNav.map((subLink, subIndex) => (
+          <li key={subIndex} style={{ position: 'relative' }}>
+            <a href={subLink.href}>{subLink.label}</a>
+            {renderSubNav(subLink.subNav)}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
     <nav className={className ?? defaultStyle.navContainer} style={{ ...style }}>
       <ul className={defaultStyle.baseLinks} style={{ ...baseLinkStyle }}>
@@ -37,15 +51,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ links, className, style, baseLinkSt
             style={{ position: 'relative' }}
           >
             <a href={link.href}>{link.label}</a>
-            {link.subNav && link.subNav.length > 0 && openDropdown === index && (
-              <ul style={{ ...subLinkStyle, position: 'absolute', top: '100%', left: 0, backgroundColor: 'white', border: '1px solid #ccc', padding: '10px', zIndex: 100 }}>
-                {link.subNav.map((subLink, subIndex) => (
-                  <li key={subIndex}>
-                    <a href={subLink.href}>{subLink.label}</a>
-                  </li>
-                ))}
-              </ul>
-            )}
+            {link.subNav && openDropdown === index && renderSubNav(link.subNav)}
           </li>
         ))}
       </ul>
