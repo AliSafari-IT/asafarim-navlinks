@@ -1,6 +1,6 @@
-# React component asafarim-navlinks
+# React Component `asafarim-navlinks`
 
-`asafarim-navlinks` is a simple React component for rendering navigation link items. It takes an array of link objects and returns a rendered navigation menu.
+`asafarim-navlinks` is a simple React component for rendering navigation link items, including support for dropdown menus. It takes an array of link objects and returns a rendered navigation menu.
 
 ## Installation
 
@@ -19,20 +19,27 @@ Here's how you can use the `asafarim-navlinks` component in your React TypeScrip
 Import the `NavLinks` component into your React application.
 
 ```tsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import NavLinks from 'asafarim-navlinks';
+import React from "react";
+import ReactDOM from "react-dom";
+import NavLinks from "asafarim-navlinks";
 ```
 
 ### Step 2: Prepare the Links Data
 
-Create an array of link objects that you want to render.
+Create an array of link objects that you want to render. Each link can optionally contain sub-navigation items.
 
 ```tsx
 const links = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' }
+  {
+    label: "Home",
+    href: "/",
+    subNav: [
+      { label: "Sub Home 1", href: "/sub-home-1" },
+      { label: "Sub Home 2", href: "/sub-home-2" },
+    ],
+  },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 ```
 
@@ -41,7 +48,7 @@ const links = [
 Use the `NavLinks` component in your JSX and pass the links array as a prop.
 
 ```tsx
-ReactDOM.render(<NavLinks links={links} />, document.getElementById('root'));
+ReactDOM.render(<NavLinks links={links} />, document.getElementById("root"));
 ```
 
 ### Full Example
@@ -49,14 +56,21 @@ ReactDOM.render(<NavLinks links={links} />, document.getElementById('root'));
 Here's a full example of how to integrate `asafarim-navlinks` into a React TypeScript project.
 
 ```tsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import NavLinks from 'asafarim-navlinks';
+import React from "react";
+import ReactDOM from "react-dom";
+import NavLinks from "asafarim-navlinks";
 
 const links = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' }
+  {
+    label: "Home",
+    href: "/",
+    subNav: [
+      { label: "Sub Home 1", href: "/sub-home-1" },
+      { label: "Sub Home 2", href: "/sub-home-2" },
+    ],
+  },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const App: React.FC = () => {
@@ -68,28 +82,42 @@ const App: React.FC = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 ## API
 
 ### `NavLinks`
 
-The `NavLinks` component renders a navigation menu.
+The `NavLinks` component renders a navigation menu, with optional support for dropdown menus.
 
 #### Props
 
 - `links` (required): An array of link objects. Each link object should have the following shape:
+
   - `label` (string): The text to display for the link.
   - `href` (string): The URL the link points to.
+  - `subNav` (optional): An array of link objects for the dropdown menu.
+
+- `className` (optional): A string to apply custom CSS class.
+- `style` (optional): A `React.CSSProperties` object to apply inline styles.
+- `baseLinkStyle` (optional): A `React.CSSProperties` object to apply inline styles to base links.
+- `subLinkStyle` (optional): A `React.CSSProperties` object to apply inline styles to sub-navigation links.
 
 Example:
 
 ```tsx
 const links = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' }
+  {
+    label: "Home",
+    href: "/",
+    subNav: [
+      { label: "Sub Home 1", href: "/sub-home-1" },
+      { label: "Sub Home 2", href: "/sub-home-2" },
+    ],
+  },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 ```
 
@@ -99,19 +127,24 @@ To contribute to this package, follow these steps:
 
 1. Clone the repository.
 2. Install the dependencies:
+
    ```sh
    npm install
    ```
+
 3. Make your changes.
 4. Build the package:
+
    ```sh
    npm run build
    ```
+
 5. Publish the package:
+
    ```sh
    npm publish
    ```
 
 ## License
 
-MIT License
+[MIT License](/MIT_License)
