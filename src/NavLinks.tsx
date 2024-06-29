@@ -7,11 +7,14 @@ interface NavLink {
 
 interface NavLinksProps {
   links: NavLink[];
+  className: string | undefined;
+  style?: React.CSSProperties;
+  [key: string]: any;
 }
 
-const NavLinks: React.FC<NavLinksProps> = ({ links }) => {
+const NavLinks: React.FC<NavLinksProps> = ({ links, className ="sticky top-0 z-50", style = {position: "sticky", top: "0", zIndex: "50"} }) => {
   return (
-    <nav>
+    <nav className={className} style={style}>
       <ul>
         {links.map((link, index) => (
           <li key={index}>
