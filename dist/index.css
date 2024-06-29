@@ -27,6 +27,7 @@
   left: 0;
   z-index: 100;
 }
-.baseLinks > li:hover > ul {
+.baseLinks > li:hover > ul,
+.baseLinks > li > ul > li:hover > ul {
   display: block;
 }

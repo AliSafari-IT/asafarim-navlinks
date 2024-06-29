@@ -16,26 +16,33 @@ interface NavLinksProps {
 }
 
 const NavLinks: React.FC<NavLinksProps> = ({ links, className, style, baseLinkStyle, subLinkStyle }) => {
-  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<{ [key: string]: boolean }>({});
 
-  const handleMouseEnter = (index: number) => {
-    setOpenDropdown(index);
+  const handleToggle = (key: string) => {
+    setOpenDropdown((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
   };
 
-  const handleMouseLeave = () => {
-    setOpenDropdown(null);
-  };
-
-  const renderSubNav = (subNav: NavLink[] | undefined) => {
+  const renderSubNav = (subNav: NavLink[] | undefined, parentIndex: string) => {
     if (!subNav) return null;
     return (
       <ul style={{ ...subLinkStyle, position: 'absolute', top: '100%', left: 0, backgroundColor: 'white', border: '1px solid #ccc', padding: '10px', zIndex: 100 }}>
-        {subNav.map((subLink, subIndex) => (
-          <li key={subIndex} style={{ position: 'relative' }}>
-            <a href={subLink.href}>{subLink.label}</a>
-            {renderSubNav(subLink.subNav)}
-          </li>
-        ))}
+        {subNav.map((subLink, subIndex) => {
+          const key = `${parentIndex}-${subIndex}`;
+          return (
+            <li key={key} style={{ position: 'relative' }}>
+              <a href={subLink.href} onClick={(e) => {
+                if (subLink.subNav) {
+                  e.preventDefault();
+                  handleToggle(key);
+                }
+              }}>{subLink.label}</a>
+              {openDropdown[key] && renderSubNav(subLink.subNav, key)}
+            </li>
+          );
+        })}
       </ul>
     );
   };
@@ -43,17 +50,23 @@ const NavLinks: React.FC<NavLinksProps> = ({ links, className, style, baseLinkSt
   return (
     <nav className={className ?? defaultStyle.navContainer} style={{ ...style }}>
       <ul className={defaultStyle.baseLinks} style={{ ...baseLinkStyle }}>
-        {links.map((link, index) => (
-          <li 
-            key={index} 
-            onMouseEnter={() => handleMouseEnter(index)} 
-            onMouseLeave={handleMouseLeave}
-            style={{ position: 'relative' }}
-          >
-            <a href={link.href}>{link.label}</a>
-            {link.subNav && openDropdown === index && renderSubNav(link.subNav)}
-          </li>
-        ))}
+        {links.map((link, index) => {
+          const key = index.toString();
+          return (
+            <li 
+              key={key} 
+              style={{ position: 'relative' }}
+            >
+              <a href={link.href} onClick={(e) => {
+                if (link.subNav) {
+                  e.preventDefault();
+                  handleToggle(key);
+                }
+              }}>{link.label}</a>
+              {openDropdown[key] && renderSubNav(link.subNav, key)}
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

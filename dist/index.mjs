@@ -103,32 +103,15 @@ var NavbarLinks_default = {};
 // src/NavLinks.tsx
 var NavLinks = function(param) {
     var links = param.links, className = param.className, style = param.style, baseLinkStyle = param.baseLinkStyle, subLinkStyle = param.subLinkStyle;
-    var _useState = _sliced_to_array(useState(null), 2), openDropdown = _useState[0], setOpenDropdown = _useState[1];
-    var handleMouseEnter = function(index) {
-        setOpenDropdown(index);
+    var _useState = _sliced_to_array(useState({}), 2), openDropdown = _useState[0], setOpenDropdown = _useState[1];
+    var handleToggle = function(key) {
+        setOpenDropdown(function(prev) {
+            return _object_spread_props(_object_spread({}, prev), _define_property({}, key, !prev[key]));
+        });
     };
-    var handleMouseLeave = function() {
-        setOpenDropdown(null);
-    };
-    return /* @__PURE__ */ React.createElement("nav", {
-        className: className !== null && className !== void 0 ? className : NavbarLinks_default.navContainer,
-        style: _object_spread({}, style)
-    }, /* @__PURE__ */ React.createElement("ul", {
-        className: NavbarLinks_default.baseLinks,
-        style: _object_spread({}, baseLinkStyle)
-    }, links.map(function(link, index) {
-        return /* @__PURE__ */ React.createElement("li", {
-            key: index,
-            onMouseEnter: function() {
-                return handleMouseEnter(index);
-            },
-            onMouseLeave: handleMouseLeave,
-            style: {
-                position: "relative"
-            }
-        }, /* @__PURE__ */ React.createElement("a", {
-            href: link.href
-        }, link.label), link.subNav && link.subNav.length > 0 && openDropdown === index && /* @__PURE__ */ React.createElement("ul", {
+    var renderSubNav = function(subNav, parentIndex) {
+        if (!subNav) return null;
+        return /* @__PURE__ */ React.createElement("ul", {
             style: _object_spread_props(_object_spread({}, subLinkStyle), {
                 position: "absolute",
                 top: "100%",
@@ -138,13 +121,46 @@ var NavLinks = function(param) {
                 padding: "10px",
                 zIndex: 100
             })
-        }, link.subNav.map(function(subLink, subIndex) {
+        }, subNav.map(function(subLink, subIndex) {
+            var key = "".concat(parentIndex, "-").concat(subIndex);
             return /* @__PURE__ */ React.createElement("li", {
-                key: subIndex
+                key: key,
+                style: {
+                    position: "relative"
+                }
             }, /* @__PURE__ */ React.createElement("a", {
-                href: subLink.href
-            }, subLink.label));
-        })));
+                href: subLink.href,
+                onClick: function(e) {
+                    if (subLink.subNav) {
+                        e.preventDefault();
+                        handleToggle(key);
+                    }
+                }
+            }, subLink.label), openDropdown[key] && renderSubNav(subLink.subNav, key));
+        }));
+    };
+    return /* @__PURE__ */ React.createElement("nav", {
+        className: className !== null && className !== void 0 ? className : NavbarLinks_default.navContainer,
+        style: _object_spread({}, style)
+    }, /* @__PURE__ */ React.createElement("ul", {
+        className: NavbarLinks_default.baseLinks,
+        style: _object_spread({}, baseLinkStyle)
+    }, links.map(function(link, index) {
+        var key = index.toString();
+        return /* @__PURE__ */ React.createElement("li", {
+            key: key,
+            style: {
+                position: "relative"
+            }
+        }, /* @__PURE__ */ React.createElement("a", {
+            href: link.href,
+            onClick: function(e) {
+                if (link.subNav) {
+                    e.preventDefault();
+                    handleToggle(key);
+                }
+            }
+        }, link.label), openDropdown[key] && renderSubNav(link.subNav, key));
     })));
 };
 var NavLinks_default = NavLinks;
