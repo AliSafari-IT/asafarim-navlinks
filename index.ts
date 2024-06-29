@@ -1,1 +1,1 @@
-export *  from './src/index';
+export * as NavLinks from './src/index';
