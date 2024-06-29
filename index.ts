@@ -1,2 +1,2 @@
 // index.ts
-export * as default from './src/NavLinks';
+export { default } from './src/NavLinks';
