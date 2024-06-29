@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
     "target": "ES5",
     "lib": ["dom", "es2015"],
     "jsx": "react",

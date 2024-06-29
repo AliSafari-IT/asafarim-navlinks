@@ -2,10 +2,10 @@
   "name": "asafarim-navlinks",
   "private": false,
   "version": "1.0.6",
-  "main": "index.tsx",
+  "main": "index.ts",
   "scripts": {
     "build": "tsup src/index.tsx --format cjs,esm --dts",
-    "publishPublicly": "npm run build && npm publish --access public"
+    "publishPublicly": "npm publish --access public"
   },
   "keywords": [
     "asafarim",
