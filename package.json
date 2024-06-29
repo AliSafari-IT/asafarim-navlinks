@@ -1,13 +1,27 @@
 {
   "name": "asafarim-navlinks",
+  "private": false,
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsup src/index.tsx --format cjs,esm --dts"
+    "build": "tsup src/index.tsx --format cjs,esm --dts",
+    "publish": "npm run build && npm publish --access public"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "asafarim",
+    "navlinks",
+    "react",
+    "typescript",
+    "navigation",
+    "nodejs",
+    "npm"
+  ],
+  "author": "Ali Safari",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AliSafari-IT/asafarim-navlinks.git"
+  },
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "@types/react": "^18.3.3",
