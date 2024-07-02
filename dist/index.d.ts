@@ -1,21 +1,21 @@
 import React from 'react';
 
-interface NavLink {
+type NavLinkType = {
     label: string;
     href: string;
     iconLeft?: string;
     iconRight?: string;
     emoji?: string;
-    subNav?: NavLink[];
-}
-interface NavLinksProps {
-    links: NavLink[];
+    subNav?: NavLinkType[];
+};
+type NavLinksProps = {
+    links: NavLinkType[];
     className?: string;
     baseLinkStyle?: React.CSSProperties;
     subLinkStyle?: React.CSSProperties;
     isRightAligned?: boolean;
     isBottomAligned?: boolean;
-}
+};
 declare const NavLinks: React.FC<NavLinksProps>;
 
 export { NavLinks as default };

@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import defaultStyle from "./NavbarLinks.module.css";
 
-interface NavLink {
+type NavLinkType = {
   label: string;
   href: string;
   iconLeft?: string;
   iconRight?: string;
   emoji?: string;
-  subNav?: NavLink[];
+  subNav?: NavLinkType[];
 }
 
-interface NavLinksProps {
-  links: NavLink[];
+type NavLinksProps = {
+  links: NavLinkType[];
   className?: string;
   baseLinkStyle?: React.CSSProperties;
   subLinkStyle?: React.CSSProperties;
@@ -38,7 +38,7 @@ const NavLinks: React.FC<NavLinksProps> = ({
     }));
   };
 
-  const renderSubNav = (subNav: NavLink[] | undefined, parentIndex: string) => {
+  const renderSubNav = (subNav: NavLinkType[] | undefined, parentIndex: string) => {
     if (!subNav) return null;
     return (
       <ul
