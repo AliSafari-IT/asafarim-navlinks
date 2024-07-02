@@ -138,7 +138,7 @@ Use the `NavLinks` component in your JSX and pass the links array as a prop.
 
 ```tsx
 import React from "react";
-import NavLinks from "./components/NavLinks";
+import NavLinks from 'asafarim-navlinks';
 import { navItems } from "./data";
 import styles from "./styles.module.css";
 
