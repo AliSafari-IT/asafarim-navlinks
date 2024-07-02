@@ -173,7 +173,7 @@ var import_react = __toESM(require("react"));
 var NavbarLinks_default = {};
 // src/NavLinks.tsx
 var NavLinks = function(param) {
-    var links = param.links, className = param.className, style = param.style, baseLinkStyle = param.baseLinkStyle, subLinkStyle = param.subLinkStyle;
+    var links = param.links, className = param.className, baseLinkStyle = param.baseLinkStyle, subLinkStyle = param.subLinkStyle, _param_isRightAligned = param.isRightAligned, isRightAligned = _param_isRightAligned === void 0 ? false : _param_isRightAligned, _param_isBottomAligned = param.isBottomAligned, isBottomAligned = _param_isBottomAligned === void 0 ? false : _param_isBottomAligned;
     var _ref = _sliced_to_array((0, import_react.useState)({}), 2), openDropdown = _ref[0], setOpenDropdown = _ref[1];
     var handleToggle = function(key) {
         setOpenDropdown(function(prev) {
@@ -183,14 +183,9 @@ var NavLinks = function(param) {
     var renderSubNav = function(subNav, parentIndex) {
         if (!subNav) return null;
         return /* @__PURE__ */ import_react.default.createElement("ul", {
+            className: className,
             style: _object_spread_props(_object_spread({}, subLinkStyle), {
-                position: "absolute",
-                top: "100%",
-                left: 0,
-                backgroundColor: "white",
-                border: "1px solid #ccc",
-                padding: "10px",
-                zIndex: 100
+                position: "absolute"
             })
         }, subNav.map(function(subLink, subIndex) {
             var key = "".concat(parentIndex, "-").concat(subIndex);
@@ -198,7 +193,8 @@ var NavLinks = function(param) {
                 key: key,
                 style: {
                     position: "relative"
-                }
+                },
+                className: isRightAligned ? NavbarLinks_default.rightAligned : isBottomAligned ? NavbarLinks_default.bottomAligned : void 0
             }, /* @__PURE__ */ import_react.default.createElement("a", {
                 href: subLink.href,
                 onClick: function(e) {
@@ -207,19 +203,21 @@ var NavLinks = function(param) {
                         handleToggle(key);
                     }
                 }
-            }, subLink.label), openDropdown[key] && renderSubNav(subLink.subNav, key));
+            }, subLink.emoji && /* @__PURE__ */ import_react.default.createElement("span", null, subLink.emoji), " ", subLink.iconLeft && /* @__PURE__ */ import_react.default.createElement("i", {
+                className: subLink.iconLeft
+            }), " ", subLink.label, "  ", subLink.iconRight && /* @__PURE__ */ import_react.default.createElement("i", {
+                className: subLink.iconRight
+            })), openDropdown[key] && renderSubNav(subLink.subNav, key));
         }));
     };
-    return /* @__PURE__ */ import_react.default.createElement("nav", {
-        className: className !== null && className !== void 0 ? className : NavbarLinks_default.navContainer,
-        style: _object_spread({}, style)
-    }, /* @__PURE__ */ import_react.default.createElement("ul", {
-        className: NavbarLinks_default.baseLinks,
-        style: _object_spread({}, baseLinkStyle)
+    return /* @__PURE__ */ import_react.default.createElement("ul", {
+        className: "".concat(NavbarLinks_default.baseLinks, " ").concat(className),
+        style: baseLinkStyle
     }, links.map(function(link, index) {
         var key = index.toString();
         return /* @__PURE__ */ import_react.default.createElement("li", {
             key: key,
+            className: isRightAligned ? NavbarLinks_default.rightAligned : isBottomAligned ? NavbarLinks_default.bottomAligned : void 0,
             style: {
                 position: "relative"
             }
@@ -231,8 +229,12 @@ var NavLinks = function(param) {
                     handleToggle(key);
                 }
             }
-        }, link.label), openDropdown[key] && renderSubNav(link.subNav, key));
-    })));
+        }, link.emoji && /* @__PURE__ */ import_react.default.createElement("span", null, link.emoji), " ", link.iconLeft && /* @__PURE__ */ import_react.default.createElement("i", {
+            className: link.iconLeft
+        }), " ", link.label, "  ", link.iconRight && /* @__PURE__ */ import_react.default.createElement("i", {
+            className: link.iconRight
+        })), openDropdown[key] && renderSubNav(link.subNav, key));
+    }));
 };
 var NavLinks_default = NavLinks;
 // src/index.tsx

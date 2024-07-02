@@ -1,33 +1,108 @@
 /* src/NavbarLinks.module.css */
-.navContainer {
-  display: flex;
-}
 .baseLinks {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.baseLinks > li {
+.baseLinks > li,
+.baseLinks > li > ul > li,
+.baseLinks > li > ul > li > ul > li,
+.baseLinks > li > ul > li > ul > li > ul > li,
+.baseLinks > li > ul > li > ul > li > ul > li > ul > li {
   display: inline-block;
-  margin-right: 20px;
   position: relative;
+  margin: 0;
 }
-.baseLinks > li > a {
+.baseLinks > li > a,
+.baseLinks > li > ul > li > a,
+.baseLinks > li > ul > li > ul > li > a,
+.baseLinks > li > ul > li > ul > li > ul > li > a,
+.baseLinks > li > ul > li > ul > li > ul > li > ul > li > a {
+  color: white;
+  padding: 10px 15px;
+  display: block;
   text-decoration: none;
-  color: black;
 }
-.baseLinks > li > ul {
+.baseLinks > li > ul,
+.baseLinks > li > ul > li > ul,
+.baseLinks > li > ul > li > ul > li > ul,
+.baseLinks > li > ul > li > ul > li > ul > li > ul {
   display: none;
   list-style: none;
-  padding: 10px;
-  background-color: white;
+  padding: 0;
+  margin: 0;
+  background-color: #333;
   border: 1px solid #ccc;
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 100;
+  z-index: 1000;
+  min-width: 175px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 .baseLinks > li:hover > ul,
-.baseLinks > li > ul > li:hover > ul {
+.baseLinks > li > ul > li:hover > ul,
+.baseLinks > li > ul > li > ul > li:hover > ul,
+.baseLinks > li > ul > li > ul > li > ul > li:hover > ul,
+.baseLinks > li > ul > li > ul > li > ul > li > ul > li:hover > ul {
   display: block;
+}
+.baseLinks > li > ul > li > ul,
+.baseLinks > li > ul > li > ul > li > ul,
+.baseLinks > li > ul > li > ul > li > ul > li > ul {
+  top: 0;
+  left: 100%;
+}
+.baseLinks > li > a:hover,
+.baseLinks > li > ul > li > a:hover,
+.baseLinks > li > ul > li > ul > li > a:hover,
+.baseLinks > li > ul > li > ul > li > ul > li > a:hover,
+.baseLinks > li > ul > li > ul > li > ul > li > ul > li > a:hover {
+  background-color: #575757;
+}
+.baseLinks > li > ul,
+.baseLinks > li > ul > li > ul,
+.baseLinks > li > ul > li > ul > li > ul,
+.baseLinks > li > ul > li > ul > li > ul > li > ul {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.baseLinks > li.rightAligned > ul {
+  left: auto;
+  right: 0;
+}
+.baseLinks > .rightAligned > ul > li > ul {
+  left: auto;
+  right: 100%;
+}
+.baseLinks > li.rightAligned > ul > li > ul > li > ul {
+  left: auto;
+  right: 100%;
+}
+.baseLinks > li.rightAligned > ul,
+.baseLinks > li.rightAligned > ul > li > ul,
+.baseLinks > li.rightAligned > ul > li > ul > li > ul,
+.baseLinks > li.rightAligned > ul > li > ul > li > ul > li > ul {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.baseLinks > li.bottomAligned > ul {
+  top: auto;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  right: 0;
+  background-color: rgb(107, 161, 143);
+}
+.baseLinks > li.bottomAligned > ul > li > ul {
+  top: auto;
+  bottom: 100%;
+}
+.baseLinks > li.bottomAligned > ul > li > ul > li > ul {
+  top: auto;
+  bottom: 100%;
+}
+.baseLinks > li.bottomAligned > ul,
+.baseLinks > li.bottomAligned > ul > li > ul,
+.baseLinks > li.bottomAligned > ul > li > ul > li > ul,
+.baseLinks > li.bottomAligned > ul > li > ul > li > ul > li > ul {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }

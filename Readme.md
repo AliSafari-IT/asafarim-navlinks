@@ -2,7 +2,7 @@
 
 `asafarim-navlinks` is a React component for rendering navigation link items, including support for multi-level dropdown menus, icons, and emojis.
 
-![Comprehensive Multi-Level Navigation Links for React](img/asafarim-navlinks-1.png)
+![Comprehensive Multi-Level Navigation Links for React](./img/asafarim-navlinks-1.png)
 
 ## Installation
 
@@ -29,7 +29,7 @@ import NavLinks from 'asafarim-navlinks';
 ### Step 2: Prepare the Links Data
 
 Create an array of link objects that you want to render. Each link can optionally contain sub-navigation items, icons, and emojis.
-![Flexible and Icon-Supported Navigation Component for React](img/asafarim-navlinks-2.png)
+![Flexible and Icon-Supported Navigation Component for React](./img/asafarim-navlinks-2.png)
 
 **src/data.ts:**
 
