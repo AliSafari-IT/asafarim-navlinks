@@ -1,12 +1,13 @@
 # Dynamic Navigation Links with Dropdowns and Icons for React Apps: `asafarim-navlinks`
 
-`asafarim-navlinks` is a React component for rendering navigation link items, including support for multi-level dropdown menus, icons, and emojis.
+![Flexible and Icon-Supported Navigation Component for React](./img/asafarim-navlinks-1.png)
+`asafarim-navlinks` a flexible and FontAwesomeIcon/Emoji-Supported Navigation Component for React
 
-![Comprehensive Multi-Level Navigation Links for React](./img/asafarim-navlinks-1.png)
+`asafarim-navlinks` is a versatile React component for rendering navigation link items, including support for multi-level dropdown menus, icons, and emojis. This package helps in creating dynamic and stylish navigation bars for your React applications.
 
 ## Installation
 
-You can install this package via npm:
+To install the package via npm, run the following command:
 
 ```sh
 npm install asafarim-navlinks
@@ -14,22 +15,20 @@ npm install asafarim-navlinks
 
 ## Usage
 
-Here's how you can use the `asafarim-navlinks` component in your React TypeScript application:
+Here's a step-by-step guide on how to use the `asafarim-navlinks` component in your React TypeScript application.
 
 ### Step 1: Import the Component
 
-Import the `NavLinks` component into your React application.
+Import the `NavLinks` component into your React application:
 
 ```tsx
 import React from 'react';
-import ReactDOM from 'react-dom';
 import NavLinks from 'asafarim-navlinks';
 ```
 
 ### Step 2: Prepare the Links Data
 
 Create an array of link objects that you want to render. Each link can optionally contain sub-navigation items, icons, and emojis.
-![Flexible and Icon-Supported Navigation Component for React](./img/asafarim-navlinks-2.png)
 
 **src/data.ts:**
 
@@ -44,6 +43,7 @@ export const navItems = {
         {
           label: "Sub Home 1",
           href: "/sub-home-1",
+          icon: "fas fa-home-1",
           subNav: [
             { label: "Sub Sub Home 1", href: "/sub-sub-home-1" },
             { label: "Sub Sub Home 2", href: "/sub-sub-home-2" },
@@ -130,6 +130,10 @@ export const navItems = {
 };
 ```
 
+![Comprehensive Multi-Level Navigation Links for React](./img/asafarim-navlinks-2.png)
+`asafarim-navlinks` as a comprehensive Multi-Level Navigation Links for React
+
+
 ### Step 3: Render the Component
 
 Use the `NavLinks` component in your JSX and pass the links array as a prop.
@@ -140,33 +144,21 @@ Use the `NavLinks` component in your JSX and pass the links array as a prop.
 import React from "react";
 import NavLinks from 'asafarim-navlinks';
 import { navItems } from "./data";
-import styles from "./styles.module.css";
+import './App.css';
 
 const App: React.FC = () => {
   return (
-    <div className={styles.App}>
-      <nav className={styles.navContainer}>
-        <div className={styles.navLeftAligned}>
+    <div className="App">
+      <nav className="navContainer">
+        <div className="navLeftAligned">
           <NavLinks links={navItems.leftAlignedNavItems} />
         </div>
-        <div className={styles.navRightAligned}>
+        <div className="navRightAligned">
           <NavLinks links={navItems.rightAlignedNavItems} isRightAligned={true} />
         </div>
       </nav>
-      <main className={styles.mainContainer}>
-        <div className={styles.leftSidebar}>
-          <div className={styles.sidebarTop}>
-            <NavLinks links={navItems.middleAlignedNavItems} />
-          </div>
-          <div className={styles.sidebarBottom}>
-            <NavLinks links={navItems.rightAlignedNavItems} />
-          </div>
-        </div>
-        <div className={styles.contentContainer}>
-          <header className={styles.header}>
-            NavLinks with Sidebar
-          </header>
-        </div>
+      <main className="mainContainer">
+        <h1>Navigation Links Demo</h1>
       </main>
     </div>
   );
@@ -179,7 +171,7 @@ export default App;
 
 Ensure your styles are set up to handle the navigation layout.
 
-**src/styles.module.css:**
+**src/App.css:**
 
 ```css
 .App {
@@ -189,80 +181,20 @@ Ensure your styles are set up to handle the navigation layout.
   color: white;
 }
 
-.navLinks {
-  margin: 0;
-  list-style: none;
-  background-color: rgb(2, 75, 104);
-  width: 100%;
-}
-
-.navLinks > li {
-  display: block;
-  width: 100%;
-  margin-right: 20px;
-}
-
 .navContainer {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  height: 60px;
-  border-bottom: 1px solid #ccc;
+  padding: 1rem;
   background-color: rgb(2, 75, 104);
 }
 
-.navLeftAligned,
-.navRightAligned {
+.navLeftAligned, .navRightAligned {
   display: flex;
-  flex-direction: row;
   align-items: center;
-}
-
-.leftSidebar,
-.rightSidebar {
-  width: 125px;
-  border-right: 1px solid #ccc;
-  height: calc(100vh - 60px);
-  overflow: visible;
-  background-color: #232529;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.sidebarTop,
-.sidebarBottom {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0;
-  color: #a3b956 !important;
-  font-weight: bold;
 }
 
 .mainContainer {
-  display: flex;
-  flex-direction: row;
-  height: calc(100vh - 60px);
-}
-
-.contentContainer {
-  flex: 1;
-  padding: 20px;
-}
-
-.header {
-  height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 2rem;
 }
 ```
 
@@ -270,7 +202,7 @@ Ensure your styles are set up to handle the navigation layout.
 
 Here’s a full example of how to integrate `asafarim-navlinks` into a React TypeScript project, including multi-level dropdown menus, icons, and emojis.
 
-**src/example/index.tsx:**
+**src/index.tsx:**
 
 ```tsx
 import React from 'react';
@@ -307,4 +239,4 @@ To contribute to this package, follow these steps:
 
 ### License
 
-[MIT License](/MIT_License)
+[MIT License](LICENSE)
