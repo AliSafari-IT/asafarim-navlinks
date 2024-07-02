@@ -1,6 +1,8 @@
-# React Component `asafarim-navlinks`
+# Dynamic Navigation Links with Dropdowns and Icons for React Apps: `asafarim-navlinks`
 
-`asafarim-navlinks` is a simple React component for rendering navigation link items, including support for multi-level dropdown menus. It takes an array of link objects and returns a rendered navigation menu.
+`asafarim-navlinks` is a React component for rendering navigation link items, including support for multi-level dropdown menus, icons, and emojis.
+
+![Comprehensive Multi-Level Navigation Links for React](img/asafarim-navlinks-1.png)
 
 ## Installation
 
@@ -26,143 +28,283 @@ import NavLinks from 'asafarim-navlinks';
 
 ### Step 2: Prepare the Links Data
 
-Create an array of link objects that you want to render. Each link can optionally contain sub-navigation items, which can also have their own sub-navigation items (multi-level dropdowns).
+Create an array of link objects that you want to render. Each link can optionally contain sub-navigation items, icons, and emojis.
+![Flexible and Icon-Supported Navigation Component for React](img/asafarim-navlinks-2.png)
+
+**src/data.ts:**
 
 ```tsx
-const links = [
-  { 
-    label: 'Home', 
-    href: '/', 
-    subNav: [
-      { label: 'Sub Home 1', href: '/sub-home-1' },
-      { label: 'Sub Home 2', href: '/sub-home-2' },
-      { 
-        label: 'Sub Sub Home', 
-        href: '/sub-sub-home',
-        subNav: [
-          { label: 'Sub Sub Home 1', href: '/sub-sub-home-1' },
-          { label: 'Sub Sub Home 2', href: '/sub-sub-home-2' }
-        ]
-      }
-    ]
-  },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' }
-];
+export const navItems = {
+  leftAlignedNavItems: [
+    {
+      label: "Home",
+      href: "/",
+      iconRight: "fas fa-home",
+      subNav: [
+        {
+          label: "Sub Home 1",
+          href: "/sub-home-1",
+          subNav: [
+            { label: "Sub Sub Home 1", href: "/sub-sub-home-1" },
+            { label: "Sub Sub Home 2", href: "/sub-sub-home-2" },
+          ],
+        },
+        { label: "Sub Home 2", href: "/sub-home-2" },
+        {
+          label: "Sub Sub Home",
+          href: "/sub-sub-home",
+          emoji: "🏠",
+          subNav: [
+            { label: "Sub Sub Home 1", href: "/sub-sub-home-1" },
+            {
+              label: "Sub Sub Home 2",
+              href: "/sub-sub-home-2",
+              subNav: [
+                { label: "Sub Sub Sub Home 1", href: "/sub-sub-sub-home-1" },
+                { label: "Sub Sub Sub Home 2", href: "/sub-sub-sub-home-2" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    { label: "About", href: "/about", iconRight: "fas fa-info" },
+  ],
+  middleAlignedNavItems: [
+    {
+      label: "Services",
+      href: "/services",
+      iconRight: "fas fa-tools",
+      subNav: [
+        { label: "Service 1", href: "/service-1" },
+        {
+          label: "Service 2",
+          href: "/service-2",
+          subNav: [
+            { label: "Sub Service 1", href: "/sub-service-1" },
+            { label: "Sub Service 2", href: "/sub-service-2" },
+          ],
+        },
+        {
+          label: "Service 3",
+          href: "/service-3",
+          subNav: [
+            { label: "Sub Service 1", href: "/sub-service-1" },
+            { label: "Sub Service 2", href: "/sub-service-2" },
+          ],
+        },
+      ],
+    },
+    { label: "Products", href: "/products", iconRight: "fas fa-boxes" },
+  ],
+  rightAlignedNavItems: [
+    {
+      label: "Contact",
+      href: "/contact",
+      iconRight: "fas fa-phone-alt",
+      subNav: [
+        { label: "Email", href: "/email" },
+        { label: "Sub Contact 2", href: "/sub-contact-2" },
+        {
+          label: "Phone",
+          href: "/phone",
+          subNav: [
+            { label: "Phone Landline 1", href: "/phone-landline-1" },
+            { label: "Phone Landline 2", href: "/phone-landline-2" },
+            {
+              label: "Phone Mobile",
+              href: "/phone-mobile",
+              iconLeft: "fas fa-mobile-alt",
+              subNav: [
+                { label: "Phone Mobile 1", href: "/phone-mobile-1" },
+                { label: "Phone Mobile 2", href: "/phone-mobile-2", emoji: "📱" },
+              ],
+            },
+          ],
+        },
+        { label: "Sub Contact 3", href: "/sub-contact-3" },
+      ],
+    },
+    { label: "Help", href: "/help", iconRight: "fas fa-question" },
+  ],
+};
 ```
 
 ### Step 3: Render the Component
 
 Use the `NavLinks` component in your JSX and pass the links array as a prop.
 
-```tsx
-ReactDOM.render(<NavLinks links={links} />, document.getElementById('root'));
-```
-
-### Full Example
-
-Here's a full example of how to integrate `asafarim-navlinks` into a React TypeScript project, including multi-level dropdown menus.
+**src/App.tsx:**
 
 ```tsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import NavLinks from 'asafarim-navlinks';
-
-const links = [
-  { 
-    label: 'Home', 
-    href: '/', 
-    subNav: [
-      { label: 'Sub Home 1', href: '/sub-home-1' },
-      { label: 'Sub Home 2', href: '/sub-home-2' },
-      { 
-        label: 'Sub Sub Home', 
-        href: '/sub-sub-home',
-        subNav: [
-          { label: 'Sub Sub Home 1', href: '/sub-sub-home-1' },
-          { label: 'Sub Sub Home 2', href: '/sub-sub-home-2' }
-        ]
-      }
-    ]
-  },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' }
-];
+import React from "react";
+import NavLinks from "./components/NavLinks";
+import { navItems } from "./data";
+import styles from "./styles.module.css";
 
 const App: React.FC = () => {
   return (
-    <div>
-      <h1>My Website</h1>
-      <NavLinks links={links} />
+    <div className={styles.App}>
+      <nav className={styles.navContainer}>
+        <div className={styles.navLeftAligned}>
+          <NavLinks links={navItems.leftAlignedNavItems} />
+        </div>
+        <div className={styles.navRightAligned}>
+          <NavLinks links={navItems.rightAlignedNavItems} isRightAligned={true} />
+        </div>
+      </nav>
+      <main className={styles.mainContainer}>
+        <div className={styles.leftSidebar}>
+          <div className={styles.sidebarTop}>
+            <NavLinks links={navItems.middleAlignedNavItems} />
+          </div>
+          <div className={styles.sidebarBottom}>
+            <NavLinks links={navItems.rightAlignedNavItems} />
+          </div>
+        </div>
+        <div className={styles.contentContainer}>
+          <header className={styles.header}>
+            NavLinks with Sidebar
+          </header>
+        </div>
+      </main>
     </div>
   );
 };
 
+export default App;
+```
+
+### Step 4: Styles
+
+Ensure your styles are set up to handle the navigation layout.
+
+**src/styles.module.css:**
+
+```css
+.App {
+  text-align: center;
+  height: 100vh;
+  background-color: #282c34;
+  color: white;
+}
+
+.navLinks {
+  margin: 0;
+  list-style: none;
+  background-color: rgb(2, 75, 104);
+  width: 100%;
+}
+
+.navLinks > li {
+  display: block;
+  width: 100%;
+  margin-right: 20px;
+}
+
+.navContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  border-bottom: 1px solid #ccc;
+  background-color: rgb(2, 75, 104);
+}
+
+.navLeftAligned,
+.navRightAligned {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.leftSidebar,
+.rightSidebar {
+  width: 125px;
+  border-right: 1px solid #ccc;
+  height: calc(100vh - 60px);
+  overflow: visible;
+  background-color: #232529;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebarTop,
+.sidebarBottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0;
+  color: #a3b956 !important;
+  font-weight: bold;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 60px);
+}
+
+.contentContainer {
+  flex: 1;
+  padding: 20px;
+}
+
+.header {
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+```
+
+### Full Example
+
+Here’s a full example of how to integrate `asafarim-navlinks` into a React TypeScript project, including multi-level dropdown menus, icons, and emojis.
+
+**src/example/index.tsx:**
+
+```tsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './index.css';
+
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-## API
-
-### `NavLinks`
-
-The `NavLinks` component renders a navigation menu, with optional support for multi-level dropdown menus.
-
-#### Props
-
-- `links` (required): An array of link objects. Each link object should have the following shape:
-  - `label` (string): The text to display for the link.
-  - `href` (string): The URL the link points to.
-  - `subNav` (optional): An array of link objects for the dropdown menu.
-
-- `className` (optional): A string to apply custom CSS class.
-- `style` (optional): A `React.CSSProperties` object to apply inline styles.
-- `baseLinkStyle` (optional): A `React.CSSProperties` object to apply inline styles to base links.
-- `subLinkStyle` (optional): A `React.CSSProperties` object to apply inline styles to sub-navigation links.
-
-Example:
-
-```tsx
-const links = [
-  { 
-    label: 'Home', 
-    href: '/', 
-    subNav: [
-      { label: 'Sub Home 1', href: '/sub-home-1' },
-      { label: 'Sub Home 2', href: '/sub-home-2' },
-      { 
-        label: 'Sub Sub Home', 
-        href: '/sub-sub-home',
-        subNav: [
-          { label: 'Sub Sub Home 1', href: '/sub-sub-home-1' },
-          { label: 'Sub Sub Home 2', href: '/sub-sub-home-2' }
-        ]
-      }
-    ]
-  },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' }
-];
-```
-
-## Development
+### Development
 
 To contribute to this package, follow these steps:
 
 1. Clone the repository.
 2. Install the dependencies:
+
    ```sh
    npm install
    ```
+
 3. Make your changes.
 4. Build the package:
+
    ```sh
    npm run build
    ```
+
 5. Publish the package:
+
    ```sh
-   npm publish
+   npm publish --access public
    ```
 
-## License
+### License
 
 [MIT License](/MIT_License)
