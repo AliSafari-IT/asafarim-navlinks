@@ -33,15 +33,6 @@ Create an array of link objects that you want to render. Each link can optionall
 **src/data.ts:**
 
 ```tsx
-type NavLinkType = {
-  label: string;
-  href: string;
-  iconLeft?: string;
-  iconRight?: string;
-  emoji?: string;
-  subNav?: NavLinkType[];
-}
-
 export const navItems = {
   leftAlignedNavItems: [
     {
