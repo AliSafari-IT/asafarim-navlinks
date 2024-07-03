@@ -33,6 +33,15 @@ Create an array of link objects that you want to render. Each link can optionall
 **src/data.ts:**
 
 ```tsx
+type NavLinkType = {
+  label: string;
+  href: string;
+  iconLeft?: string;
+  iconRight?: string;
+  emoji?: string;
+  subNav?: NavLinkType[];
+}
+
 export const navItems = {
   leftAlignedNavItems: [
     {
@@ -69,7 +78,7 @@ export const navItems = {
       ],
     },
     { label: "About", href: "/about", iconRight: "fas fa-info" },
-  ],
+  ] as NavLinkType[],
   middleAlignedNavItems: [
     {
       label: "Services",
@@ -96,7 +105,7 @@ export const navItems = {
       ],
     },
     { label: "Products", href: "/products", iconRight: "fas fa-boxes" },
-  ],
+  ] as NavLinkType[],
   rightAlignedNavItems: [
     {
       label: "Contact",
@@ -126,7 +135,7 @@ export const navItems = {
       ],
     },
     { label: "Help", href: "/help", iconRight: "fas fa-question" },
-  ],
+  ] as NavLinkType[],
 };
 ```
 
@@ -197,6 +206,9 @@ Ensure your styles are set up to handle the navigation layout.
   padding: 2rem;
 }
 ```
+
+![Multi-Level Navigation Links with routing for React](./img/asafarim-navlinks-3.png)
+`asafarim-navlinks` package: a multi-Level Navigation Links with routing for React
 
 ### Full Example
 
