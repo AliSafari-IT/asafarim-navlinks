@@ -7,7 +7,7 @@
     "build": "tsc && npm run copy-css",
     "copy-css": "copyfiles -u 1 src/**/*.css dist",
     "buildTSC": "tsc",
-    "buildTS": "tsup src/index.tsx --format cjs,esm --dts",
+    "buildTS": "tsup index.ts --format cjs,esm --dts",
     "publishPublicly": "npm publish --access public"
   },
   "keywords": [
