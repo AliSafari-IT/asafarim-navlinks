@@ -4,6 +4,8 @@ import defaultStyle from "./NavbarLinks.module.css";
 type NavLinkType = {
   label: string;
   href: string;
+  svgRelativePath?: string;
+  title?: string;
   iconLeft?: string;
   iconRight?: string;
   emoji?: string;
@@ -15,8 +17,8 @@ type NavLinksProps = {
   className?: string;
   baseLinkStyle?: React.CSSProperties;
   subLinkStyle?: React.CSSProperties;
-  isRightAligned?: boolean; // for right aligned links
-  isBottomAligned?: boolean; // for bottomAligned links
+  isRightAligned?: boolean;
+  isBottomAligned?: boolean;
 }
 
 const NavLinks: React.FC<NavLinksProps> = ({
@@ -50,7 +52,7 @@ const NavLinks: React.FC<NavLinksProps> = ({
           return (
             <li
               key={key}
-              style={{ position: "relative" }}
+              style={{ position: "relative", minWidth: "100px",  }}
               className={isRightAligned ? defaultStyle.rightAligned : isBottomAligned ? defaultStyle.bottomAligned : undefined}
               >
               <a
@@ -83,7 +85,7 @@ const NavLinks: React.FC<NavLinksProps> = ({
           <li
             key={key}
             className={isRightAligned ? defaultStyle.rightAligned : isBottomAligned ? defaultStyle.bottomAligned : undefined}
-            style={{ position: "relative" }}
+            style={{ position: "relative", display: "inline-block", margin: "0" }}
           >
             <a
               href={link.href}
