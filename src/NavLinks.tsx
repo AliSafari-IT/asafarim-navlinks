@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import defaultStyle from './NavbarLinks.module.css';
-
+ 
 type NavLinkType = {
   label: string;
   href: string;

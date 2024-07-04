@@ -42,6 +42,17 @@ var NavbarLinks_module_css_1 = __importDefault(require("./NavbarLinks.module.css
 var NavLinks = function (_a) {
     var links = _a.links, className = _a.className, baseLinkStyle = _a.baseLinkStyle, subLinkStyle = _a.subLinkStyle, _b = _a.isRightAligned, isRightAligned = _b === void 0 ? false : _b, _c = _a.isBottomAligned, isBottomAligned = _c === void 0 ? false : _c;
     var _d = (0, react_1.useState)({}), openDropdown = _d[0], setOpenDropdown = _d[1];
+    function getSvg(link) {
+        var svgRelativePath = link.svgRelativePath;
+        // add './' to svgRelativePath if it is not a full path or a valid remote url and it doesn't have it
+        if (svgRelativePath &&
+            !svgRelativePath.startsWith('./') &&
+            !svgRelativePath.startsWith('/') &&
+            !svgRelativePath.startsWith('http')) {
+            svgRelativePath = "./".concat(svgRelativePath);
+        }
+        return svgRelativePath;
+    }
     var handleToggle = function (key) {
         setOpenDropdown(function (prev) {
             var _a;
@@ -51,41 +62,47 @@ var NavLinks = function (_a) {
     var renderSubNav = function (subNav, parentIndex) {
         if (!subNav)
             return null;
-        return (react_1.default.createElement("ul", { className: className, style: __assign(__assign({}, subLinkStyle), { position: "absolute" }) }, subNav.map(function (subLink, subIndex) {
+        return (react_1.default.createElement("ul", { className: className, style: __assign(__assign({}, subLinkStyle), { position: 'absolute' }) }, subNav.map(function (subLink, subIndex) {
             var key = "".concat(parentIndex, "-").concat(subIndex);
-            return (react_1.default.createElement("li", { key: key, style: { position: "relative" }, className: isRightAligned ? NavbarLinks_module_css_1.default.rightAligned : isBottomAligned ? NavbarLinks_module_css_1.default.bottomAligned : undefined },
+            var svgRelativePath = getSvg(subLink);
+            return (react_1.default.createElement("li", { key: key, style: { position: 'relative' }, className: isRightAligned
+                    ? NavbarLinks_module_css_1.default.rightAligned
+                    : isBottomAligned
+                        ? NavbarLinks_module_css_1.default.bottomAligned
+                        : undefined },
                 react_1.default.createElement("a", { href: subLink.href, onClick: function (e) {
                         if (subLink.subNav) {
                             e.preventDefault();
                             handleToggle(key);
                         }
                     } },
-                    subLink.emoji && react_1.default.createElement("span", null, subLink.emoji),
-                    " ",
-                    subLink.iconLeft && react_1.default.createElement("i", { className: subLink.iconLeft }),
-                    " ",
+                    svgRelativePath && (react_1.default.createElement("img", { src: require("".concat(svgRelativePath)), alt: subLink.title })) && react_1.default.createElement("span", null, subLink.label),
+                    !svgRelativePath && subLink.emoji && react_1.default.createElement("span", null, subLink.emoji),
+                    !svgRelativePath && !subLink.emoji && subLink.iconLeft && (react_1.default.createElement("i", { className: subLink.iconLeft })),
                     subLink.label,
-                    "  ",
-                    subLink.iconRight && react_1.default.createElement("i", { className: subLink.iconRight })),
+                    !svgRelativePath && !subLink.emoji && subLink.iconRight && (react_1.default.createElement("i", { className: subLink.iconRight }))),
                 openDropdown[key] && renderSubNav(subLink.subNav, key)));
         })));
     };
     return (react_1.default.createElement("ul", { className: "".concat(NavbarLinks_module_css_1.default.baseLinks, " ").concat(className), style: baseLinkStyle }, links.map(function (link, index) {
         var key = index.toString();
-        return (react_1.default.createElement("li", { key: key, className: isRightAligned ? NavbarLinks_module_css_1.default.rightAligned : isBottomAligned ? NavbarLinks_module_css_1.default.bottomAligned : undefined, style: { position: "relative" } },
+        var svgRelativePath = getSvg(link);
+        return (react_1.default.createElement("li", { key: key, className: isRightAligned
+                ? NavbarLinks_module_css_1.default.rightAligned
+                : isBottomAligned
+                    ? NavbarLinks_module_css_1.default.bottomAligned
+                    : undefined, style: { position: 'relative' } },
             react_1.default.createElement("a", { href: link.href, onClick: function (e) {
                     if (link.subNav) {
                         e.preventDefault();
                         handleToggle(key);
                     }
                 } },
-                link.emoji && react_1.default.createElement("span", null, link.emoji),
-                " ",
-                link.iconLeft && react_1.default.createElement("i", { className: link.iconLeft }),
-                " ",
+                svgRelativePath && (react_1.default.createElement("img", { src: require("".concat(svgRelativePath)), alt: link.title })) && react_1.default.createElement("span", null, link.label),
+                !svgRelativePath && link.emoji && react_1.default.createElement("span", null, link.emoji),
+                !svgRelativePath && !link.emoji && link.iconLeft && (react_1.default.createElement("i", { className: link.iconLeft })),
                 link.label,
-                "  ",
-                link.iconRight && react_1.default.createElement("i", { className: link.iconRight })),
+                !svgRelativePath && !link.emoji && link.iconRight && (react_1.default.createElement("i", { className: link.iconRight }))),
             openDropdown[key] && renderSubNav(link.subNav, key)));
     })));
 };

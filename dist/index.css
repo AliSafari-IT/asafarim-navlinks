@@ -12,6 +12,7 @@
   display: inline-block;
   position: relative;
   margin: 0;
+  min-width: 100px;
 }
 .baseLinks > li > a,
 .baseLinks > li > ul > li > a,

@@ -1,6 +1,9 @@
 # Dynamic Navigation Links with Dropdowns and Icons for React Apps: `asafarim-navlinks`
 
-Check out a demo on GitHub: [Asafarim-Navlinks-Demo](https://github.com/AliSafari-IT/asafarim-navlinks-demo)
+Check out a demo on GitHub:
+
+[Asafarim-Navlinks-Demo](https://github.com/AliSafari-IT/asafarim-navlinks-demo)
+
 ![Flexible and Icon-Supported Navigation Component for React](./img/asafarim-navlinks-1.png)
 `asafarim-navlinks` a flexible and FontAwesomeIcon/Emoji-Supported Navigation Component for React
 
