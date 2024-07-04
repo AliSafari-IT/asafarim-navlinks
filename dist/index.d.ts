@@ -10,6 +10,7 @@ type NavLinkType = {
     emoji?: string;
     subNav?: NavLinkType[];
 };
+
 type NavLinksProps = {
     links: NavLinkType[];
     className?: string;
