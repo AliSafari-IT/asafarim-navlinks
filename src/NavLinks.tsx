@@ -1,17 +1,7 @@
 import React, { useState } from 'react';
 import defaultStyle from './NavbarLinks.module.css';
+import { NavLinkType } from './NavLinkType';
  
-export type NavLinkType = {
-  label: string;
-  href: string;
-  svgRelativePath?: string;
-  title?: string;
-  iconLeft?: string;
-  iconRight?: string;
-  emoji?: string;
-  subNav?: NavLinkType[];
-};
-
 type NavLinksProps = {
   links: NavLinkType[];
   className?: string;
