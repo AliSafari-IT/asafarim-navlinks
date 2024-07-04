@@ -1,3 +1,4 @@
-// index.ts
-export * from './src';
-export { NavLinkType } from "./src";
+import { NavLinkType } from './src/NavLinkType';
+
+export { default } from './src/NavLinks';
+export { NavLinkType };
