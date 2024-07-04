@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import defaultStyle from './NavbarLinks.module.css';
  
-type NavLinkType = {
+export type NavLinkType = {
   label: string;
   href: string;
   svgRelativePath?: string;
