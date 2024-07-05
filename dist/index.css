@@ -12,6 +12,7 @@
   display: inline-block;
   position: relative;
   margin: 0;
+  width: 150px;
 }
 .baseLinks > li > a,
 .baseLinks > li > ul > li > a,
@@ -19,7 +20,7 @@
 .baseLinks > li > ul > li > ul > li > ul > li > a,
 .baseLinks > li > ul > li > ul > li > ul > li > ul > li > a {
   color: white;
-  padding: 10px 15px;
+  padding: 10px;
   display: block;
   text-decoration: none;
 }
@@ -37,7 +38,6 @@
   top: 100%;
   left: 0;
   z-index: 1000;
-  min-width: 175px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 .baseLinks > li:hover > ul,

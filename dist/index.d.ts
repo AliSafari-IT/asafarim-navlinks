@@ -1,9 +1,18 @@
-import React from 'react';
+import React$1 from 'react';
+
+type SvgLinkType = {
+    src: string;
+    alt: string;
+    caption?: string;
+    width?: number;
+    height?: number;
+    style?: React.CSSProperties;
+};
 
 type NavLinkType = {
     label: string;
     href: string;
-    svgRelativePath?: string;
+    svgLogoIcon?: SvgLinkType;
     title?: string;
     iconLeft?: string;
     iconRight?: string;
@@ -14,11 +23,11 @@ type NavLinkType = {
 type NavLinksProps = {
     links: NavLinkType[];
     className?: string;
-    baseLinkStyle?: React.CSSProperties;
-    subLinkStyle?: React.CSSProperties;
+    baseLinkStyle?: React$1.CSSProperties;
+    subLinkStyle?: React$1.CSSProperties;
     isRightAligned?: boolean;
     isBottomAligned?: boolean;
 };
-declare const NavLinks: React.FC<NavLinksProps>;
+declare const NavLinks: React$1.FC<NavLinksProps>;
 
-export { NavLinks as default };
+export { type NavLinkType, type SvgLinkType, NavLinks as default };
