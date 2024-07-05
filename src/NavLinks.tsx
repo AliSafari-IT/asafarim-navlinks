@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import defaultStyle from './NavbarLinks.module.css';
-import { NavLinkType } from './NavLinkType';
- 
+import React, { useState } from "react";
+import defaultStyle from "./NavbarLinks.module.css";
+import { NavLinkType } from "./NavLinkType";
+
 type NavLinksProps = {
   links: NavLinkType[];
   className?: string;
   baseLinkStyle?: React.CSSProperties;
   subLinkStyle?: React.CSSProperties;
-  isRightAligned?: boolean;
-  isBottomAligned?: boolean;
+  isRightAligned?: boolean; // for right aligned links
+  isBottomAligned?: boolean; // for bottomAligned links
 };
 
 const NavLinks: React.FC<NavLinksProps> = ({
@@ -20,20 +20,8 @@ const NavLinks: React.FC<NavLinksProps> = ({
   isBottomAligned = false,
 }) => {
   const [openDropdown, setOpenDropdown] = useState<{ [key: string]: boolean }>(
-    {},
+    {}
   );
-
-  function getSvg(link: NavLinkType) {
-    let svgRelativePath = link.svgRelativePath;
-    // add './' to svgRelativePath if it is not a full path or a valid remote url and it doesn't have it
-    if (svgRelativePath &&
-      !svgRelativePath.startsWith('./') &&
-      !svgRelativePath.startsWith('/') &&
-      !svgRelativePath.startsWith('http')) {
-      svgRelativePath = `./${svgRelativePath}`;
-    }
-    return svgRelativePath;
-  }
 
   const handleToggle = (key: string) => {
     setOpenDropdown((prev) => ({
@@ -44,28 +32,26 @@ const NavLinks: React.FC<NavLinksProps> = ({
 
   const renderSubNav = (
     subNav: NavLinkType[] | undefined,
-    parentIndex: string,
+    parentIndex: string
   ) => {
     if (!subNav) return null;
     return (
       <ul
         className={className}
-        style={{ ...subLinkStyle, position: 'absolute' }}
+        style={{ ...subLinkStyle, position: "absolute" }}
       >
         {subNav.map((subLink, subIndex) => {
           const key = `${parentIndex}-${subIndex}`;
-          const svgRelativePath = getSvg(subLink);
-
           return (
             <li
               key={key}
-              style={{ position: 'relative' }}
+              style={{ position: "relative" }}
               className={
                 isRightAligned
                   ? defaultStyle.rightAligned
                   : isBottomAligned
-                    ? defaultStyle.bottomAligned
-                    : undefined
+                  ? defaultStyle.bottomAligned
+                  : undefined
               }
             >
               <a
@@ -76,18 +62,9 @@ const NavLinks: React.FC<NavLinksProps> = ({
                     handleToggle(key);
                   }
                 }}
+                title={subLink.label}
               >
-               {svgRelativePath && (
-                  <img src={require(`${svgRelativePath}`)} alt={subLink.title} />
-                ) && <span>{subLink.label}</span>}
-              {!svgRelativePath && subLink.emoji && <span>{subLink.emoji}</span>}
-              {!svgRelativePath && !subLink.emoji && subLink.iconLeft && (
-                <i className={subLink.iconLeft}></i>
-              )}
-              {subLink.label}
-              {!svgRelativePath && !subLink.emoji && subLink.iconRight && (
-                <i className={subLink.iconRight}></i>
-              )}
+                {getLinkContent(subLink)}
               </a>
               {openDropdown[key] && renderSubNav(subLink.subNav, key)}
             </li>
@@ -97,6 +74,44 @@ const NavLinks: React.FC<NavLinksProps> = ({
     );
   };
 
+  const getLinkContent = (link: NavLinkType) => {
+    if (!link) return null;
+    if (link.svgLogoIcon) {
+      return (
+        <> 
+          <img
+            src={link.svgLogoIcon.src}
+            alt={link.svgLogoIcon.alt}
+            width={link.svgLogoIcon.width ?? 40}
+            height={link.svgLogoIcon.height ?? "auto"}
+            style={link.svgLogoIcon.style ?? { width: "20px", height: "20px" }}
+          />
+          {link.svgLogoIcon.caption && <span>{link.svgLogoIcon.caption}</span>}
+        </>
+      );
+    }
+
+    if (link.emoji) {
+      return <span>{link.emoji}</span>;
+    }
+    if (link.iconLeft) {
+      return (
+        <span>
+          <i className={link.iconLeft}></i> {link.label}
+        </span>
+      );
+    }
+    if (link.iconRight) {
+      return (
+        <span>
+          {link.label} <i className={link.iconRight}></i>
+        </span>
+      );
+    }
+
+    return link.label;
+  };
+
   return (
     <ul
       className={`${defaultStyle.baseLinks} ${className}`}
@@ -104,7 +119,6 @@ const NavLinks: React.FC<NavLinksProps> = ({
     >
       {links.map((link, index) => {
         const key = index.toString();
-        const svgRelativePath = getSvg(link);
 
         return (
           <li
@@ -113,10 +127,10 @@ const NavLinks: React.FC<NavLinksProps> = ({
               isRightAligned
                 ? defaultStyle.rightAligned
                 : isBottomAligned
-                  ? defaultStyle.bottomAligned
-                  : undefined
+                ? defaultStyle.bottomAligned
+                : undefined
             }
-            style={{ position: 'relative' }}
+            style={{ position: "relative" }}
           >
             <a
               href={link.href}
@@ -126,24 +140,13 @@ const NavLinks: React.FC<NavLinksProps> = ({
                   handleToggle(key);
                 }
               }}
+              title={link.label}
             >
-              {svgRelativePath && (
-                  <img src={require(`${svgRelativePath}`)} alt={link.title} />
-                ) && <span>{link.label}</span>}
-              {!svgRelativePath && link.emoji && <span>{link.emoji}</span>}
-              {!svgRelativePath && !link.emoji && link.iconLeft && (
-                <i className={link.iconLeft}></i>
-              )}
-              {link.label}
-              {!svgRelativePath && !link.emoji && link.iconRight && (
-                <i className={link.iconRight}></i>
-              )}
+              {getLinkContent(link)}
             </a>
             {openDropdown[key] && renderSubNav(link.subNav, key)}
           </li>
         );
-
-        
       })}
     </ul>
   );

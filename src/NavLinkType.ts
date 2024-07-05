@@ -1,8 +1,9 @@
+import { SvgLinkType } from "./SvgLinkType";
 
 export type NavLinkType = {
   label: string;
   href: string;
-  svgRelativePath?: string;
+  svgLogoIcon?: SvgLinkType;
   title?: string;
   iconLeft?: string;
   iconRight?: string;

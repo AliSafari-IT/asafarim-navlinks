@@ -5,7 +5,6 @@
   margin: 0;
 }
 
-
 .baseLinks > li,
 .baseLinks > li > ul > li,
 .baseLinks > li > ul > li > ul > li,
@@ -14,7 +13,7 @@
   display: inline-block;
   position: relative;
   margin: 0;
-  /* min-width: 100px; */
+  width: 150px;
 }
 
 .baseLinks > li > a,
@@ -23,9 +22,10 @@
 .baseLinks > li > ul > li > ul > li > ul > li > a,
 .baseLinks > li > ul > li > ul > li > ul > li > ul > li > a {
   color: white;
-  padding: 10px 15px;
+  padding: 10px;
   display: block;
   text-decoration: none;
+
 }
 
 .baseLinks > li > ul,
@@ -42,7 +42,6 @@
   top: 100%;
   left: 0;
   z-index: 1000;
-  min-width: 175px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -52,6 +51,8 @@
 .baseLinks > li > ul > li > ul > li > ul > li:hover > ul,
 .baseLinks > li > ul > li > ul > li > ul > li > ul > li:hover > ul {
   display: block;
+  /* min-width: 150px; */
+
 }
 
 .baseLinks > li > ul > li > ul,

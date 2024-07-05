@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLinkType } from './NavLinkType';
+import React from "react";
+import { NavLinkType } from "./NavLinkType";
 type NavLinksProps = {
     links: NavLinkType[];
     className?: string;
