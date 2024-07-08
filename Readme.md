@@ -258,4 +258,4 @@ To contribute to this package, follow these steps:
 
 ### License
 
-[MIT License](LICENSE)
+[MIT License](https://github.com/AliSafari-IT/asafarim-navlinks/edit/main/MIT_License)
