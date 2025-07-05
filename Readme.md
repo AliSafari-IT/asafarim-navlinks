@@ -26,7 +26,7 @@ A versatile and feature-rich React component for creating dynamic navigation bar
 
 ## 🚀 Live Demo
 
-**[🎮 Interactive Demo](./demo)** - Experience all features in action!
+**[🎮 Interactive Online Demo](https://alisafari-it.github.io/asafarim-navlinks/)** - Experience all features in action directly in your browser!
 
 ```bash
 # Run the demo locally

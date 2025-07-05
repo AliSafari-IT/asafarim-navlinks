@@ -8,7 +8,7 @@ const App: React.FC = () => {
       label: 'ASafariM',
       href: '/',
       svgLogoIcon: {
-        src: '/assets/logoT.svg',
+        src: './assets/logoT.svg',
         alt: 'ASafariM Logo',
         width: 35,
         height: 35,

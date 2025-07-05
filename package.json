@@ -19,7 +19,9 @@
     "demo": "pnpm run demo:build && pnpm run demo:dev",
     "demo:install": "cd demo && pnpm install",
     "demo:build": "cd demo && pnpm build",
-    "demo:dev": "pnpm run build && cd demo && pnpm run dev"
+    "demo:dev": "pnpm run build && cd demo && pnpm run dev",
+    "demo:build-gh-pages": "pnpm run build && cd demo && pnpm build",
+    "demo:deploy": "gh-pages -d demo/dist"
   },
   "keywords": [
     "asafarim",
@@ -58,6 +60,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react": "^7.34.3",
+    "gh-pages": "^6.3.0",
     "jest": "^29.7.0",
     "prettier": "^3.3.2",
     "rollup": "^4.18.0",
