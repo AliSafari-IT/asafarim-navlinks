@@ -1,25 +1,28 @@
 # 🚀 ASafariM NavLinks
 
-> **Dynamic Navigation Links with Dropdowns and Icons for React Apps**
+> **Dynamic Navigation Links with Multi-Level Dropdowns and Icons for React Apps**
 
 [![npm version](https://badge.fury.io/js/asafarim-navlinks.svg)](https://badge.fury.io/js/asafarim-navlinks)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Made for React](https://img.shields.io/badge/Made_for-React-blue?logo=react)](https://reactjs.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/AliSafari-IT/asafarim-navlinks/pulls)
 
-A versatile and feature-rich React component for creating dynamic navigation bars with multi-level dropdown menus, icons, emojis, and flexible styling options.
+A versatile and feature-rich React component for creating dynamic navigation bars with unlimited multi-level dropdown menus, icons, emojis, and flexible styling options. Perfect for modern web applications that require sophisticated navigation structures.
 
 ## 🎯 Features
 
-- ✅ **Multi-level Dropdown Menus** - Unlimited nesting levels
-- ✅ **Icon Support** - Font Awesome icons on left/right sides
-- ✅ **Emoji Support** - Modern emoji indicators
-- ✅ **SVG/Logo Integration** - Custom logos and SVG icons
-- ✅ **Flexible Alignment** - Left, right, and bottom alignment options
-- ✅ **TypeScript Support** - Full type definitions included
-- ✅ **Customizable Styling** - CSS classes and inline styles
-- ✅ **Responsive Design** - Works on all screen sizes
-- ✅ **Zero Dependencies** - Lightweight and efficient
+- ✅ **Unlimited Multi-level Dropdown Menus** - Create deeply nested navigation structures with unlimited submenus that open on hover
+- ✅ **Icon Support** - Font Awesome icons on left/right sides of menu items
+- ✅ **Emoji Support** - Modern emoji indicators for visually engaging navigation
+- ✅ **SVG/Logo Integration** - Custom logos and SVG icons for brand identity
+- ✅ **Flexible Alignment** - Left, right, and bottom alignment options for versatile layouts
+- ✅ **TypeScript Support** - Full type definitions included for developer productivity
+- ✅ **Customizable Styling** - Extensive CSS classes and inline style options for perfect UI integration
+- ✅ **Responsive Design** - Works flawlessly on all screen sizes, from mobile to desktop
+- ✅ **Zero Dependencies** - Lightweight and efficient, no external dependencies
+- ✅ **Accessible** - Built with accessibility in mind for all users
 
 ## 🚀 Live Demo
 
@@ -31,6 +34,13 @@ pnpm run demo
 ```
 
 ![ASafariM NavLinks Demo](./img/asafarim-navlinks-1.png)
+
+### 🔍 Demo Highlights
+
+- **Deep Nesting**: See multi-level dropdown menus in action (5+ levels deep)
+- **Interactive Examples**: Try different navigation styles and configurations
+- **Code Samples**: Ready-to-use code snippets for each feature
+- **Visual Guide**: Clear visualization of all component capabilities
 
 ## 📦 Installation
 
@@ -93,6 +103,36 @@ const basicLinks: NavLinkType[] = [
 ];
 
 <NavLinks links={basicLinks} />
+```
+
+### Multi-level Dropdown Menus
+```tsx
+const nestedLinks: NavLinkType[] = [
+  { 
+    label: 'Products', 
+    href: '/products',
+    subNav: [
+      { label: 'Software', href: '/software' },
+      { 
+        label: 'Services', 
+        href: '/services',
+        subNav: [
+          { 
+            label: 'Consulting', 
+            href: '/consulting',
+            subNav: [
+              { label: 'Technical', href: '/technical' },
+              { label: 'Business', href: '/business' }
+            ]
+          },
+          { label: 'Training', href: '/training' }
+        ]
+      }
+    ]
+  }
+];
+
+<NavLinks links={nestedLinks} />
 ```
 
 ### With Icons
@@ -163,80 +203,100 @@ const logoLinks: NavLinkType[] = [
 <NavLinks links={logoLinks} />
 ```
 
-## 🎛️ Props
+## 📝 Component Props
+
+### NavLinks Component
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `links` | `NavLinkType[]` | **Required** | Array of navigation items |
-| `className` | `string` | `undefined` | Custom CSS class |
-| `baseLinkStyle` | `React.CSSProperties` | `undefined` | Inline styles for base links |
+| `links` | `NavLinkType[]` | Required | Array of navigation link objects |
+| `className` | `string` | `undefined` | Custom CSS class for the navigation container |
+| `baseLinkStyle` | `React.CSSProperties` | `undefined` | Inline styles for top-level links |
 | `subLinkStyle` | `React.CSSProperties` | `undefined` | Inline styles for dropdown links |
-| `isRightAligned` | `boolean` | `false` | Right-align navigation items |
-| `isBottomAligned` | `boolean` | `false` | Bottom-align navigation items |
+| `isRightAligned` | `boolean` | `false` | Right-align the dropdown menus |
+| `isBottomAligned` | `boolean` | `false` | Position dropdowns above instead of below |
 
-## 🔧 NavLinkType Interface
+### NavLinkType Interface
 
 ```typescript
 interface NavLinkType {
-  label: string;           // Link text
-  href: string;            // Link URL
-  title?: string;          // HTML title attribute
+  label?: string;          // Text label for the link
+  title?: string;          // Title attribute (tooltip)
+  href: string;            // URL for the link
   iconLeft?: string;       // Font Awesome class for left icon
   iconRight?: string;      // Font Awesome class for right icon
   emoji?: string;          // Emoji character
-  svgLogoIcon?: SvgLinkType; // Custom SVG/logo configuration
-  subNav?: NavLinkType[];  // Nested navigation items
-}
-
-interface SvgLinkType {
-  src: string;                    // Image/SVG source URL
-  alt: string;                    // Alt text
-  caption?: string;               // Caption text
-  width?: number;                 // Image width
-  height?: number;                // Image height
-  style?: React.CSSProperties;    // Custom styles
+  subNav?: NavLinkType[];  // Array of sub-navigation items
+  svgLogoIcon?: {          // Custom SVG/logo configuration
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number | string;
+    caption?: string;
+    style?: React.CSSProperties;
+  };
 }
 ```
 
-## 🎨 Styling
+## 🎨 Styling and Customization
 
-### Custom CSS Classes
+### CSS Customization
+
+The component uses CSS modules with default styling that can be easily overridden:
+
+```css
+/* In your CSS file */
+.custom-nav ul li a {
+  color: #3498db !important;
+  font-weight: bold;
+}
+
+.custom-nav ul ul {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+}
+```
+
 ```tsx
 <NavLinks 
-  links={navData}
-  className="my-custom-nav"
-  baseLinkStyle={{
-    display: 'flex',
-    gap: '20px',
-    listStyle: 'none'
+  links={links} 
+  className="custom-nav"
+/>
+```
+
+### Inline Styling
+
+You can apply inline styles directly to the component:
+
+```tsx
+<NavLinks 
+  links={links}
+  baseLinkStyle={{ 
+    fontSize: '16px', 
+    fontWeight: 'bold',
+    padding: '12px 16px'
   }}
   subLinkStyle={{
-    backgroundColor: '#f8f9fa',
-    padding: '10px',
-    borderRadius: '4px'
+    backgroundColor: '#2c3e50',
+    minWidth: '220px'
   }}
 />
 ```
 
-### CSS Module Integration
+### Responsive Design
+
+The component is built with responsive design in mind. You can further enhance responsiveness with your own CSS:
+
 ```css
-.navContainer {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: #2c3e50;
-}
-
-.navContainer a {
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-.navContainer a:hover {
-  background-color: #34495e;
+@media (max-width: 768px) {
+  .custom-nav ul li {
+    display: block;
+    width: 100%;
+  }
+  
+  .custom-nav ul ul {
+    position: static;
+    display: none;
+  }
 }
 ```
 
@@ -277,6 +337,35 @@ function Navigation() {
     </nav>
   );
 }
+```
+
+### Dropdown Behavior
+
+All dropdowns are hidden by default and only appear when hovering over their parent item. This behavior works consistently across all nesting levels:
+
+```tsx
+const advancedNav: NavLinkType[] = [
+  {
+    label: 'Resources',
+    href: '#',
+    subNav: [
+      {
+        label: 'Documentation',
+        href: '/docs',
+        subNav: [
+          {
+            label: 'Components',
+            href: '/docs/components',
+            subNav: [
+              // This will appear when hovering on "Components"
+              { label: 'Navigation', href: '/docs/components/navigation' }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
 ```
 
 ## 📖 Full Example
@@ -397,24 +486,60 @@ pnpm run demo:build     # Build the demo
 pnpm run publishPublicly # Publish to npm
 ```
 
+## 👥 Contributing
+
+Contributions are welcome! Here's how you can contribute:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please make sure to update tests as appropriate.
+
 ## 📄 License
 
-[MIT License](./MIT_License) - feel free to use this package in your projects!
+This project is licensed under the MIT License - see the [MIT_License](./MIT_License) file for details.
 
-## 🤝 Contributing
+## 👨‍💻 Author
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📞 Support
-
-- 📧 **Email**: [your-email@example.com](mailto:your-email@example.com)
-- 🐛 **Issues**: [GitHub Issues](https://github.com/AliSafari-IT/asafarim-navlinks/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/AliSafari-IT/asafarim-navlinks/discussions)
-
-## 🌟 Show Your Support
-
-If you find this package helpful, please consider giving it a ⭐ on [GitHub](https://github.com/AliSafari-IT/asafarim-navlinks)!
+**Ali Safari** - [@AliSafari-IT](https://github.com/AliSafari-IT)
 
 ---
 
-**Built with ❤️ by [Ali Safari](https://github.com/AliSafari-IT)**
+Made with ❤️ for the React community
+
+## ⚠️ Troubleshooting
+
+### Dropdowns Not Opening on Hover
+
+If your dropdowns aren't opening on hover, check:
+
+1. Make sure there are no CSS conflicts in your project overriding the hover behavior
+2. Verify that your navigation data structure is correct with properly nested `subNav` arrays
+3. Try increasing the CSS specificity in your custom styles with `!important` flags
+
+### Dropdown Positioning Issues
+
+If your dropdowns are not positioned correctly:
+
+1. Check if `isRightAligned` or `isBottomAligned` props need to be adjusted
+2. Ensure the parent container has `position: relative`
+3. Add higher `z-index` values if dropdowns are appearing behind other elements
+
+### SVG/Logo Image Loading
+
+If SVG or logo images aren't loading:
+
+1. Verify the image path is correct and accessible
+2. Check that the SVG file is properly formatted
+3. Try using an absolute URL path if using a relative path doesn't work
+
+### Mobile Support
+
+For better mobile support:
+
+1. Implement a responsive design with CSS media queries
+2. Consider adding touch support for mobile devices with additional CSS/JS
+3. Test on various device sizes and orientations
