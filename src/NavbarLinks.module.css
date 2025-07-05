@@ -5,127 +5,358 @@
   margin: 0;
 }
 
-.baseLinks > li,
-.baseLinks > li > ul > li,
-.baseLinks > li > ul > li > ul > li,
-.baseLinks > li > ul > li > ul > li > ul > li,
-.baseLinks > li > ul > li > ul > li > ul > li > ul > li {
+.baseLinks > li {
   display: inline-block;
   position: relative;
   margin: 0;
   width: 150px;
 }
 
-.baseLinks > li > a,
-.baseLinks > li > ul > li > a,
-.baseLinks > li > ul > li > ul > li > a,
-.baseLinks > li > ul > li > ul > li > ul > li > a,
-.baseLinks > li > ul > li > ul > li > ul > li > ul > li > a {
-  color: white;
-  padding: 10px;
-  display: block;
-  text-decoration: none;
-
+.baseLinks li.hasChildren > a {
+  cursor: pointer;
 }
 
-.baseLinks > li > ul,
-.baseLinks > li > ul > li > ul,
-.baseLinks > li > ul > li > ul > li > ul,
-.baseLinks > li > ul > li > ul > li > ul > li > ul {
-  display: none;
+.baseLinks .dropdownIndicator {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 0.7em;
+  opacity: 0.8;
+}
+
+/* Styling for all list items at any level */
+.baseLinks li {
+  display: block;
+  position: relative;
+  margin: 0;
+  width: 100%;
+}
+
+/* Top level list items */
+.baseLinks > li {
+  display: inline-block;
+  width: 150px;
+}
+
+/* All dropdown ULs - HIDDEN BY DEFAULT */
+.dropdown {
+  display: none !important; /* HIDDEN BY DEFAULT - CRITICAL */
   list-style: none;
   padding: 0;
   margin: 0;
-  background-color: #333;
-  border: 1px solid #ccc;
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+  border: 1px solid #ffffff20;
+  border-radius: 6px;
   position: absolute;
+  z-index: 1000;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(0, 0, 0, 0.2);
+  min-width: 220px;
+  width: auto;
+  overflow: visible !important; /* Allow overflow so nested menus can be seen */
+  visibility: hidden !important; /* HIDDEN BY DEFAULT - CRITICAL */
+  opacity: 0 !important; /* HIDDEN BY DEFAULT - CRITICAL */
+  transition: visibility 0.2s, opacity 0.2s; /* Smooth transition */
+}
+
+/* First level dropdowns positioning */
+.baseLinks > li > .dropdown {
   top: 100%;
   left: 0;
-  z-index: 1000;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.baseLinks > li:hover > ul,
-.baseLinks > li > ul > li:hover > ul,
-.baseLinks > li > ul > li > ul > li:hover > ul,
-.baseLinks > li > ul > li > ul > li > ul > li:hover > ul,
-.baseLinks > li > ul > li > ul > li > ul > li > ul > li:hover > ul {
-  display: block;
-  /* min-width: 150px; */
-
-}
-
-.baseLinks > li > ul > li > ul,
-.baseLinks > li > ul > li > ul > li > ul,
-.baseLinks > li > ul > li > ul > li > ul > li > ul {
+/* Nested dropdowns positioning - IMPORTANT FOR VISIBILITY */
+.baseLinks li .dropdown .dropdown {
   top: 0;
   left: 100%;
+  margin-left: 0;
+  margin-top: 0;
 }
 
-.baseLinks > li > a:hover,
-.baseLinks > li > ul > li > a:hover,
-.baseLinks > li > ul > li > ul > li > a:hover,
-.baseLinks > li > ul > li > ul > li > ul > li > a:hover,
-.baseLinks > li > ul > li > ul > li > ul > li > ul > li > a:hover {
-  background-color: #575757;
+/* Show dropdowns ONLY on hover - CRITICAL FOR NESTED MENUS */
+.baseLinks li:hover > .dropdown {
+  display: block !important; /* Force display on hover */
+  visibility: visible !important; /* Visible on hover */
+  opacity: 1 !important; /* Visible on hover */
 }
 
-/* Add a slight box-shadow to give depth to the dropdowns */
-.baseLinks > li > ul,
-.baseLinks > li > ul > li > ul,
-.baseLinks > li > ul > li > ul > li > ul,
-.baseLinks > li > ul > li > ul > li > ul > li > ul {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+/* Ensure nested dropdowns appear ONLY when parent is hovered */
+.baseLinks .dropdown li:hover > .dropdown {
+  display: block !important; /* Force display for nested levels */
+  visibility: visible !important; /* Visible on hover */
+  opacity: 1 !important; /* Visible on hover */
 }
 
-/* rightAligned dropdowns */
-.baseLinks > li.rightAligned > ul {
+/* Enhanced nested dropdown visibility for specific levels */
+.baseLinks > li > .dropdown li:hover > .dropdown,
+.baseLinks > li > .dropdown > li > .dropdown li:hover > .dropdown,
+.baseLinks > li > .dropdown > li > .dropdown > li > .dropdown li:hover > .dropdown,
+.baseLinks > li > .dropdown > li > .dropdown > li > .dropdown > li > .dropdown li:hover > .dropdown {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Ensure all nested dropdowns have proper positioning and appearance */
+.baseLinks .dropdown .dropdown,
+.baseLinks .dropdown .dropdown .dropdown,
+.baseLinks .dropdown .dropdown .dropdown .dropdown,
+.baseLinks .dropdown .dropdown .dropdown .dropdown .dropdown {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 0;
+  border-radius: 6px !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Links styling for all levels */
+.baseLinks li a {
+  color: white !important;
+  padding: 10px;
+  display: block;
+  text-decoration: none;
+  font-weight: 500;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Hover effect for all links */
+.baseLinks li a:hover {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+  color: #ffffff !important;
+  transform: translateX(2px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Right aligned dropdowns */
+.baseLinks > li.rightAligned > .dropdown {
   left: auto;
   right: 0;
 }
 
-.baseLinks > .rightAligned > ul > li > ul {
+.baseLinks .rightAligned > .dropdown .dropdown {
   left: auto;
   right: 100%;
+  margin-right: -1px;
+  margin-left: 0;
 }
 
-.baseLinks > li.rightAligned > ul > li > ul > li > ul {
-  left: auto;
-  right: 100%;
+/* Bottom aligned dropdowns */
+.baseLinks > li.bottomAligned > .dropdown {
+  top: auto;
+  bottom: 100%;
 }
 
-/* Add a slight box-shadow to give depth to the dropdowns */
-.baseLinks > li.rightAligned > ul,
-.baseLinks > li.rightAligned > ul > li > ul,
-.baseLinks > li.rightAligned > ul > li > ul > li > ul,
-.baseLinks > li.rightAligned > ul > li > ul > li > ul > li > ul {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* bottomAligned dropdowns */
-.baseLinks > li.bottomAligned > ul {
+.baseLinks .bottomAligned > .dropdown .dropdown {
   top: auto;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  right: 0;
-  background-color: rgb(107, 161, 143);
 }
 
-.baseLinks > li.bottomAligned > ul > li > ul {
-  top: auto;
-  bottom: 100%;
+/* Force dropdown text visibility for all nested levels */
+.baseLinks .dropdown li a {
+  color: white !important;
+  background: transparent !important;
+  padding: 10px 15px !important;
+  display: block !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
-.baseLinks > li.bottomAligned > ul > li > ul > li > ul {
-  top: auto;
-  bottom: 100%;
+.baseLinks .dropdown li a:hover {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+  color: #ffffff !important;
+  border-bottom-color: #2980b9 !important;
+  transform: translateX(2px) !important;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3) !important;
+}
+
+/* Specific styling for emoji and icon elements in dropdowns */
+.baseLinks .dropdown li a span,
+.baseLinks .dropdown li a i {
+  color: inherit !important;
+  margin-right: 8px !important;
+}
+
+/* Force text color for all child elements in dropdowns */
+.baseLinks .dropdown li a * {
+  color: inherit !important;
+}
+
+/* Special styling for deep nested levels (5+) */
+.baseLinks .dropdown .dropdown .dropdown .dropdown .dropdown {
+  background: linear-gradient(135deg, #16a085 0%, #2ecc71 100%) !important;
+}
+
+.baseLinks .dropdown .dropdown .dropdown .dropdown .dropdown li a:hover {
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%) !important;
+}
+
+/* Add a visual indicator for items with children */
+.baseLinks li.hasChildren > a:after {
+  content: "";
+  display: inline-block;
+  margin-left: 5px;
+}
+
+/* Different indicators for right-aligned items */
+.baseLinks li.rightAligned.hasChildren > .dropdown li.hasChildren > a:after {
+  content: "◀";
+  font-size: 10px;
+  float: left;
+  margin-right: 5px;
+  margin-left: 0;
+}
+
+/* CRITICAL: Proper positioning for items with children */
+.baseLinks li.hasChildren {
+  position: relative !important;
+}
+
+/* Add a visual indicator for items with submenus */
+.baseLinks .dropdown li.hasChildren > a::after {
+  content: "▶";
+  position: absolute;
+  right: 10px;
+  font-size: 10px;
+  opacity: 0.7;
+  color: white;
+}
+
+/* Enhance visibility */
+.dropdown {
+  opacity: 0.98;
 }
 
 /* Add a slight box-shadow to give depth to the dropdowns */
-.baseLinks > li.bottomAligned > ul,
-.baseLinks > li.bottomAligned > ul > li > ul,
-.baseLinks > li.bottomAligned > ul > li > ul > li > ul,
-.baseLinks > li.bottomAligned > ul > li > ul > li > ul > li > ul {
+.baseLinks .dropdown {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
+
+/* Ensure all dropdown menus are visible ONLY on hover/focus */
+.baseLinks li:hover > .dropdown,
+.baseLinks li:focus-within > .dropdown,
+.baseLinks li:active > .dropdown {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Handle mobile responsiveness */
+@media (max-width: 768px) {
+  .baseLinks > li {
+    width: 100%;
+  }
+  
+  .baseLinks .dropdown {
+    position: relative;
+    width: 100%;
+    left: 0;
+    top: 0;
+  }
+  
+  .baseLinks li .dropdown .dropdown {
+    left: 10px;
+    margin-left: 0;
+    width: calc(100% - 10px);
+  }
+}
+
+/* Specific styling for emoji */
+.emoji {
+  margin-right: 5px;
+  display: inline-block;
+}
+
+/* Ensure dropdown indicators are clearly visible */
+.baseLinks li.hasChildren > a .dropdownIndicator {
+  display: inline-block;
+  margin-left: 5px;
+  font-weight: bold;
+  color: white;
+  transition: transform 0.2s;
+}
+
+/* Rotate indicator for side dropdowns */
+.baseLinks .dropdown li.hasChildren > a .dropdownIndicator {
+  transform: rotate(-90deg);
+}
+
+/* Increasing z-index for deeper nested menus */
+.baseLinks .dropdown .dropdown {
+  z-index: 1001;
+}
+
+.baseLinks .dropdown .dropdown .dropdown {
+  z-index: 1002;
+}
+
+.baseLinks .dropdown .dropdown .dropdown .dropdown {
+  z-index: 1003;
+}
+
+.baseLinks .dropdown .dropdown .dropdown .dropdown .dropdown {
+  z-index: 1004;
+}
+
+/* Make hovering more reliable with a slight delay */
+.baseLinks li:hover > .dropdown {
+  animation-delay: 0.15s;
+  animation-fill-mode: forwards;
+}
+
+/* Force display of nested dropdowns */
+.baseLinks .dropdown .dropdown {
+  display: none !important;
+}
+
+.baseLinks .dropdown li:hover > .dropdown {
+  display: block !important;
+}
+
+/* Reset any potential inline styles that might be showing dropdowns by default */
+.baseLinks .dropdown[style*="display: block"] {
+  display: none !important;
+}
+
+/* Only on hover should dropdowns be visible, regardless of inline styles */
+.baseLinks li:hover > .dropdown[style*="display: block"],
+.baseLinks li:hover > .dropdown[style*="display: none"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* CRITICAL FIX: Ensure proper stacking and relative positioning for dropdown parents */
+.baseLinks li {
+  position: relative !important;
+}
+
+/* Ensure dropdowns can be accessed by enforcing proper overflow behavior */
+.baseLinks {
+  overflow: visible !important;
+}
+
+/* Fix for edge cases where dropdowns might be cut off */
+.baseLinks .dropdown {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Ensure nested dropdowns can escape their containers */
+.baseLinks .dropdown .dropdown {
+  max-width: none !important;
+}
+
+

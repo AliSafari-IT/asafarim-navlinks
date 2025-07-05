@@ -1,14 +1,25 @@
 {
   "name": "asafarim-navlinks",
   "version": "2.2.0",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "tsc && pnpm run copy-css",
-    "copy-css": "copyfiles -u 1 src/**/*.css dist",
+    "copy-css": "copyfiles -u 1 src/**/*.css dist && cp src/*.css dist/src/",
     "buildTSC": "tsc",
     "buildTS": "tsup index.ts --format cjs,esm --dts",
-    "publishPublicly": "pnpm publish --access public"
+    "publishPublicly": "pnpm publish --access public",
+    "demo": "pnpm run demo:build && pnpm run demo:dev",
+    "demo:install": "cd demo && pnpm install",
+    "demo:build": "cd demo && pnpm build",
+    "demo:dev": "pnpm run build && cd demo && pnpm run dev"
   },
   "keywords": [
     "asafarim",

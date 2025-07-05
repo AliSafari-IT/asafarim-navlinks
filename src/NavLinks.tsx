@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import defaultStyle from "./NavbarLinks.module.css";
 import { NavLinkType } from "./NavLinkType";
 
@@ -19,54 +19,56 @@ const NavLinks: React.FC<NavLinksProps> = ({
   isRightAligned = false,
   isBottomAligned = false,
 }) => {
-  const [openDropdown, setOpenDropdown] = useState<{ [key: string]: boolean }>(
-    {}
-  );
-
-  const handleToggle = (key: string) => {
-    setOpenDropdown((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  };
-
   const renderSubNav = (
     subNav: NavLinkType[] | undefined,
-    parentIndex: string
+    depth: number = 1
   ) => {
     if (!subNav) return null;
     return (
       <ul
-        className={className}
-        style={{ ...subLinkStyle, position: "absolute" }}
+        className={`${className} ${defaultStyle.dropdown} depth-${depth}`}
+        style={{ 
+          ...subLinkStyle,
+          zIndex: 1000 + depth
+        }}
+        data-depth={depth}
       >
         {subNav.map((subLink, subIndex) => {
-          const key = `${parentIndex}-${subIndex}`;
+          const hasSubNav = !!subLink.subNav && subLink.subNav.length > 0;
           return (
             <li
-              key={key}
-              style={{ position: "relative" }}
-              className={
+              key={`sublevel-${depth}-${subIndex}`}
+              className={`${
+                hasSubNav ? defaultStyle.hasChildren : ""
+              } ${
                 isRightAligned
                   ? defaultStyle.rightAligned
                   : isBottomAligned
                   ? defaultStyle.bottomAligned
-                  : undefined
-              }
+                  : ""
+              } dropdown-item-${depth}`}
+              data-has-children={hasSubNav ? "true" : "false"}
             >
               <a
                 href={subLink.href}
                 onClick={(e) => {
-                  if (subLink.subNav) {
+                  // Only prevent default if it's a parent item with no actual link
+                  if (hasSubNav && subLink.href === "#") {
                     e.preventDefault();
-                    handleToggle(key);
                   }
                 }}
-                title={subLink.label}
+                title={subLink.label || subLink.title}
+                className={hasSubNav ? "has-submenu" : ""}
+                data-depth={depth}
               >
                 {getLinkContent(subLink)}
+                {hasSubNav && (
+                  <span className={defaultStyle.dropdownIndicator} style={{ color: "white", fontWeight: "bold" }}>
+                    {depth === 1 ? " ▼" : " ▶"}
+                  </span>
+                )}
               </a>
-              {openDropdown[key] && renderSubNav(subLink.subNav, key)}
+              {hasSubNav && renderSubNav(subLink.subNav, depth + 1)}
             </li>
           );
         })}
@@ -92,7 +94,7 @@ const NavLinks: React.FC<NavLinksProps> = ({
     }
 
     if (link.emoji) {
-      return <span>{link.emoji}</span>;
+      return <span className={defaultStyle.emoji}>{link.emoji} {link.label}</span>;
     }
     if (link.iconLeft) {
       return (
@@ -114,37 +116,39 @@ const NavLinks: React.FC<NavLinksProps> = ({
 
   return (
     <ul
-      className={`${defaultStyle.baseLinks} ${className}`}
+      className={`${defaultStyle.baseLinks} ${className || ""}`}
       style={baseLinkStyle}
     >
       {links.map((link, index) => {
-        const key = index.toString();
-
         return (
           <li
-            key={key}
-            className={
+            key={`level-0-${index}`}
+            className={`${
+              link.subNav ? defaultStyle.hasChildren : ""
+            } ${
               isRightAligned
                 ? defaultStyle.rightAligned
                 : isBottomAligned
                 ? defaultStyle.bottomAligned
-                : undefined
-            }
-            style={{ position: "relative" }}
+                : ""
+            }`}
           >
             <a
               href={link.href}
               onClick={(e) => {
-                if (link.subNav) {
+                // Only prevent default if it's a parent item with no actual link
+                if (link.subNav && link.href === "#") {
                   e.preventDefault();
-                  handleToggle(key);
                 }
               }}
-              title={link.label}
+              title={link.label || link.title}
             >
               {getLinkContent(link)}
+              {link.subNav && (
+                <span className={defaultStyle.dropdownIndicator}> ▼</span>
+              )}
             </a>
-            {openDropdown[key] && renderSubNav(link.subNav, key)}
+            {link.subNav && renderSubNav(link.subNav, 1)}
           </li>
         );
       })}
