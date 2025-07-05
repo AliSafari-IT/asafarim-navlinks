@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build Package and Run Demo",
+			"type": "shell",
+			"command": "cd ${workspaceFolder} && npm run build && cd demo && npm run dev",
+			"group": "build",
+			"problemMatcher": [],
+			"isBackground": true
+		}
+	]
+}
