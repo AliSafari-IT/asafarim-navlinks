@@ -1,14 +1,14 @@
 {
   "name": "asafarim-navlinks",
-  "version": "2.1.17",
+  "version": "2.2.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc && npm run copy-css",
+    "build": "tsc && pnpm run copy-css",
     "copy-css": "copyfiles -u 1 src/**/*.css dist",
     "buildTSC": "tsc",
     "buildTS": "tsup index.ts --format cjs,esm --dts",
-    "publishPublicly": "npm publish --access public"
+    "publishPublicly": "pnpm publish --access public"
   },
   "keywords": [
     "asafarim",
@@ -17,7 +17,7 @@
     "typescript",
     "navigation",
     "nodejs",
-    "npm"
+    "pnpm"
   ],
   "author": "Ali Safari",
   "repository": {
