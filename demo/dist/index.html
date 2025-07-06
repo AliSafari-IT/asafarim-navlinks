@@ -5,6 +5,12 @@
     <link rel="icon" type="image/x-icon" href="./assets/favicon-DgOQGOKn.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
+    <!-- Highlight.js for code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/jsx.min.js"></script>
     <meta
       name="description"
       content="Demo application for asafarim-navlinks package"
@@ -12,11 +18,24 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <title>ASafariM NavLinks Demo</title>
-    <script type="module" crossorigin src="./assets/index-BZEd2wul.js"></script>
+    <script type="module" crossorigin src="./assets/index-DIrg5sHi.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/react-nf7bT_Uh.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-BlxSrzss.css">
+    <link rel="stylesheet" crossorigin href="./assets/index-DtPTTd7h.css">
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Initialize highlight.js when the page loads
+      document.addEventListener('DOMContentLoaded', () => {
+        hljs.configure({ 
+          languages: ['typescript', 'javascript', 'jsx', 'tsx'],
+          ignoreUnescapedHTML: true
+        });
+        // This will find and highlight code blocks on initial load
+        document.querySelectorAll('pre code').forEach(el => {
+          hljs.highlightElement(el);
+        });
+      });
+    </script>
   </body>
 </html>

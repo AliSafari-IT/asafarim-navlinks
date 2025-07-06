@@ -143,13 +143,37 @@
   margin-left: 0;
 }
 
-/* Bottom aligned dropdowns */
+/* Left aligned dropdowns */
+.baseLinks > li.leftAligned > .dropdown {
+  left: 0;
+  right: auto;
+}
+
+.baseLinks .leftAligned > .dropdown .dropdown {
+  left: -100%;
+  right: auto;
+  margin-left: 1px;
+  margin-right: 0;
+}
+
+/* Bottom aligned dropdowns (default behavior - below parent) */
 .baseLinks > li.bottomAligned > .dropdown {
+  top: 100%;
+  bottom: auto;
+}
+
+.baseLinks .bottomAligned > .dropdown .dropdown {
+  top: 0;
+  bottom: auto;
+}
+
+/* Top aligned dropdowns (above parent) */
+.baseLinks > li.topAligned > .dropdown {
   top: auto;
   bottom: 100%;
 }
 
-.baseLinks .bottomAligned > .dropdown .dropdown {
+.baseLinks .topAligned > .dropdown .dropdown {
   top: auto;
   bottom: 0;
 }

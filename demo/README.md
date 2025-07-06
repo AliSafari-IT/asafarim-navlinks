@@ -2,16 +2,24 @@
 
 This is a comprehensive demo application showcasing all the features of the `asafarim-navlinks` package. The demo provides real-world examples of navigation implementation including multi-level dropdowns that open on hover, custom styling, and various navigation patterns.
 
-![Demo Screenshot](../img/asafarim-navlinks-3.png)
+![Simple Navigation Links](../img/1-Simple-navigation-links.png)
+
+![Dropdowns with Nested Submenus](../img/2-dropdowns-with-nested-submenus.png)
+
+*Experience unlimited multi-level dropdown menus in action*
+
+![All Alignment Options](../img/3-NavLinks-supports-alignment-options.png)
+
+*Four different alignment options for flexible dropdown positioning*
 
 ## ✨ Features Demonstrated
 
 - ✅ **Basic Navigation**: Simple, clean navigation links
 - ✅ **Unlimited Multi-level Dropdowns**: Deep nesting with proper hover behavior
+- ✅ **Four Alignment Options**: Left, right, top, and bottom dropdown positioning
 - ✅ **Icon Support**: Font Awesome icons on left/right sides of menu items
 - ✅ **Emoji Support**: Using emojis as visual indicators for modern UI
 - ✅ **SVG/Logo Integration**: Custom SVG icons and logos for brand identity
-- ✅ **Alignment Options**: Left, right, and bottom aligned navigation for versatile layouts
 - ✅ **Custom Styling**: Extensive CSS classes and inline style customization
 - ✅ **Responsive Design**: Examples that work on all screen sizes
 
@@ -69,13 +77,15 @@ The demo is organized into several sections, each showcasing different aspects o
 - **Dropdown Navigation**: Multi-level nested navigation menus showing hover behavior
 - **Icons & Emojis**: Examples with Font Awesome icons and emoji indicators
 - **Advanced Demos**: Complex examples showing deep nesting and mixed content
+- **Alignment Options**: Four different positioning options (left, right, top, bottom)
 - **Custom Styling**: Navigation with different visual styles and themes
-- **Alignment Options**: Different positioning options (left, right, and bottom aligned)
+- **Professional Examples**: Real-world navigation structures and documentation layouts
 
 ### Advanced Features Showcase
 
 - **Deep Nesting**: Navigation with 5+ levels of nested dropdowns
 - **Mixed Content**: Dropdowns with icons, emojis, and text in various combinations
+- **All Alignment Options**: Left, right, top, and bottom dropdown positioning
 - **Interactive Elements**: Demonstration of hover states and animations
 - **Responsive Behavior**: How the navigation adapts to different screen sizes
 
@@ -172,12 +182,21 @@ The demo highlights how dropdowns only appear on hover:
 />
 ```
 
+### Four Alignment Options
+
+The demo demonstrates all four alignment options for dropdown positioning:
+
+- **Left Aligned**: Nested dropdowns slide out to the left of their parent items
+- **Right Aligned**: Nested dropdowns slide out to the right of their parent items
+- **Top Aligned**: All dropdowns appear above their parent items instead of below
+- **Bottom Aligned**: All dropdowns appear below their parent items (default behavior)
+
 ### Custom Styling Applied
 
 The demo shows how to apply custom styling:
 
 ```tsx
-// Example with custom styling
+// Example with custom styling for professional appearance
 <NavLinks 
   links={styledNavigation} 
   baseLinkStyle={{
@@ -197,10 +216,11 @@ The demo shows how to apply custom styling:
 
 This demo is designed to help you:
 
-1. **Understand the API**: See all props and options in action
-2. **Learn patterns**: How to structure complex navigation hierarchies
-3. **Explore styling**: Ways to customize the appearance to match your brand
-4. **Troubleshoot issues**: Compare your implementation with working examples
+1. **Understand the API**: See all props and options in action, including all four alignment options
+2. **Learn patterns**: How to structure complex navigation hierarchies with proper nesting
+3. **Explore styling**: Ways to customize the appearance to match your brand and design system
+4. **Master alignment**: How to use left, right, top, and bottom alignment for optimal dropdown positioning
+5. **Troubleshoot issues**: Compare your implementation with working examples and see best practices
 
 ## 💻 Development
 
@@ -239,3 +259,34 @@ This demo is part of the asafarim-navlinks package, licensed under the MIT Licen
 ---
 
 Brought to you by Ali Safari - [@AliSafari-IT](https://github.com/AliSafari-IT)
+
+### Alignment Options Demonstrated
+
+The demo showcases all four alignment options with clear visual examples:
+
+```typescript
+// Left Aligned (Default) - nested dropdowns slide to the left
+<NavLinks 
+  links={alignmentNavData}
+  isLeftAligned={true}
+/>
+
+// Right Aligned - nested dropdowns slide to the right
+<NavLinks 
+  links={alignmentNavData}
+  isRightAligned={true}
+  baseLinkStyle={{ justifyContent: 'flex-end' }}
+/>
+
+// Top Aligned - dropdowns appear above parent items
+<NavLinks 
+  links={alignmentNavData}
+  isTopAligned={true}
+/>
+
+// Bottom Aligned (Default) - dropdowns appear below parent items
+<NavLinks 
+  links={alignmentNavData}
+  isBottomAligned={true}
+/>
+```
