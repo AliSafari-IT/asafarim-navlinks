@@ -373,7 +373,7 @@ const App: React.FC = () => {
       label: 'Brand',
       href: '#brand',
       svgLogoIcon: {
-        src: '/assets/logoT.svg',
+        src: './assets/logoT.svg',
         alt: 'Brand Logo',
         width: 40,
         height: 40,
