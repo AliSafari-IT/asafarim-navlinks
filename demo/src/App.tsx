@@ -1,5 +1,6 @@
 import React from 'react';
 import NavLinks, { NavLinkType } from 'asafarim-navlinks';
+import './index.css';
 
 const App: React.FC = () => {
   // Navigation with your logo and comprehensive dropdown menus
@@ -372,7 +373,7 @@ const App: React.FC = () => {
       label: 'Brand',
       href: '#brand',
       svgLogoIcon: {
-        src: 'https://via.placeholder.com/40x40/007bff/ffffff?text=B',
+        src: '/assets/logoT.svg',
         alt: 'Brand Logo',
         width: 40,
         height: 40,
@@ -507,7 +508,7 @@ const App: React.FC = () => {
         <p className="demo-description">
           Fun navigation using emojis as visual indicators:
         </p>
-        <div className="nav-demo-light">
+        <div className="nav-demo">
           <NavLinks 
             links={emojiNavLinks}
             baseLinkStyle={{ 
