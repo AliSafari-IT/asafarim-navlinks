@@ -7,6 +7,8 @@ type NavLinksProps = {
     subLinkStyle?: React.CSSProperties;
     isRightAligned?: boolean;
     isBottomAligned?: boolean;
+    isLeftAligned?: boolean;
+    isTopAligned?: boolean;
 };
 declare const NavLinks: React.FC<NavLinksProps>;
 export default NavLinks;

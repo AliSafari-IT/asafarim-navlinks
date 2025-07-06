@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import defaultStyle from "./NavbarLinks.module.css";
-const NavLinks = ({ links, className, baseLinkStyle, subLinkStyle, isRightAligned = false, isBottomAligned = false, }) => {
+const NavLinks = ({ links, className, baseLinkStyle, subLinkStyle, isRightAligned = false, isBottomAligned = false, isLeftAligned = false, isTopAligned = false, }) => {
     const renderSubNav = (subNav, depth = 1) => {
         if (!subNav)
             return null;
@@ -13,7 +13,11 @@ const NavLinks = ({ links, className, baseLinkStyle, subLinkStyle, isRightAligne
                         ? defaultStyle.rightAligned
                         : isBottomAligned
                             ? defaultStyle.bottomAligned
-                            : ""} dropdown-item-${depth}`, "data-has-children": hasSubNav ? "true" : "false", children: [_jsxs("a", { href: subLink.href, onClick: (e) => {
+                            : isLeftAligned
+                                ? defaultStyle.leftAligned
+                                : isTopAligned
+                                    ? defaultStyle.topAligned
+                                    : ""} dropdown-item-${depth}`, "data-has-children": hasSubNav ? "true" : "false", children: [_jsxs("a", { href: subLink.href, onClick: (e) => {
                                 // Only prevent default if it's a parent item with no actual link
                                 if (hasSubNav && subLink.href === "#") {
                                     e.preventDefault();
@@ -43,7 +47,11 @@ const NavLinks = ({ links, className, baseLinkStyle, subLinkStyle, isRightAligne
                     ? defaultStyle.rightAligned
                     : isBottomAligned
                         ? defaultStyle.bottomAligned
-                        : ""}`, children: [_jsxs("a", { href: link.href, onClick: (e) => {
+                        : isLeftAligned
+                            ? defaultStyle.leftAligned
+                            : isTopAligned
+                                ? defaultStyle.topAligned
+                                : ""}`, children: [_jsxs("a", { href: link.href, onClick: (e) => {
                             // Only prevent default if it's a parent item with no actual link
                             if (link.subNav && link.href === "#") {
                                 e.preventDefault();

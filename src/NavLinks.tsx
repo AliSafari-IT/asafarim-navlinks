@@ -9,6 +9,8 @@ type NavLinksProps = {
   subLinkStyle?: React.CSSProperties;
   isRightAligned?: boolean; // for right aligned links
   isBottomAligned?: boolean; // for bottomAligned links
+  isLeftAligned?: boolean; // for left aligned links
+  isTopAligned?: boolean; // for top aligned links
 };
 
 const NavLinks: React.FC<NavLinksProps> = ({
@@ -18,6 +20,8 @@ const NavLinks: React.FC<NavLinksProps> = ({
   subLinkStyle,
   isRightAligned = false,
   isBottomAligned = false,
+  isLeftAligned = false,
+  isTopAligned = false,
 }) => {
   const renderSubNav = (
     subNav: NavLinkType[] | undefined,
@@ -45,6 +49,10 @@ const NavLinks: React.FC<NavLinksProps> = ({
                   ? defaultStyle.rightAligned
                   : isBottomAligned
                   ? defaultStyle.bottomAligned
+                  : isLeftAligned
+                  ? defaultStyle.leftAligned
+                  : isTopAligned
+                  ? defaultStyle.topAligned
                   : ""
               } dropdown-item-${depth}`}
               data-has-children={hasSubNav ? "true" : "false"}
@@ -130,6 +138,10 @@ const NavLinks: React.FC<NavLinksProps> = ({
                 ? defaultStyle.rightAligned
                 : isBottomAligned
                 ? defaultStyle.bottomAligned
+                : isLeftAligned
+                ? defaultStyle.leftAligned
+                : isTopAligned
+                ? defaultStyle.topAligned
                 : ""
             }`}
           >

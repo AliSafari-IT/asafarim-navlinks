@@ -14,10 +14,10 @@ A versatile and feature-rich React component for creating dynamic navigation bar
 ## 🎯 Features
 
 - ✅ **Unlimited Multi-level Dropdown Menus** - Create deeply nested navigation structures with unlimited submenus that open on hover
+- ✅ **Four Alignment Options** - Left, right, top, and bottom positioning for flexible dropdown placement
 - ✅ **Icon Support** - Font Awesome icons on left/right sides of menu items
 - ✅ **Emoji Support** - Modern emoji indicators for visually engaging navigation
 - ✅ **SVG/Logo Integration** - Custom logos and SVG icons for brand identity
-- ✅ **Flexible Alignment** - Left, right, and bottom alignment options for versatile layouts
 - ✅ **TypeScript Support** - Full type definitions included for developer productivity
 - ✅ **Customizable Styling** - Extensive CSS classes and inline style options for perfect UI integration
 - ✅ **Responsive Design** - Works flawlessly on all screen sizes, from mobile to desktop
@@ -33,14 +33,23 @@ A versatile and feature-rich React component for creating dynamic navigation bar
 pnpm run demo
 ```
 
-![ASafariM NavLinks Demo](./img/asafarim-navlinks-1.png)
+![Simple Navigation Links](./img/1-Simple-navigation-links.png)
 
 ### 🔍 Demo Highlights
 
 - **Deep Nesting**: See multi-level dropdown menus in action (5+ levels deep)
+- **Four Alignment Options**: Left, right, top, and bottom dropdown positioning
 - **Interactive Examples**: Try different navigation styles and configurations
 - **Code Samples**: Ready-to-use code snippets for each feature
 - **Visual Guide**: Clear visualization of all component capabilities
+
+![Dropdowns with Nested Submenus](./img/2-dropdowns-with-nested-submenus.png)
+
+*Multi-level dropdown menus with unlimited nesting support*
+
+![NavLinks Alignment Options](./img/3-NavLinks-supports-alignment-options.png)
+
+*Four different alignment options for dropdown positioning*
 
 ## 📦 Installation
 
@@ -214,7 +223,9 @@ const logoLinks: NavLinkType[] = [
 | `baseLinkStyle` | `React.CSSProperties` | `undefined` | Inline styles for top-level links |
 | `subLinkStyle` | `React.CSSProperties` | `undefined` | Inline styles for dropdown links |
 | `isRightAligned` | `boolean` | `false` | Right-align the dropdown menus |
-| `isBottomAligned` | `boolean` | `false` | Position dropdowns above instead of below |
+| `isLeftAligned` | `boolean` | `false` | Left-align the dropdown menus (nested dropdowns appear to the left) |
+| `isBottomAligned` | `boolean` | `false` | Position dropdowns below their parent items (default behavior) |
+| `isTopAligned` | `boolean` | `false` | Position dropdowns above their parent items |
 
 ### NavLinkType Interface
 
@@ -302,7 +313,48 @@ The component is built with responsive design in mind. You can further enhance r
 
 ## 🌟 Advanced Usage
 
-### Right-Aligned Navigation
+### Dropdown Behavior
+
+All dropdowns are hidden by default and only appear when hovering over their parent item. This behavior works consistently across all nesting levels:
+
+```tsx
+const advancedNav: NavLinkType[] = [
+  {
+    label: 'Resources',
+    href: '#',
+    subNav: [
+      {
+        label: 'Documentation',
+        href: '/docs',
+        subNav: [
+          {
+            label: 'Components',
+            href: '/docs/components',
+            subNav: [
+              // This will appear when hovering on "Components"
+              { label: 'Navigation', href: '/docs/components/navigation' }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+```
+
+### Alignment Options
+
+The component supports four different alignment options for dropdown positioning:
+
+#### Left-Aligned Navigation (Default)
+```tsx
+<NavLinks 
+  links={navData}
+  isLeftAligned={true}
+/>
+```
+
+#### Right-Aligned Navigation
 ```tsx
 <NavLinks 
   links={navData}
@@ -311,11 +363,38 @@ The component is built with responsive design in mind. You can further enhance r
 />
 ```
 
-### Bottom-Aligned Navigation
+#### Top-Aligned Navigation
+```tsx
+<NavLinks 
+  links={navData}
+  isTopAligned={true}
+/>
+```
+
+#### Bottom-Aligned Navigation (Default)
 ```tsx
 <NavLinks 
   links={navData}
   isBottomAligned={true}
+/>
+```
+
+### Combined Alignment Options
+You can combine horizontal and vertical alignment for custom positioning:
+
+```tsx
+// Dropdowns appear above and slide to the right
+<NavLinks 
+  links={navLinks} 
+  isTopAligned={true} 
+  isRightAligned={true} 
+/>
+
+// Dropdowns appear below and slide to the left  
+<NavLinks 
+  links={navLinks} 
+  isBottomAligned={true} 
+  isLeftAligned={true} 
 />
 ```
 
@@ -337,6 +416,33 @@ function Navigation() {
     </nav>
   );
 }
+```
+
+### All Alignment Options
+
+```tsx
+const alignmentLinks: NavLinkType[] = [
+  {
+    label: 'Services',
+    href: '#services',
+    subNav: [
+      { label: 'Web Design', href: '#web-design' },
+      { label: 'Development', href: '#development' }
+    ]
+  }
+];
+
+// Left aligned - nested dropdowns appear to the left (default)
+<NavLinks links={alignmentLinks} isLeftAligned={true} />
+
+// Right aligned - nested dropdowns appear to the right
+<NavLinks links={alignmentLinks} isRightAligned={true} />
+
+// Top aligned - dropdowns appear above parent items
+<NavLinks links={alignmentLinks} isTopAligned={true} />
+
+// Bottom aligned - dropdowns appear below parent items (default)
+<NavLinks links={alignmentLinks} isBottomAligned={true} />
 ```
 
 ### Dropdown Behavior
@@ -524,9 +630,10 @@ If your dropdowns aren't opening on hover, check:
 
 If your dropdowns are not positioned correctly:
 
-1. Check if `isRightAligned` or `isBottomAligned` props need to be adjusted
+1. Check if alignment props (`isLeftAligned`, `isRightAligned`, `isTopAligned`, `isBottomAligned`) need to be adjusted
 2. Ensure the parent container has `position: relative`
 3. Add higher `z-index` values if dropdowns are appearing behind other elements
+4. For edge cases, consider combining alignment options (e.g., `isTopAligned={true}` with `isRightAligned={true}`)
 
 ### SVG/Logo Image Loading
 
