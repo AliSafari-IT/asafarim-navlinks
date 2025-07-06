@@ -674,3 +674,106 @@ code {
 .nav-demo ul ul ul ul ul {
   border-left: 3px solid rgba(52, 152, 219, 1) !important;
 }
+
+/* Code Block Styling */
+.code-highlight-container {
+  margin: 20px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #282c34; /* Atom One Dark background */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: #21252b; /* Slightly darker than code background */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.language-badge {
+  font-size: 0.85rem;
+  color: #abb2bf;
+  font-weight: 500;
+  background-color: #3a404b;
+  padding: 3px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+.copy-button {
+  background-color: rgba(255, 255, 255, 0.07);
+  color: #abb2bf;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.copy-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.copy-button:active {
+  transform: translateY(1px);
+}
+
+.copy-button i {
+  font-size: 0.9em;
+}
+
+.code-highlight-container pre {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+  font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", Courier, monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+.code-highlight-container code {
+  display: block;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  font-family: inherit;
+}
+
+/* Line numbers effect */
+.code-line {
+  display: block;
+  counter-increment: line;
+  position: relative;
+}
+
+/* Enhanced scrollbar for code blocks */
+.code-highlight-container pre::-webkit-scrollbar {
+  height: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.code-highlight-container pre::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.code-highlight-container pre::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Code block hover effect */
+.code-highlight-container:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25), 0 0 1px rgba(255, 255, 255, 0.15);
+}
