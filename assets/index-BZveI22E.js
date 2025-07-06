@@ -260,5 +260,5 @@ const documentationNav: NavLinkType[] = [
     minWidth: '220px',
     boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
   }}
-/>`})]}),e.jsxs("footer",{style:{textAlign:"center",padding:"40px 0",color:"#7f8c8d",borderTop:"1px solid #ecf0f1",marginTop:"40px"},children:[e.jsxs("p",{children:["📦 ",e.jsx("strong",{children:"asafarim-navlinks"})," v2.2.0 - Built with ❤️ by Ali Safari"]}),e.jsx("p",{children:e.jsx("a",{href:"https://github.com/AliSafari-IT/asafarim-navlinks",target:"_blank",rel:"noopener noreferrer",style:{color:"#3498db",textDecoration:"none"},children:"📚 View on GitHub"})})]})]})};g.createRoot(document.getElementById("root")).render(e.jsx(A.StrictMode,{children:e.jsx(z,{})}));
-//# sourceMappingURL=index-DIrg5sHi.js.map
+/>`})]}),e.jsxs("footer",{style:{textAlign:"center",padding:"40px 0",color:"#7f8c8d",borderTop:"1px solid #ecf0f1",marginTop:"40px"},children:[e.jsxs("p",{children:["📦 ",e.jsx("strong",{children:"asafarim-navlinks"})," v3.2.0 - Built with ❤️ by Ali Safari"]}),e.jsx("p",{children:e.jsx("a",{href:"https://github.com/AliSafari-IT/asafarim-navlinks",target:"_blank",rel:"noopener noreferrer",style:{color:"#3498db",textDecoration:"none"},children:"📚 View on GitHub"})})]})]})};g.createRoot(document.getElementById("root")).render(e.jsx(A.StrictMode,{children:e.jsx(z,{})}));
+//# sourceMappingURL=index-BZveI22E.js.map
