@@ -1306,7 +1306,7 @@ const documentationNav: NavLinkType[] = [
         }}
       >
         <p>
-          📦 <strong>asafarim-navlinks</strong> v2.2.0 - Built with ❤️ by Ali
+          📦 <strong>asafarim-navlinks</strong> v3.2.0 - Built with ❤️ by Ali
           Safari
         </p>
         <p>
