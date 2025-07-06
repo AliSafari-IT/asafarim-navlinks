@@ -1,5 +1,9 @@
 import React from 'react';
 import NavLinks, { NavLinkType } from 'asafarim-navlinks';
+import CodeBlock from './CodeBlock';
+import './index.css';
+
+
 
 const App: React.FC = () => {
   // Navigation with your logo and comprehensive dropdown menus
@@ -372,7 +376,7 @@ const App: React.FC = () => {
       label: 'Brand',
       href: '#brand',
       svgLogoIcon: {
-        src: 'https://via.placeholder.com/40x40/007bff/ffffff?text=B',
+        src: './assets/logoT.svg',
         alt: 'Brand Logo',
         width: 40,
         height: 40,
@@ -456,8 +460,7 @@ const App: React.FC = () => {
             }}
           />
         </div>
-        <div className="code-block">
-{`const basicNavLinks: NavLinkType[] = [
+        <CodeBlock code={`const basicNavLinks: NavLinkType[] = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
@@ -471,8 +474,7 @@ const App: React.FC = () => {
     display: 'flex',
     gap: '20px'
   }}
-/>`}
-        </div>
+/>`} />
       </div>
 
       <div className="demo-section">
@@ -492,14 +494,12 @@ const App: React.FC = () => {
             }}
           />
         </div>
-        <div className="code-block">
-{`const iconsNavLinks: NavLinkType[] = [
+        <CodeBlock code={`const iconsNavLinks: NavLinkType[] = [
   { label: 'Home', href: '#home', iconLeft: 'fas fa-home' },
   { label: 'Profile', href: '#profile', iconLeft: 'fas fa-user' },
   { label: 'Settings', href: '#settings', iconRight: 'fas fa-cog' },
   { label: 'Logout', href: '#logout', iconRight: 'fas fa-sign-out-alt' }
-];`}
-        </div>
+];`} />
       </div>
 
       <div className="demo-section">
@@ -507,7 +507,7 @@ const App: React.FC = () => {
         <p className="demo-description">
           Fun navigation using emojis as visual indicators:
         </p>
-        <div className="nav-demo-light">
+        <div className="nav-demo">
           <NavLinks 
             links={emojiNavLinks}
             baseLinkStyle={{ 
@@ -519,14 +519,12 @@ const App: React.FC = () => {
             }}
           />
         </div>
-        <div className="code-block">
-{`const emojiNavLinks: NavLinkType[] = [
+        <CodeBlock code={`const emojiNavLinks: NavLinkType[] = [
   { label: 'Home', href: '#home', emoji: '🏠' },
   { label: 'About', href: '#about', emoji: '📖' },
   { label: 'Services', href: '#services', emoji: '🛠️' },
   { label: 'Contact', href: '#contact', emoji: '📞' }
-];`}
-        </div>
+];`} />
       </div>
 
       <div className="demo-section">
@@ -553,8 +551,7 @@ const App: React.FC = () => {
             }}
           />
         </div>
-        <div className="code-block">
-{`const dropdownNavLinks: NavLinkType[] = [
+        <CodeBlock code={`const dropdownNavLinks: NavLinkType[] = [
   { label: 'Home', href: '#home', iconLeft: 'fas fa-home' },
   {
     label: 'Products',
@@ -584,8 +581,7 @@ const App: React.FC = () => {
       { label: 'Training', href: '#training' }
     ]
   }
-];`}
-        </div>
+];`} />
       </div>
 
       <div className="demo-section">
@@ -606,8 +602,7 @@ const App: React.FC = () => {
             }}
           />
         </div>
-        <div className="code-block">
-{`const logoNavLinks: NavLinkType[] = [
+        <CodeBlock code={`const logoNavLinks: NavLinkType[] = [
   {
     label: 'Brand',
     href: '#brand',
@@ -621,8 +616,7 @@ const App: React.FC = () => {
   },
   { label: 'Products', href: '#products', iconLeft: 'fas fa-cube' },
   { label: 'Solutions', href: '#solutions', iconLeft: 'fas fa-lightbulb' }
-];`}
-        </div>
+];`} />
       </div>
 
       <div className="demo-section">
@@ -666,8 +660,7 @@ const App: React.FC = () => {
           />
         </div>
         
-        <div className="code-block">
-{`// Right aligned
+        <CodeBlock code={`// Right aligned
 <NavLinks 
   links={basicNavLinks}
   isRightAligned={true}
@@ -678,8 +671,7 @@ const App: React.FC = () => {
 <NavLinks 
   links={basicNavLinks}
   isBottomAligned={true}
-/>`}
-        </div>
+/>`} />
       </div>
 
       <div className="demo-section">
@@ -687,8 +679,7 @@ const App: React.FC = () => {
         <p className="demo-description">
           To use the asafarim-navlinks package in your project:
         </p>
-        <div className="code-block">
-{`# Install the package
+        <CodeBlock code={`# Install the package
 npm install asafarim-navlinks
 # or
 pnpm add asafarim-navlinks
@@ -703,8 +694,7 @@ const navData: NavLinkType[] = [
 ];
 
 # Use the component
-<NavLinks links={navData} />`}
-        </div>
+<NavLinks links={navData} />`} />
       </div>
 
       <div className="demo-section" style={{ backgroundColor: '#f8f9fa', border: '2px solid #28a745', borderRadius: '8px' }}>
@@ -736,8 +726,7 @@ const navData: NavLinkType[] = [
             }}
           />
         </div>
-        <div className="code-block">
-{`// Using your logoT.svg with comprehensive dropdown menus
+        <CodeBlock code={`// Using your logoT.svg with comprehensive dropdown menus
 const mainNavigation: NavLinkType[] = [
   {
     label: 'ASafariM',
@@ -803,8 +792,7 @@ const mainNavigation: NavLinkType[] = [
     minWidth: '220px',
     boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
   }}
-/>`}
-        </div>
+/>`} />
         <div style={{ 
           marginTop: '20px', 
           padding: '15px', 
@@ -918,8 +906,7 @@ const mainNavigation: NavLinkType[] = [
             }}
           />
         </div>
-        <div className="code-block">
-{`// Professional multi-level menu example for documentation site
+        <CodeBlock code={`// Professional multi-level menu example for documentation site
 const documentationNav: NavLinkType[] = [
   {
     label: 'Documentation',
@@ -1001,8 +988,7 @@ const documentationNav: NavLinkType[] = [
     minWidth: '220px',
     boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
   }}
-/>`}
-        </div>
+/>`} />
       </div>
 
       <footer style={{ 
