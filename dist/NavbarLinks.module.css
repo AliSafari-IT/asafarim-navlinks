@@ -80,6 +80,20 @@
     --nav-shadow: var(--nav-shadow-dark);
     --nav-dropdown-bg: var(--nav-dropdown-bg-dark);
   }
+  
+  .autoTheme.demoContext {
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  }
+  
+  .autoTheme.demoContext .navList li a,
+  .autoTheme.demoContext .navList li .navButton {
+    color: white;
+  }
+  
+  .autoTheme.demoContext .dropdown {
+    background: #2d3748;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
 }
 
 /* =========== Base Container =========== */
@@ -96,7 +110,6 @@
 .navContainer.demoContext {
   border-radius: var(--nav-border-radius);
   overflow: visible;
-  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
 }
 
 /* =========== Navigation List =========== */
@@ -412,19 +425,87 @@ li.expanded > .navButton .arrow {
   top: 0;
 }
 
-/* Demo-specific styling */
-.demoContext .navList li a,
-.demoContext .navList li .navButton {
+/* Demo-specific styling that respects themes */
+/* Dark theme demo context */
+.darkTheme.demoContext,
+.autoTheme.demoContext {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+}
+
+.darkTheme.demoContext .navList li a,
+.darkTheme.demoContext .navList li .navButton,
+.autoTheme.demoContext .navList li a,
+.autoTheme.demoContext .navList li .navButton {
   color: white;
   font-weight: 500;
 }
 
-.demoContext .dropdown {
+.darkTheme.demoContext .dropdown,
+.autoTheme.demoContext .dropdown {
   background: #2d3748;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.demoContext .navList li a:hover,
-.demoContext .navList li .navButton:hover {
+.darkTheme.demoContext .navList li a:hover,
+.darkTheme.demoContext .navList li .navButton:hover,
+.autoTheme.demoContext .navList li a:hover,
+.autoTheme.demoContext .navList li .navButton:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme demo context */
+.lightTheme.demoContext {
+  background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+  border: 1px solid var(--nav-border);
+}
+
+.lightTheme.demoContext .navList li a,
+.lightTheme.demoContext .navList li .navButton {
+  color: var(--nav-text-light);
+  font-weight: 500;
+}
+
+.lightTheme.demoContext .dropdown {
+  background: var(--nav-dropdown-bg-light);
+  border: 1px solid var(--nav-border-light);
+}
+
+.lightTheme.demoContext .navList li a:hover,
+.lightTheme.demoContext .navList li .navButton:hover {
+  background: var(--nav-hover-bg-light);
+  color: var(--nav-hover-text-light);
+}
+
+/* Enhanced light theme styles for better visibility */
+.lightTheme .navList li a,
+.lightTheme .navList li .navButton {
+  color: var(--nav-text-light);
+}
+
+.lightTheme .dropdown {
+  background-color: var(--nav-dropdown-bg-light);
+  border-color: var(--nav-border-light);
+}
+
+.lightTheme .navList li a:hover,
+.lightTheme .navList li .navButton:hover {
+  background-color: var(--nav-hover-bg-light);
+  color: var(--nav-hover-text-light);
+}
+
+/* Light theme dropdown hover states */
+.lightTheme .hasChildren:hover > a,
+.lightTheme .hasChildren:hover > .navButton {
+  background-color: var(--nav-hover-bg-light);
+  color: var(--nav-hover-text-light);
+}
+
+/* Mobile styles for light theme */
+.lightTheme .mobileHeader {
+  background: var(--nav-bg-light);
+  border-color: var(--nav-border-light);
+}
+
+.lightTheme .hamburgerLine {
+  background-color: var(--nav-text-light);
 }
