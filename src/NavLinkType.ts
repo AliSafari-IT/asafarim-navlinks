@@ -1,7 +1,7 @@
 import { SvgLinkType } from "./SvgLinkType";
 
 export type NavLinkType = {
-  label: string;
+  label?: string;
   href: string;
   svgLogoIcon?: SvgLinkType;
   title?: string;
@@ -9,4 +9,6 @@ export type NavLinkType = {
   iconRight?: string;
   emoji?: string;
   subNav?: NavLinkType[];
+  onClick?: (e: React.MouseEvent) => void;
+  className?: string;
 };

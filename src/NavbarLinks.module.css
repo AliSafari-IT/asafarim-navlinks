@@ -1,386 +1,584 @@
-/* src/components/NavbarLinks.module.css */
+/* ASafariM NavLinks - Modern Navigation Component with Theme Support */
+
+/* CSS Custom Properties for Theme System */
+:root {
+  /* Light Theme Colors */
+  --nav-bg-light: #ffffff;
+  --nav-text-light: #333333;
+  --nav-hover-light: #f8f9fa;
+  --nav-border-light: #e9ecef;
+  --nav-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --nav-dropdown-bg-light: #ffffff;
+  --nav-dropdown-shadow-light: 0 4px 15px rgba(0, 0, 0, 0.15);
+  
+  /* Dark Theme Colors */
+  --nav-bg-dark: #1a1a1a;
+  --nav-text-dark: #ffffff;
+  --nav-hover-dark: #2d2d2d;
+  --nav-border-dark: #404040;
+  --nav-shadow-dark: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --nav-dropdown-bg-dark: #2d2d2d;
+  --nav-dropdown-shadow-dark: 0 4px 15px rgba(0, 0, 0, 0.4);
+  
+  /* Accent Colors */
+  --nav-primary: #3498db;
+  --nav-primary-hover: #2980b9;
+  --nav-success: #27ae60;
+  --nav-warning: #f39c12;
+  --nav-danger: #e74c3c;
+  
+  /* Spacing */
+  --nav-padding-x: 1rem;
+  --nav-padding-y: 0.75rem;
+  --nav-gap: 1rem;
+  --nav-border-radius: 0.5rem;
+  
+  /* Transitions */
+  --nav-transition: all 0.3s ease;
+  --nav-hover-transition: all 0.2s ease;
+  
+  /* Z-Index */
+  --nav-z-index: 1000;
+  --nav-dropdown-z-index: 1001;
+}
+
+/* Auto Theme - Uses system preference */
+.autoTheme {
+  --nav-bg: var(--nav-bg-light);
+  --nav-text: var(--nav-text-light);
+  --nav-hover: var(--nav-hover-light);
+  --nav-border: var(--nav-border-light);
+  --nav-shadow: var(--nav-shadow-light);
+  --nav-dropdown-bg: var(--nav-dropdown-bg-light);
+  --nav-dropdown-shadow: var(--nav-dropdown-shadow-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  .autoTheme {
+    --nav-bg: var(--nav-bg-dark);
+    --nav-text: var(--nav-text-dark);
+    --nav-hover: var(--nav-hover-dark);
+    --nav-border: var(--nav-border-dark);
+    --nav-shadow: var(--nav-shadow-dark);
+    --nav-dropdown-bg: var(--nav-dropdown-bg-dark);
+    --nav-dropdown-shadow: var(--nav-dropdown-shadow-dark);
+  }
+}
+
+/* Light Theme - Explicit */
+.lightTheme {
+  --nav-bg: var(--nav-bg-light);
+  --nav-text: var(--nav-text-light);
+  --nav-hover: var(--nav-hover-light);
+  --nav-border: var(--nav-border-light);
+  --nav-shadow: var(--nav-shadow-light);
+  --nav-dropdown-bg: var(--nav-dropdown-bg-light);
+  --nav-dropdown-shadow: var(--nav-dropdown-shadow-light);
+}
+
+/* Dark Theme - Explicit */
+.darkTheme {
+  --nav-bg: var(--nav-bg-dark);
+  --nav-text: var(--nav-text-dark);
+  --nav-hover: var(--nav-hover-dark);
+  --nav-border: var(--nav-border-dark);
+  --nav-shadow: var(--nav-shadow-dark);
+  --nav-dropdown-bg: var(--nav-dropdown-bg-dark);
+  --nav-dropdown-shadow: var(--nav-dropdown-shadow-dark);
+}
+
+/* Base Navigation Container */
+.navContainer {
+  position: relative;
+  width: 100%;
+  background: var(--nav-bg, var(--nav-bg-light));
+  border-bottom: 1px solid var(--nav-border, var(--nav-border-light));
+  transition: all 0.3s ease;
+}
+
+/* Main Navigation List */
 .baseLinks {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  background: transparent;
+  transition: all 0.3s ease;
 }
 
+/* Navigation Items */
 .baseLinks > li {
-  display: inline-block;
   position: relative;
+  display: flex;
+  align-items: center;
   margin: 0;
-  width: 150px;
-}
-
-.baseLinks li.hasChildren > a {
-  cursor: pointer;
-}
-
-.baseLinks .dropdownIndicator {
-  display: inline-block;
-  margin-left: 4px;
-  font-size: 0.7em;
-  opacity: 0.8;
-}
-
-/* Styling for all list items at any level */
-.baseLinks li {
-  display: block;
-  position: relative;
-  margin: 0;
-  width: 100%;
-}
-
-/* Top level list items */
-.baseLinks > li {
-  display: inline-block;
-  width: 150px;
-}
-
-/* All dropdown ULs - HIDDEN BY DEFAULT */
-.dropdown {
-  display: none !important; /* HIDDEN BY DEFAULT - CRITICAL */
-  list-style: none;
   padding: 0;
-  margin: 0;
-  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
-  border: 1px solid #ffffff20;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1000;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(0, 0, 0, 0.2);
-  min-width: 220px;
-  width: auto;
-  overflow: visible !important; /* Allow overflow so nested menus can be seen */
-  visibility: hidden !important; /* HIDDEN BY DEFAULT - CRITICAL */
-  opacity: 0 !important; /* HIDDEN BY DEFAULT - CRITICAL */
-  transition: visibility 0.2s, opacity 0.2s; /* Smooth transition */
 }
 
-/* First level dropdowns positioning */
-.baseLinks > li > .dropdown {
-  top: 100%;
-  left: 0;
-}
-
-/* Nested dropdowns positioning - IMPORTANT FOR VISIBILITY */
-.baseLinks li .dropdown .dropdown {
-  top: 0;
-  left: 100%;
-  margin-left: 0;
-  margin-top: 0;
-}
-
-/* Show dropdowns ONLY on hover - CRITICAL FOR NESTED MENUS */
-.baseLinks li:hover > .dropdown {
-  display: block !important; /* Force display on hover */
-  visibility: visible !important; /* Visible on hover */
-  opacity: 1 !important; /* Visible on hover */
-}
-
-/* Ensure nested dropdowns appear ONLY when parent is hovered */
-.baseLinks .dropdown li:hover > .dropdown {
-  display: block !important; /* Force display for nested levels */
-  visibility: visible !important; /* Visible on hover */
-  opacity: 1 !important; /* Visible on hover */
-}
-
-/* Enhanced nested dropdown visibility for specific levels */
-.baseLinks > li > .dropdown li:hover > .dropdown,
-.baseLinks > li > .dropdown > li > .dropdown li:hover > .dropdown,
-.baseLinks > li > .dropdown > li > .dropdown > li > .dropdown li:hover > .dropdown,
-.baseLinks > li > .dropdown > li > .dropdown > li > .dropdown > li > .dropdown li:hover > .dropdown {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-/* Ensure all nested dropdowns have proper positioning and appearance */
-.baseLinks .dropdown .dropdown,
-.baseLinks .dropdown .dropdown .dropdown,
-.baseLinks .dropdown .dropdown .dropdown .dropdown,
-.baseLinks .dropdown .dropdown .dropdown .dropdown .dropdown {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  margin-left: 0;
-  border-radius: 6px !important;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(0, 0, 0, 0.2) !important;
-}
-
-/* Links styling for all levels */
+/* Navigation Links */
 .baseLinks li a {
-  color: white !important;
-  padding: 10px;
-  display: block;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: var(--nav-text, var(--nav-text-light));
   text-decoration: none;
   font-weight: 500;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  width: 100%;
-  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+  white-space: nowrap;
 }
 
-/* Hover effect for all links */
 .baseLinks li a:hover {
-  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
-  color: #ffffff !important;
-  transform: translateX(2px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--nav-hover, var(--nav-hover-light));
+  color: var(--nav-primary);
+  transform: translateY(-1px);
 }
 
-/* Right aligned dropdowns */
-.baseLinks > li.rightAligned > .dropdown {
+/* Dropdown Indicator */
+.dropdownIndicator {
+  margin-left: 6px;
+  font-size: 10px;
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+/* Dropdown Containers */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--nav-dropdown-bg, var(--nav-dropdown-bg-light));
+  border: 1px solid var(--nav-border, var(--nav-border-light));
+  border-radius: 8px;
+  box-shadow: var(--nav-shadow, var(--nav-shadow-light));
+  min-width: 200px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  list-style: none;
+  padding: 6px 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Show Dropdown on Hover */
+.baseLinks li:hover > .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Nested Dropdowns */
+.dropdown .dropdown {
+  top: 0;
+  left: 100%;
+  margin-left: 8px;
+}
+
+/* Dropdown Items */
+.dropdown li {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown li a {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  color: var(--nav-text, var(--nav-text-light));
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 14px;
+  border-radius: 0;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.dropdown li a:hover {
+  background: var(--nav-hover, var(--nav-hover-light));
+  border-left-color: var(--nav-primary);
+  transform: translateX(2px);
+}
+
+/* Nested Dropdown Styling */
+.dropdown .dropdown li a {
+  border-left-color: var(--nav-secondary);
+}
+
+.dropdown .dropdown .dropdown li a {
+  border-left-color: var(--nav-accent);
+}
+
+.dropdown .dropdown .dropdown .dropdown li a {
+  border-left-color: var(--nav-danger);
+}
+
+/* Alignment Classes */
+.rightAligned > .dropdown {
   left: auto;
   right: 0;
 }
 
-.baseLinks .rightAligned > .dropdown .dropdown {
-  left: auto;
-  right: 100%;
-  margin-right: -1px;
-  margin-left: 0;
-}
-
-/* Left aligned dropdowns */
-.baseLinks > li.leftAligned > .dropdown {
+.leftAligned > .dropdown {
   left: 0;
   right: auto;
 }
 
-.baseLinks .leftAligned > .dropdown .dropdown {
-  left: -100%;
-  right: auto;
-  margin-left: 1px;
-  margin-right: 0;
+.topAligned > .dropdown {
+  top: auto;
+  bottom: 100%;
+  transform: translateY(10px);
 }
 
-/* Bottom aligned dropdowns (default behavior - below parent) */
-.baseLinks > li.bottomAligned > .dropdown {
+.topAligned:hover > .dropdown {
+  transform: translateY(0);
+}
+
+.bottomAligned > .dropdown {
   top: 100%;
   bottom: auto;
 }
 
-.baseLinks .bottomAligned > .dropdown .dropdown {
-  top: 0;
-  bottom: auto;
+/* Icon and Emoji Styling */
+.baseLinks .emoji {
+  margin-right: 8px;
+  font-size: 16px;
 }
 
-/* Top aligned dropdowns (above parent) */
-.baseLinks > li.topAligned > .dropdown {
-  top: auto;
-  bottom: 100%;
+.baseLinks i {
+  margin-right: 8px;
+  font-size: 14px;
 }
 
-.baseLinks .topAligned > .dropdown .dropdown {
-  top: auto;
-  bottom: 0;
+.baseLinks i:last-child {
+  margin-right: 0;
+  margin-left: 8px;
 }
 
-/* Force dropdown text visibility for all nested levels */
-.baseLinks .dropdown li a {
-  color: white !important;
-  background: transparent !important;
-  padding: 10px 15px !important;
-  display: block !important;
-  text-decoration: none !important;
-  font-weight: 500 !important;
-  font-size: 14px !important;
-  line-height: 1.4 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-  text-align: left !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-}
-
-.baseLinks .dropdown li a:hover {
-  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
-  color: #ffffff !important;
-  border-bottom-color: #2980b9 !important;
-  transform: translateX(2px) !important;
-  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3) !important;
-}
-
-/* Specific styling for emoji and icon elements in dropdowns */
-.baseLinks .dropdown li a span,
-.baseLinks .dropdown li a i {
-  color: inherit !important;
-  margin-right: 8px !important;
-}
-
-/* Force text color for all child elements in dropdowns */
-.baseLinks .dropdown li a * {
-  color: inherit !important;
-}
-
-/* Special styling for deep nested levels (5+) */
-.baseLinks .dropdown .dropdown .dropdown .dropdown .dropdown {
-  background: linear-gradient(135deg, #16a085 0%, #2ecc71 100%) !important;
-}
-
-.baseLinks .dropdown .dropdown .dropdown .dropdown .dropdown li a:hover {
-  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%) !important;
-}
-
-/* Add a visual indicator for items with children */
-.baseLinks li.hasChildren > a:after {
-  content: "";
-  display: inline-block;
-  margin-left: 5px;
-}
-
-/* Different indicators for right-aligned items */
-.baseLinks li.rightAligned.hasChildren > .dropdown li.hasChildren > a:after {
-  content: "◀";
-  font-size: 10px;
-  float: left;
-  margin-right: 5px;
-  margin-left: 0;
-}
-
-/* CRITICAL: Proper positioning for items with children */
-.baseLinks li.hasChildren {
-  position: relative !important;
-}
-
-/* Add a visual indicator for items with submenus */
-.baseLinks .dropdown li.hasChildren > a::after {
-  content: "▶";
-  position: absolute;
-  right: 10px;
-  font-size: 10px;
-  opacity: 0.7;
-  color: white;
-}
-
-/* Enhance visibility */
-.dropdown {
-  opacity: 0.98;
-}
-
-/* Add a slight box-shadow to give depth to the dropdowns */
-.baseLinks .dropdown {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* Ensure all dropdown menus are visible ONLY on hover/focus */
-.baseLinks li:hover > .dropdown,
-.baseLinks li:focus-within > .dropdown,
-.baseLinks li:active > .dropdown {
-  display: block;
-  visibility: visible;
-  opacity: 1;
-}
-
-/* Handle mobile responsiveness */
+/* Mobile Styles */
 @media (max-width: 768px) {
+  .navContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mobileHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--nav-bg, var(--nav-bg-light));
+    border-bottom: 1px solid var(--nav-border, var(--nav-border-light));
+  }
+
+  .mobileBrand {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--nav-text, var(--nav-text-light));
+    text-decoration: none;
+  }
+
+  .mobileBrand img {
+    margin-right: 8px;
+    border-radius: 4px;
+  }
+
+  .hamburgerBtn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+
+  .hamburgerBtn span {
+    width: 100%;
+    height: 2px;
+    background: var(--nav-text, var(--nav-text-light));
+    border-radius: 1px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .hamburgerBtn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburgerBtn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburgerBtn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  .baseLinks {
+    flex-direction: column;
+    align-items: stretch;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    background: var(--nav-bg, var(--nav-bg-light));
+  }
+
+  .baseLinks.mobileOpen {
+    max-height: 500px;
+    opacity: 1;
+    padding: 8px 0;
+  }
+
   .baseLinks > li {
     width: 100%;
+    border-bottom: 1px solid var(--nav-border, var(--nav-border-light));
   }
-  
-  .baseLinks .dropdown {
-    position: relative;
-    width: 100%;
-    left: 0;
-    top: 0;
+
+  .baseLinks > li:last-child {
+    border-bottom: none;
   }
-  
-  .baseLinks li .dropdown .dropdown {
-    left: 10px;
-    margin-left: 0;
-    width: calc(100% - 10px);
+
+  .baseLinks li a {
+    padding: 16px 20px;
+    font-size: 16px;
+    border-radius: 0;
+    justify-content: space-between;
+  }
+
+  .dropdown {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    background: var(--nav-hover, var(--nav-hover-light));
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .dropdown.mobileOpen {
+    max-height: 300px;
+  }
+
+  .dropdown li a {
+    padding-left: 40px;
+    font-size: 14px;
+    border-left: 3px solid var(--nav-primary);
+  }
+
+  .dropdown .dropdown li a {
+    padding-left: 60px;
+    border-left-color: var(--nav-secondary);
+  }
+
+  .dropdown .dropdown .dropdown li a {
+    padding-left: 80px;
+    border-left-color: var(--nav-accent);
+  }
+
+  .mobileIndicator {
+    font-size: 12px;
+    opacity: 0.7;
+    transition: transform 0.3s ease;
+  }
+
+  .mobileIndicator.expanded {
+    transform: rotate(180deg);
   }
 }
 
-/* Specific styling for emoji */
-.emoji {
-  margin-right: 5px;
-  display: inline-block;
+/* Desktop Only Styles */
+@media (min-width: 769px) {
+  .mobileHeader {
+    display: none;
+  }
+
+  .hamburgerBtn {
+    display: none;
+  }
+
+  .baseLinks {
+    display: flex !important;
+    flex-direction: row !important;
+    max-height: none !important;
+    opacity: 1 !important;
+  }
 }
 
-/* Ensure dropdown indicators are clearly visible */
-.baseLinks li.hasChildren > a .dropdownIndicator {
-  display: inline-block;
-  margin-left: 5px;
-  font-weight: bold;
+/* Accessibility */
+.baseLinks a:focus {
+  outline: 2px solid var(--nav-primary);
+  outline-offset: -2px;
+}
+
+.baseLinks a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip Navigation Link */
+.skipNav {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--nav-primary);
   color: white;
-  transition: transform 0.2s;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 10000;
+  transition: top 0.3s ease;
 }
 
-/* Rotate indicator for side dropdowns */
-.baseLinks .dropdown li.hasChildren > a .dropdownIndicator {
-  transform: rotate(-90deg);
+.skipNav:focus {
+  top: 0;
 }
 
-/* Increasing z-index for deeper nested menus */
-.baseLinks .dropdown .dropdown {
-  z-index: 1001;
+/* Screen Reader Only */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
-.baseLinks .dropdown .dropdown .dropdown {
-  z-index: 1002;
+/* Theme Toggle Classes */
+.navContainer.lightTheme {
+  --nav-bg: var(--nav-bg-light);
+  --nav-text: var(--nav-text-light);
+  --nav-hover: var(--nav-hover-light);
+  --nav-border: var(--nav-border-light);
+  --nav-dropdown-bg: var(--nav-dropdown-bg-light);
+  --nav-shadow: var(--nav-shadow-light);
 }
 
-.baseLinks .dropdown .dropdown .dropdown .dropdown {
-  z-index: 1003;
+.navContainer.darkTheme {
+  --nav-bg: var(--nav-bg-dark);
+  --nav-text: var(--nav-text-dark);
+  --nav-hover: var(--nav-hover-dark);
+  --nav-border: var(--nav-border-dark);
+  --nav-dropdown-bg: var(--nav-dropdown-bg-dark);
+  --nav-shadow: var(--nav-shadow-dark);
 }
 
-.baseLinks .dropdown .dropdown .dropdown .dropdown .dropdown {
-  z-index: 1004;
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .baseLinks li a {
+    border: 1px solid var(--nav-border, var(--nav-border-light));
+  }
+  
+  .dropdown {
+    border: 2px solid var(--nav-border, var(--nav-border-light));
+  }
 }
 
-/* Make hovering more reliable with a slight delay */
-.baseLinks li:hover > .dropdown {
-  animation-delay: 0.15s;
-  animation-fill-mode: forwards;
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-/* Force display of nested dropdowns */
-.baseLinks .dropdown .dropdown {
-  display: none !important;
+/* Brand/Logo Styling */
+.brand {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--nav-text, var(--nav-text-light));
+  text-decoration: none;
+  margin-right: 20px;
 }
 
-.baseLinks .dropdown li:hover > .dropdown {
-  display: block !important;
+.brand img {
+  margin-right: 8px;
+  border-radius: 4px;
 }
 
-/* Reset any potential inline styles that might be showing dropdowns by default */
-.baseLinks .dropdown[style*="display: block"] {
-  display: none !important;
+/* SVG and Icon Styling */
+.svgIcon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
-/* Only on hover should dropdowns be visible, regardless of inline styles */
-.baseLinks li:hover > .dropdown[style*="display: block"],
-.baseLinks li:hover > .dropdown[style*="display: none"] {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+.emoji {
+  margin-right: 8px;
+  font-size: 16px;
+  display: inline-block;
 }
 
-/* CRITICAL FIX: Ensure proper stacking and relative positioning for dropdown parents */
-.baseLinks li {
-  position: relative !important;
+/* Hover Effects */
+.baseLinks li a:hover {
+  background: var(--nav-hover, var(--nav-hover-light));
+  color: var(--nav-primary);
+  transform: translateY(-1px);
 }
 
-/* Ensure dropdowns can be accessed by enforcing proper overflow behavior */
-.baseLinks {
-  overflow: visible !important;
+.dropdown li a:hover {
+  background: var(--nav-hover, var(--nav-hover-light));
+  border-left-color: var(--nav-primary);
+  transform: translateX(2px);
 }
 
-/* Fix for edge cases where dropdowns might be cut off */
-.baseLinks .dropdown {
-  max-height: none !important;
-  overflow: visible !important;
+/* Loading State */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
-/* Ensure nested dropdowns can escape their containers */
-.baseLinks .dropdown .dropdown {
-  max-width: none !important;
+/* Animation Classes */
+.fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+/* Print Styles */
+@media print {
+  .navContainer {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  
+  .dropdown {
+    display: none !important;
+  }
+  
+  .hamburgerBtn {
+    display: none !important;
+  }
+}

@@ -1,82 +1,214 @@
-import React from "react";
-import defaultStyle from "./NavbarLinks.module.css";
+import React, { useState, useEffect, useRef } from "react";
+import styles from "./NavbarLinks.module.css";
 import { NavLinkType } from "./NavLinkType";
 
-type NavLinksProps = {
+type Theme = 'light' | 'dark' | 'auto';
+
+interface NavLinksProps {
   links: NavLinkType[];
+  theme?: Theme;
   className?: string;
   baseLinkStyle?: React.CSSProperties;
   subLinkStyle?: React.CSSProperties;
-  isRightAligned?: boolean; // for right aligned links
-  isBottomAligned?: boolean; // for bottomAligned links
-  isLeftAligned?: boolean; // for left aligned links
-  isTopAligned?: boolean; // for top aligned links
-};
+  isRightAligned?: boolean;
+  isBottomAligned?: boolean;
+  isLeftAligned?: boolean;
+  isTopAligned?: boolean;
+  enableMobileCollapse?: boolean;
+  showSkipNav?: boolean;
+}
 
 const NavLinks: React.FC<NavLinksProps> = ({
   links,
-  className,
+  theme = 'auto',
+  className = '',
   baseLinkStyle,
   subLinkStyle,
   isRightAligned = false,
   isBottomAligned = false,
   isLeftAligned = false,
   isTopAligned = false,
+  enableMobileCollapse = true,
+  showSkipNav = false,
 }) => {
-  const renderSubNav = (
-    subNav: NavLinkType[] | undefined,
-    depth: number = 1
-  ) => {
-    if (!subNav) return null;
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
+  const [isMobile, setIsMobile] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+        setExpandedItems(new Set());
+      }
+    };
+
+    if (mobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [mobileMenuOpen]);
+
+  // Toggle mobile menu
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+    if (mobileMenuOpen) {
+      setExpandedItems(new Set());
+    }
+  };
+
+  // Toggle mobile dropdown
+  const toggleMobileDropdown = (itemId: string) => {
+    const newExpanded = new Set(expandedItems);
+    if (newExpanded.has(itemId)) {
+      newExpanded.delete(itemId);
+    } else {
+      newExpanded.add(itemId);
+    }
+    setExpandedItems(newExpanded);
+  };
+
+  // Handle keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent, hasSubNav: boolean, itemId: string) => {
+    if (e.key === 'Escape') {
+      setMobileMenuOpen(false);
+      setExpandedItems(new Set());
+      return;
+    }
+
+    if (hasSubNav && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      if (isMobile) {
+        toggleMobileDropdown(itemId);
+      }
+    }
+  };
+
+  // Render link content
+  const renderLinkContent = (link: NavLinkType) => {
+    const content = [];
+
+    // SVG Logo
+    if (link.svgLogoIcon) {
+      content.push(
+        <img
+          key="logo"
+          src={link.svgLogoIcon.src}
+          alt={link.svgLogoIcon.alt}
+          width={link.svgLogoIcon.width ?? 24}
+          height={link.svgLogoIcon.height ?? 24}
+          style={link.svgLogoIcon.style}
+          className={styles.logoIcon}
+        />
+      );
+      if (link.svgLogoIcon.caption) {
+        content.push(
+          <span key="caption" className={styles.logoCaption}>
+            {link.svgLogoIcon.caption}
+          </span>
+        );
+      }
+      return content;
+    }
+
+    // Emoji
+    if (link.emoji) {
+      content.push(
+        <span key="emoji" className={styles.emoji}>
+          {link.emoji}
+        </span>
+      );
+    }
+
+    // Left Icon
+    if (link.iconLeft) {
+      content.push(
+        <i key="icon-left" className={`${link.iconLeft} ${styles.iconLeft}`} />
+      );
+    }
+
+    // Label
+    content.push(
+      <span key="label" className={styles.label}>
+        {link.label}
+      </span>
+    );
+
+    // Right Icon
+    if (link.iconRight) {
+      content.push(
+        <i key="icon-right" className={`${link.iconRight} ${styles.iconRight}`} />
+      );
+    }
+
+    return content;
+  };
+
+  // Render dropdown menu
+  const renderDropdown = (subNav: NavLinkType[], depth: number = 1, parentId: string = '') => {
+    if (!subNav || subNav.length === 0) return null;
+
+    const alignmentClass = isRightAligned ? styles.rightAligned :
+                          isLeftAligned ? styles.leftAligned :
+                          isTopAligned ? styles.topAligned :
+                          isBottomAligned ? styles.bottomAligned : '';
+
     return (
       <ul
-        className={`${className} ${defaultStyle.dropdown} depth-${depth}`}
-        style={{ 
-          ...subLinkStyle,
-          zIndex: 1000 + depth
-        }}
-        data-depth={depth}
+        className={`${styles.dropdown} ${alignmentClass} ${
+          isMobile && expandedItems.has(parentId) ? styles.mobileOpen : ''
+        }`}
+        style={subLinkStyle}
+        role="menu"
+        aria-orientation={isMobile ? "vertical" : "horizontal"}
       >
-        {subNav.map((subLink, subIndex) => {
-          const hasSubNav = !!subLink.subNav && subLink.subNav.length > 0;
+        {subNav.map((item, index) => {
+          const itemId = `${parentId}-${depth}-${index}`;
+          const hasSubNav = item.subNav && item.subNav.length > 0;
+          const isExpanded = expandedItems.has(itemId);
+
           return (
-            <li
-              key={`sublevel-${depth}-${subIndex}`}
-              className={`${
-                hasSubNav ? defaultStyle.hasChildren : ""
-              } ${
-                isRightAligned
-                  ? defaultStyle.rightAligned
-                  : isBottomAligned
-                  ? defaultStyle.bottomAligned
-                  : isLeftAligned
-                  ? defaultStyle.leftAligned
-                  : isTopAligned
-                  ? defaultStyle.topAligned
-                  : ""
-              } dropdown-item-${depth}`}
-              data-has-children={hasSubNav ? "true" : "false"}
-            >
+            <li key={itemId} className={`${styles.dropdownItem} ${hasSubNav ? styles.hasChildren : ''}`}>
               <a
-                href={subLink.href}
+                href={item.href}
+                className={`${styles.dropdownLink} ${item.className || ''}`}
+                role="menuitem"
+                tabIndex={0}
+                aria-haspopup={hasSubNav ? "true" : "false"}
+                aria-expanded={hasSubNav ? isExpanded : undefined}
                 onClick={(e) => {
-                  // Only prevent default if it's a parent item with no actual link
-                  if (hasSubNav && subLink.href === "#") {
+                  if (hasSubNav && isMobile) {
                     e.preventDefault();
+                    toggleMobileDropdown(itemId);
+                  }
+                  if (item.onClick) {
+                    item.onClick(e);
                   }
                 }}
-                title={subLink.label || subLink.title}
-                className={hasSubNav ? "has-submenu" : ""}
-                data-depth={depth}
+                onKeyDown={(e) => handleKeyDown(e, !!hasSubNav, itemId)}
+                title={item.title || item.label}
               >
-                {getLinkContent(subLink)}
+                {renderLinkContent(item)}
                 {hasSubNav && (
-                  <span className={defaultStyle.dropdownIndicator} style={{ color: "white", fontWeight: "bold" }}>
-                    {depth === 1 ? " ▼" : " ▶"}
+                  <span className={`${styles.dropdownIndicator} ${isExpanded ? styles.expanded : ''}`}>
+                    {isMobile ? '▼' : '▶'}
                   </span>
                 )}
               </a>
-              {hasSubNav && renderSubNav(subLink.subNav, depth + 1)}
+              {hasSubNav && renderDropdown(item.subNav!, depth + 1, itemId)}
             </li>
           );
         })}
@@ -84,87 +216,108 @@ const NavLinks: React.FC<NavLinksProps> = ({
     );
   };
 
-  const getLinkContent = (link: NavLinkType) => {
-    if (!link) return null;
-    if (link.svgLogoIcon) {
-      return (
-        <> 
-          <img
-            src={link.svgLogoIcon.src}
-            alt={link.svgLogoIcon.alt}
-            width={link.svgLogoIcon.width ?? 40}
-            height={link.svgLogoIcon.height ?? "auto"}
-            style={link.svgLogoIcon.style ?? { width: "20px", height: "20px" }}
-          />
-          {link.svgLogoIcon.caption && <span>{link.svgLogoIcon.caption}</span>}
-        </>
-      );
+  // Get theme class
+  const getThemeClass = () => {
+    switch (theme) {
+      case 'light':
+        return styles.lightTheme;
+      case 'dark':
+        return styles.darkTheme;
+      case 'auto':
+      default:
+        return styles.autoTheme;
     }
-
-    if (link.emoji) {
-      return <span className={defaultStyle.emoji}>{link.emoji} {link.label}</span>;
-    }
-    if (link.iconLeft) {
-      return (
-        <span>
-          <i className={link.iconLeft}></i> {link.label}
-        </span>
-      );
-    }
-    if (link.iconRight) {
-      return (
-        <span>
-          {link.label} <i className={link.iconRight}></i>
-        </span>
-      );
-    }
-
-    return link.label;
   };
 
   return (
-    <ul
-      className={`${defaultStyle.baseLinks} ${className || ""}`}
-      style={baseLinkStyle}
+    <nav
+      ref={navRef}
+      className={`${styles.navContainer} ${getThemeClass()} ${className}`}
+      aria-label="Main navigation"
+      role="navigation"
     >
-      {links.map((link, index) => {
-        return (
-          <li
-            key={`level-0-${index}`}
-            className={`${
-              link.subNav ? defaultStyle.hasChildren : ""
-            } ${
-              isRightAligned
-                ? defaultStyle.rightAligned
-                : isBottomAligned
-                ? defaultStyle.bottomAligned
-                : isLeftAligned
-                ? defaultStyle.leftAligned
-                : isTopAligned
-                ? defaultStyle.topAligned
-                : ""
-            }`}
+      {/* Skip Navigation Link */}
+      {showSkipNav && (
+        <a href="#main-content" className={styles.skipNav}>
+          Skip to main content
+        </a>
+      )}
+
+      {/* Mobile Header */}
+      {isMobile && enableMobileCollapse && (
+        <div className={styles.mobileHeader}>
+          {/* Brand Logo */}
+          {links.find(link => link.svgLogoIcon) && (
+            <div className={styles.mobileBrand}>
+              {renderLinkContent(links.find(link => link.svgLogoIcon)!)}
+            </div>
+          )}
+          
+          {/* Hamburger Menu Button */}
+          <button
+            className={`${styles.hamburgerBtn} ${mobileMenuOpen ? styles.active : ''}`}
+            onClick={toggleMobileMenu}
+            aria-expanded={mobileMenuOpen}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-controls="main-navigation"
+            type="button"
           >
-            <a
-              href={link.href}
-              onClick={(e) => {
-                // Only prevent default if it's a parent item with no actual link
-                if (link.subNav && link.href === "#") {
-                  e.preventDefault();
-                }
-              }}
-              title={link.label || link.title}
-            >
-              {getLinkContent(link)}
-              {link.subNav && (
-                <span className={defaultStyle.dropdownIndicator}> ▼</span>
-              )}
-            </a>
-            {link.subNav && renderSubNav(link.subNav, 1)}
-          </li>
-        );
-      })}
-    </ul>
+            <span className={styles.hamburgerLine}></span>
+            <span className={styles.hamburgerLine}></span>
+            <span className={styles.hamburgerLine}></span>
+          </button>
+        </div>
+      )}
+
+      {/* Main Navigation */}
+      <ul
+        id="main-navigation"
+        className={`${styles.baseLinks} ${
+          isMobile && enableMobileCollapse ? styles.mobileNav : ''
+        } ${mobileMenuOpen ? styles.mobileOpen : ''}`}
+        style={baseLinkStyle}
+        role="menubar"
+        aria-orientation={isMobile ? "vertical" : "horizontal"}
+      >
+        {links.map((link, index) => {
+          const itemId = `main-${index}`;
+          const hasSubNav = link.subNav && link.subNav.length > 0;
+          const isExpanded = expandedItems.has(itemId);
+
+          return (
+            <li key={itemId} className={`${styles.baseItem} ${hasSubNav ? styles.hasChildren : ''}`}>
+              <a
+                href={link.href}
+                className={`${styles.baseLink} ${link.className || ''}`}
+                role="menuitem"
+                tabIndex={0}
+                aria-haspopup={hasSubNav ? "true" : "false"}
+                aria-expanded={hasSubNav ? isExpanded : undefined}
+                onClick={(e) => {
+                  if (hasSubNav && isMobile) {
+                    e.preventDefault();
+                    toggleMobileDropdown(itemId);
+                  }
+                  if (link.onClick) {
+                    link.onClick(e);
+                  }
+                }}
+                onKeyDown={(e) => handleKeyDown(e, !!hasSubNav, itemId)}
+                title={link.title || link.label}
+              >
+                {renderLinkContent(link)}
+                {hasSubNav && (
+                  <span className={`${styles.dropdownIndicator} ${isExpanded ? styles.expanded : ''}`}>
+                    {isMobile ? '▼' : '▼'}
+                  </span>
+                )}
+              </a>
+              {hasSubNav && renderDropdown(link.subNav!, 1, itemId)}
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 };
 

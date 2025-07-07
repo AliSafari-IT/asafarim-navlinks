@@ -20,7 +20,7 @@ A versatile and feature-rich React component for creating dynamic navigation bar
 - ✅ **SVG/Logo Integration** - Custom logos and SVG icons for brand identity
 - ✅ **TypeScript Support** - Full type definitions included for developer productivity
 - ✅ **Customizable Styling** - Extensive CSS classes and inline style options for perfect UI integration
-- ✅ **Responsive Design** - Works flawlessly on all screen sizes, from mobile to desktop
+- ✅ **Mobile Responsive Design** - Automatic mobile detection with hamburger menu, animated cross icon, and touch-friendly navigation
 - ✅ **Zero Dependencies** - Lightweight and efficient, no external dependencies
 - ✅ **Accessible** - Built with accessibility in mind for all users
 
@@ -212,6 +212,71 @@ const logoLinks: NavLinkType[] = [
 <NavLinks links={logoLinks} />
 ```
 
+### Mobile Responsive Navigation
+
+```tsx
+// Automatic mobile detection and responsive behavior
+<NavLinks 
+  links={mobileNavLinks}
+  baseLinkStyle={{ 
+    display: 'flex',
+    flexWrap: 'wrap' // Allows wrapping on smaller screens
+  }}
+/>
+
+// With collapsible mobile menu (hamburger menu)
+<NavLinks 
+  links={mobileNavLinks}
+  enableMobileCollapse={true}
+/>
+
+// Force mobile behavior for testing
+<NavLinks 
+  links={mobileNavLinks}
+  isMobile={true}
+  enableMobileCollapse={true}
+/>
+```
+
+#### Mobile Features:
+- **Automatic Detection**: Responsive breakpoint at 768px with automatic hamburger menu
+- **Smart Behavior**: Hamburger menu appears automatically on mobile devices
+- **Animated Cross Icon**: Professional hamburger-to-cross animation when menu opens
+- **Touch-Friendly**: Larger touch targets and proper spacing
+- **Collapsible Menu**: Hamburger menu automatically enabled on mobile screens
+- **Vertical Stacking**: Navigation items stack vertically on mobile
+- **Simplified Dropdowns**: Dropdowns appear below instead of to the side
+
+### Mobile Responsive Examples
+
+#### Automatic Mobile Detection (Recommended)
+```tsx
+// Automatically shows hamburger menu on mobile devices
+<NavLinks 
+  links={mobileNavLinks}
+  baseLinkStyle={{ 
+    display: 'flex',
+    gap: '20px' // Adjusts automatically for mobile
+  }}
+/>
+```
+
+#### Manual Mobile Control
+```tsx
+// Force mobile behavior for testing
+<NavLinks 
+  links={mobileNavLinks}
+  isMobile={true}
+  enableMobileCollapse={true}
+/>
+
+// Disable mobile collapse even on mobile
+<NavLinks 
+  links={mobileNavLinks}
+  enableMobileCollapse={false}
+/>
+```
+
 ## 📝 Component Props
 
 ### NavLinks Component
@@ -226,6 +291,8 @@ const logoLinks: NavLinkType[] = [
 | `isLeftAligned` | `boolean` | `false` | Left-align the dropdown menus (nested dropdowns appear to the left) |
 | `isBottomAligned` | `boolean` | `false` | Position dropdowns below their parent items (default behavior) |
 | `isTopAligned` | `boolean` | `false` | Position dropdowns above their parent items |
+| `isMobile` | `boolean` | `false` | Force mobile behavior regardless of screen size |
+| `enableMobileCollapse` | `boolean` | `false` | Enable collapsible hamburger menu on mobile. **Note:** Hamburger menu automatically appears on mobile devices (≤768px) regardless of this setting |
 
 ### NavLinkType Interface
 

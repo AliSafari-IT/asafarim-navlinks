@@ -1,17 +1,18 @@
 {
   "name": "asafarim-navlinks",
-  "version": "3.2.1",
+  "version": "3.3.0",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./d                                                                                                                                                      ist/index.d.ts"
     }
   },
   "scripts": {
-    "build": "tsc && pnpm run copy-css",
+    "build": "tsc && pnpm run copy-css",    
+    "build:watch": "pnpm run copy-css && tsc --watch",
     "copy-css": "copyfiles -u 1 src/**/*.css dist && cp src/*.css dist/src/",
     "buildTSC": "tsc",
     "buildTS": "tsup index.ts --format cjs,esm --dts",
@@ -32,7 +33,13 @@
     "typescript",
     "navigation",
     "nodejs",
-    "pnpm"
+    "pnpm",
+    "mobile",
+    "responsive",
+    "hamburger-menu",
+    "touch-friendly",
+    "dropdown",
+    "multi-level"
   ],
   "author": "Ali Safari",
   "repository": {
@@ -40,7 +47,7 @@
     "url": "https://github.com/AliSafari-IT/asafarim-navlinks.git"
   },
   "license": "MIT",
-  "description": "",
+  "description": "A versatile React navigation component with unlimited multi-level dropdowns, four alignment options, mobile responsiveness, and customizable styling. Perfect for modern web applications.",
   "dependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
