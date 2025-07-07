@@ -110,6 +110,8 @@
 }
 
 .navList li {
+        list-style-type: none;
+
   position: relative;
   margin: 0;
 }
@@ -332,6 +334,7 @@ li.expanded > .navButton .arrow {
 
   .navList.mobileNav li {
     width: 100%;
+    list-style-type: none;
     border-bottom: 1px solid var(--nav-border);
   }
 

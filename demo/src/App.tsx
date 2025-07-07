@@ -343,23 +343,6 @@ const basicLinks = [
       </div>
 
       <div className="demo-section">
-        <h2 className="demo-title">📱 Mobile Preview</h2>
-        <p className="demo-description">
-          Mobile-responsive navigation with hamburger menu
-        </p>
-        <div className="mobile-demo">
-          <MobileFrame 
-            links={comprehensiveLinks}
-            baseLinkStyle={{
-              backgroundColor: '#2c3e50',
-              color: 'white',
-              padding: '10px',
-            }}
-          />
-        </div>
-      </div>
-
-      <div className="demo-section">
         <h2 className="demo-title">📚 API Reference</h2>
         <div className="api-table">
           <table>
