@@ -1,13 +1,13 @@
 {
   "name": "asafarim-navlinks",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./d                                                                                                                                                      ist/index.d.ts"
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {

@@ -52,11 +52,11 @@ const App: React.FC = () => {
   ];
 
   const comprehensiveLinks: NavLinkType[] = [
-    { 
-      label: 'ASafariM', 
-      href: '#home', 
+    {
+      label: 'ASafariM',
+      href: '#home',
       emoji: '🏠',
-      svgLogoIcon: { src: '/assets/logoT.svg', alt: 'ASafariM Logo' }
+      svgLogoIcon: { src: '/assets/logoT.svg', alt: 'ASafariM Logo' },
     },
     {
       label: 'Products',
@@ -81,9 +81,17 @@ const App: React.FC = () => {
                   label: 'AI Tools',
                   emoji: '🎯',
                   subNav: [
-                    { label: 'Natural Language Processing', href: '#nlp', emoji: '💬' },
+                    {
+                      label: 'Natural Language Processing',
+                      href: '#nlp',
+                      emoji: '💬',
+                    },
                     { label: 'Computer Vision', href: '#cv', emoji: '👁️' },
-                    { label: 'Recommendation Systems', href: '#recsys', emoji: '🎯' },
+                    {
+                      label: 'Recommendation Systems',
+                      href: '#recsys',
+                      emoji: '🎯',
+                    },
                   ],
                 },
               ],
@@ -127,11 +135,13 @@ const App: React.FC = () => {
       <div className="demo-header">
         <h1 className="demo-main-title">ASafariM NavLinks</h1>
         <p className="demo-subtitle">
-          A modern, accessible, and feature-rich navigation component for React applications
+          A modern, accessible, and feature-rich navigation component for React
+          applications
         </p>
         <div className="theme-toggle">
           <button onClick={toggleTheme} className="theme-btn">
-            {theme === 'light' ? '🌙' : theme === 'dark' ? '☀️' : '🌓'} {theme.charAt(0).toUpperCase() + theme.slice(1)} Theme
+            {theme === 'light' ? '🌙' : theme === 'dark' ? '☀️' : '🌓'}{' '}
+            {theme.charAt(0).toUpperCase() + theme.slice(1)} Theme
           </button>
         </div>
       </div>
@@ -142,50 +152,70 @@ const App: React.FC = () => {
           <div className="feature-card">
             <div className="feature-icon">🎨</div>
             <h3 className="feature-title">Theme Support</h3>
-            <p className="feature-description">Built-in light, dark, and auto themes with system preference detection</p>
+            <p className="feature-description">
+              Built-in light, dark, and auto themes with system preference
+              detection
+            </p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">📱</div>
             <h3 className="feature-title">Mobile Responsive</h3>
-            <p className="feature-description">Automatically adapts to mobile screens with touch-friendly hamburger menu</p>
+            <p className="feature-description">
+              Automatically adapts to mobile screens with touch-friendly
+              hamburger menu
+            </p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">🌳</div>
             <h3 className="feature-title">Nested Menus</h3>
-            <p className="feature-description">Unlimited nesting levels with smooth animations and positioning</p>
+            <p className="feature-description">
+              Unlimited nesting levels with smooth animations and positioning
+            </p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">♿</div>
             <h3 className="feature-title">Accessibility</h3>
-            <p className="feature-description">WCAG compliant with keyboard navigation and screen reader support</p>
+            <p className="feature-description">
+              WCAG compliant with keyboard navigation and screen reader support
+            </p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">🎯</div>
             <h3 className="feature-title">Flexible Alignment</h3>
-            <p className="feature-description">Left, right, top, bottom alignment options for dropdowns</p>
+            <p className="feature-description">
+              Left, right, top, bottom alignment options for dropdowns
+            </p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">🚀</div>
             <h3 className="feature-title">TypeScript Ready</h3>
-            <p className="feature-description">Full TypeScript support with comprehensive type definitions</p>
+            <p className="feature-description">
+              Full TypeScript support with comprehensive type definitions
+            </p>
           </div>
         </div>
       </div>
 
       <div className="demo-section">
         <h2 className="demo-title">🔧 Basic Usage</h2>
-        <p className="demo-description">
-          Simple navigation with basic links
-        </p>
+        <div className="demo-flex">
+          <p className="demo-description">Simple navigation with basic links</p>
+          <div className="theme-toggle">
+            <button onClick={toggleTheme} className="theme-btn">
+              {theme === 'light' ? '🌙' : theme === 'dark' ? '☀️' : '🌓'}{' '}
+              {theme.charAt(0).toUpperCase() + theme.slice(1)} Theme
+            </button>
+          </div>
+        </div>
         <div className="nav-demo">
-          <NavLinks 
-            links={basicLinks} 
+          <NavLinks
+            links={basicLinks}
             theme={theme}
             enableMobileCollapse={true}
             isDemoContext={true}
           />
         </div>
-        <CodeBlock 
+        <CodeBlock
           code={`import NavLinks from 'asafarim-navlinks';
 
 const basicLinks = [
@@ -202,18 +232,24 @@ const basicLinks = [
 
       <div className="demo-section">
         <h2 className="demo-title">🎨 With Icons & Emojis</h2>
-        <p className="demo-description">
-          Navigation with icons and emojis for better visual appeal
-        </p>
+        <div className="demo-flex">
+          <p className="demo-description">
+            Navigation with icons and emojis for better visual appeal
+          </p>
+          <button onClick={toggleTheme} className="theme-btn">
+            {theme === 'light' ? '🌙' : theme === 'dark' ? '☀️' : '🌓'}{' '}
+            {theme.charAt(0).toUpperCase() + theme.slice(1)} Theme
+          </button>
+        </div>
         <div className="nav-demo">
-          <NavLinks 
-            links={linksWithIcons} 
+          <NavLinks
+            links={linksWithIcons}
             theme={theme}
             enableMobileCollapse={true}
             isDemoContext={true}
           />
         </div>
-        <CodeBlock 
+        <CodeBlock
           code={`const linksWithIcons = [
   { label: 'Dashboard', href: '#dashboard', emoji: '🏠' },
   { label: 'Profile', href: '#profile', emoji: '👤' },
@@ -228,18 +264,25 @@ const basicLinks = [
 
       <div className="demo-section">
         <h2 className="demo-title">🌳 Nested Dropdowns</h2>
-        <p className="demo-description">
-          Multi-level navigation with nested dropdowns
-        </p>
+
+        <div className="demo-flex">
+          <p className="demo-description">
+            Complex navigation structure with multiple levels
+          </p>
+          <button onClick={toggleTheme} className="theme-btn">
+            {theme === 'light' ? '🌙' : theme === 'dark' ? '☀️' : '🌓'}{' '}
+            {theme.charAt(0).toUpperCase() + theme.slice(1)} Theme
+          </button>
+        </div>
         <div className="nav-demo">
-          <NavLinks 
-            links={nestedLinks} 
+          <NavLinks
+            links={nestedLinks}
             theme={theme}
             enableMobileCollapse={true}
             isDemoContext={true}
           />
         </div>
-        <CodeBlock 
+        <CodeBlock
           code={`const nestedLinks = [
   { label: 'Home', href: '#home' },
   {
@@ -272,12 +315,19 @@ const basicLinks = [
 
       <div className="demo-section">
         <h2 className="demo-title">🚀 Comprehensive Example</h2>
-        <p className="demo-description">
-          Full-featured navigation with icons, SVG logos, and deep nesting
-        </p>
+
+        <div className="demo-flex">
+          <p className="demo-description">
+            Full-featured navigation with icons, SVG logos, and deep nesting
+          </p>
+          <button onClick={toggleTheme} className="theme-btn">
+            {theme === 'light' ? '🌙' : theme === 'dark' ? '☀️' : '🌓'}{' '}
+            {theme.charAt(0).toUpperCase() + theme.slice(1)} Theme
+          </button>
+        </div>
         <div className="nav-demo comprehensive">
-          <NavLinks 
-            links={comprehensiveLinks} 
+          <NavLinks
+            links={comprehensiveLinks}
             theme={theme}
             enableMobileCollapse={true}
             isDemoContext={true}
@@ -287,15 +337,21 @@ const basicLinks = [
 
       <div className="demo-section">
         <h2 className="demo-title">🎯 Alignment Options</h2>
-        <p className="demo-description">
-          Different alignment options for dropdown positioning
-        </p>
+        <div className="demo-flex">
+          <p className="demo-description">
+            Different alignment options for dropdown positioning
+          </p>
+          <button onClick={toggleTheme} className="theme-btn">
+            {theme === 'light' ? '🌙' : theme === 'dark' ? '☀️' : '🌓'}{' '}
+            {theme.charAt(0).toUpperCase() + theme.slice(1)} Theme
+          </button>
+        </div>
         <div className="alignment-demos">
           <div className="alignment-demo">
             <h3>Left Aligned</h3>
             <div className="nav-demo">
-              <NavLinks 
-                links={nestedLinks} 
+              <NavLinks
+                links={nestedLinks}
                 theme={theme}
                 isLeftAligned={true}
                 enableMobileCollapse={true}
@@ -306,8 +362,8 @@ const basicLinks = [
           <div className="alignment-demo">
             <h3>Right Aligned</h3>
             <div className="nav-demo">
-              <NavLinks 
-                links={nestedLinks} 
+              <NavLinks
+                links={nestedLinks}
                 theme={theme}
                 isRightAligned={true}
                 enableMobileCollapse={true}
@@ -318,8 +374,8 @@ const basicLinks = [
           <div className="alignment-demo">
             <h3>Top Aligned</h3>
             <div className="nav-demo">
-              <NavLinks 
-                links={nestedLinks} 
+              <NavLinks
+                links={nestedLinks}
                 theme={theme}
                 isTopAligned={true}
                 enableMobileCollapse={true}
@@ -330,8 +386,8 @@ const basicLinks = [
           <div className="alignment-demo">
             <h3>Bottom Aligned (Default)</h3>
             <div className="nav-demo">
-              <NavLinks 
-                links={nestedLinks} 
+              <NavLinks
+                links={nestedLinks}
                 theme={theme}
                 isBottomAligned={true}
                 enableMobileCollapse={true}
@@ -356,69 +412,133 @@ const basicLinks = [
             </thead>
             <tbody>
               <tr>
-                <td><code>links</code></td>
-                <td><code>NavLinkType[]</code></td>
+                <td>
+                  <code>links</code>
+                </td>
+                <td>
+                  <code>NavLinkType[]</code>
+                </td>
                 <td>-</td>
                 <td>Array of navigation links</td>
               </tr>
               <tr>
-                <td><code>theme</code></td>
-                <td><code>'light' | 'dark' | 'auto'</code></td>
-                <td><code>'auto'</code></td>
+                <td>
+                  <code>theme</code>
+                </td>
+                <td>
+                  <code>'light' | 'dark' | 'auto'</code>
+                </td>
+                <td>
+                  <code>'auto'</code>
+                </td>
                 <td>Theme mode</td>
               </tr>
               <tr>
-                <td><code>enableMobileCollapse</code></td>
-                <td><code>boolean</code></td>
-                <td><code>true</code></td>
+                <td>
+                  <code>enableMobileCollapse</code>
+                </td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  <code>true</code>
+                </td>
                 <td>Enable mobile hamburger menu</td>
               </tr>
               <tr>
-                <td><code>isRightAligned</code></td>
-                <td><code>boolean</code></td>
-                <td><code>false</code></td>
+                <td>
+                  <code>isRightAligned</code>
+                </td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  <code>false</code>
+                </td>
                 <td>Right-align dropdowns</td>
               </tr>
               <tr>
-                <td><code>isLeftAligned</code></td>
-                <td><code>boolean</code></td>
-                <td><code>false</code></td>
+                <td>
+                  <code>isLeftAligned</code>
+                </td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  <code>false</code>
+                </td>
                 <td>Left-align dropdowns</td>
               </tr>
               <tr>
-                <td><code>isTopAligned</code></td>
-                <td><code>boolean</code></td>
-                <td><code>false</code></td>
+                <td>
+                  <code>isTopAligned</code>
+                </td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  <code>false</code>
+                </td>
                 <td>Top-align dropdowns</td>
               </tr>
               <tr>
-                <td><code>isBottomAligned</code></td>
-                <td><code>boolean</code></td>
-                <td><code>false</code></td>
+                <td>
+                  <code>isBottomAligned</code>
+                </td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  <code>false</code>
+                </td>
                 <td>Bottom-align dropdowns</td>
               </tr>
               <tr>
-                <td><code>baseLinkStyle</code></td>
-                <td><code>React.CSSProperties</code></td>
-                <td><code>undefined</code></td>
+                <td>
+                  <code>baseLinkStyle</code>
+                </td>
+                <td>
+                  <code>React.CSSProperties</code>
+                </td>
+                <td>
+                  <code>undefined</code>
+                </td>
                 <td>Custom styles for base links</td>
               </tr>
               <tr>
-                <td><code>subLinkStyle</code></td>
-                <td><code>React.CSSProperties</code></td>
-                <td><code>undefined</code></td>
+                <td>
+                  <code>subLinkStyle</code>
+                </td>
+                <td>
+                  <code>React.CSSProperties</code>
+                </td>
+                <td>
+                  <code>undefined</code>
+                </td>
                 <td>Custom styles for sub links</td>
               </tr>
               <tr>
-                <td><code>className</code></td>
-                <td><code>string</code></td>
-                <td><code>''</code></td>
+                <td>
+                  <code>className</code>
+                </td>
+                <td>
+                  <code>string</code>
+                </td>
+                <td>
+                  <code>''</code>
+                </td>
                 <td>Additional CSS classes</td>
               </tr>
               <tr>
-                <td><code>showSkipNav</code></td>
-                <td><code>boolean</code></td>
-                <td><code>false</code></td>
+                <td>
+                  <code>showSkipNav</code>
+                </td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  <code>false</code>
+                </td>
                 <td>Show skip navigation link</td>
               </tr>
             </tbody>
@@ -433,9 +553,24 @@ const basicLinks = [
             <p>A modern, accessible navigation component for React</p>
           </div>
           <div className="footer-links">
-            <a href="https://alisafari-it.github.io/asafarim-navlinks/" target='_blank'>Documentation</a>
-            <a href="https://github.com/AliSafari-IT/asafarim-navlinks" target='_blank'>GitHub</a>
-            <a href="https://www.npmjs.com/package/asafarim-navlinks" target='_blank'>NPM</a>
+            <a
+              href="https://alisafari-it.github.io/asafarim-navlinks/"
+              target="_blank"
+            >
+              Documentation
+            </a>
+            <a
+              href="https://github.com/AliSafari-IT/asafarim-navlinks"
+              target="_blank"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://www.npmjs.com/package/asafarim-navlinks"
+              target="_blank"
+            >
+              NPM
+            </a>
           </div>
         </div>
       </div>

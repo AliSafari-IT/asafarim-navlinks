@@ -33,7 +33,7 @@ A versatile and feature-rich React component for creating dynamic navigation bar
 pnpm run demo
 ```
 
-![Simple Navigation Links](./img/1-Simple-navigation-links.png)
+![Simple Navigation with Basic Links](./img/simple-navigation-with-basic-links.png)
 
 ### 🔍 Demo Highlights
 
@@ -43,11 +43,11 @@ pnpm run demo
 - **Code Samples**: Ready-to-use code snippets for each feature
 - **Visual Guide**: Clear visualization of all component capabilities
 
-![Dropdowns with Nested Submenus](./img/2-dropdowns-with-nested-submenus.png)
+![Complex Navigation Structure with Multiple Levels](./img/complex-navigation-structure-with-multiple-levels.png)
 
 *Multi-level dropdown menus with unlimited nesting support*
 
-![NavLinks Alignment Options](./img/3-NavLinks-supports-alignment-options.png)
+![Different Alignment Options for Dropdown Positioning](./img/different-alignment-options-for-dropdown-positioning.png)
 
 *Four different alignment options for dropdown positioning*
 

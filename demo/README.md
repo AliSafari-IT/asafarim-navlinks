@@ -2,13 +2,13 @@
 
 This is a comprehensive demo application showcasing all the features of the `asafarim-navlinks` package. The demo provides real-world examples of navigation implementation including multi-level dropdowns that open on hover, custom styling, and various navigation patterns.
 
-![Simple Navigation Links](../img/1-Simple-navigation-links.png)
+![Simple Navigation with Basic Links](../img/simple-navigation-with-basic-links.png)
 
-![Dropdowns with Nested Submenus](../img/2-dropdowns-with-nested-submenus.png)
+![Complex Navigation Structure with Multiple Levels](../img/complex-navigation-structure-with-multiple-levels.png)
 
 *Experience unlimited multi-level dropdown menus in action*
 
-![All Alignment Options](../img/3-NavLinks-supports-alignment-options.png)
+![Different Alignment Options for Dropdown Positioning](../img/different-alignment-options-for-dropdown-positioning.png)
 
 *Four different alignment options for flexible dropdown positioning*
 
