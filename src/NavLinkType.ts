@@ -2,7 +2,7 @@ import { SvgLinkType } from "./SvgLinkType";
 
 export type NavLinkType = {
   label?: string;
-  href: string;
+  href?: string; // Optional - dropdown parents don't need href
   svgLogoIcon?: SvgLinkType;
   title?: string;
   iconLeft?: string;

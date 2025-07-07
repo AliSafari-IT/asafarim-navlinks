@@ -1,69 +1,72 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState, useEffect, useRef } from "react";
-import styles from "./NavbarLinks.module.css";
-const NavLinks = ({ links, theme = 'auto', className = '', baseLinkStyle, subLinkStyle, isRightAligned = false, isBottomAligned = false, isLeftAligned = false, isTopAligned = false, enableMobileCollapse = true, showSkipNav = false, }) => {
+import { useState, useEffect, useRef } from 'react';
+import styles from './NavbarLinks.module.css';
+const NavLinks = ({ links, theme = 'auto', className = '', baseLinkStyle, subLinkStyle, isRightAligned = false, isLeftAligned = false, isTopAligned = false, isBottomAligned = false, enableMobileCollapse = true, showSkipNav = false, isDemoContext = false }) => {
+    // State hooks
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [expandedItems, setExpandedItems] = useState(new Set());
+    const [expandedItems, setExpandedItems] = useState([]);
     const [isMobile, setIsMobile] = useState(false);
     const navRef = useRef(null);
-    // Mobile detection
+    // Detect mobile devices
     useEffect(() => {
-        const checkMobile = () => {
+        const handleResize = () => {
             setIsMobile(window.innerWidth <= 768);
         };
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
-    // Close mobile menu when clicking outside
+    // Close menu when clicking outside
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (navRef.current && !navRef.current.contains(event.target)) {
+        if (!mobileMenuOpen)
+            return;
+        const handleOutsideClick = (e) => {
+            if (navRef.current && !navRef.current.contains(e.target)) {
                 setMobileMenuOpen(false);
-                setExpandedItems(new Set());
+                setExpandedItems([]);
             }
         };
-        if (mobileMenuOpen) {
-            document.addEventListener('mousedown', handleClickOutside);
-            return () => document.removeEventListener('mousedown', handleClickOutside);
-        }
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => document.removeEventListener('mousedown', handleOutsideClick);
     }, [mobileMenuOpen]);
     // Toggle mobile menu
     const toggleMobileMenu = () => {
-        setMobileMenuOpen(!mobileMenuOpen);
+        setMobileMenuOpen(prev => !prev);
         if (mobileMenuOpen) {
-            setExpandedItems(new Set());
+            setExpandedItems([]);
         }
     };
-    // Toggle mobile dropdown
-    const toggleMobileDropdown = (itemId) => {
-        const newExpanded = new Set(expandedItems);
-        if (newExpanded.has(itemId)) {
-            newExpanded.delete(itemId);
-        }
-        else {
-            newExpanded.add(itemId);
-        }
-        setExpandedItems(newExpanded);
+    // Toggle dropdown
+    const toggleDropdown = (id, event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        // On desktop, only toggle with keyboard, not mouse
+        if (!isMobile && event.type === 'click')
+            return;
+        setExpandedItems(prev => {
+            if (prev.includes(id)) {
+                return prev.filter(item => item !== id);
+            }
+            else {
+                return [...prev, id];
+            }
+        });
     };
     // Handle keyboard navigation
-    const handleKeyDown = (e, hasSubNav, itemId) => {
+    const handleKeyDown = (e, hasChildren, id) => {
         if (e.key === 'Escape') {
             setMobileMenuOpen(false);
-            setExpandedItems(new Set());
+            setExpandedItems([]);
             return;
         }
-        if (hasSubNav && (e.key === 'Enter' || e.key === ' ')) {
-            e.preventDefault();
-            if (isMobile) {
-                toggleMobileDropdown(itemId);
-            }
+        if (hasChildren && (e.key === 'Enter' || e.key === ' ')) {
+            toggleDropdown(id, e);
         }
     };
-    // Render link content
+    // Render link content (icons, labels, etc.)
     const renderLinkContent = (link) => {
         const content = [];
-        // SVG Logo
+        // Logo image
         if (link.svgLogoIcon) {
             content.push(_jsx("img", { src: link.svgLogoIcon.src, alt: link.svgLogoIcon.alt, width: link.svgLogoIcon.width ?? 24, height: link.svgLogoIcon.height ?? 24, style: link.svgLogoIcon.style, className: styles.logoIcon }, "logo"));
             if (link.svgLogoIcon.caption) {
@@ -75,66 +78,70 @@ const NavLinks = ({ links, theme = 'auto', className = '', baseLinkStyle, subLin
         if (link.emoji) {
             content.push(_jsx("span", { className: styles.emoji, children: link.emoji }, "emoji"));
         }
-        // Left Icon
+        // Left icon
         if (link.iconLeft) {
-            content.push(_jsx("i", { className: `${link.iconLeft} ${styles.iconLeft}` }, "icon-left"));
+            content.push(_jsx("i", { className: `${link.iconLeft} ${styles.iconLeft}` }, "left-icon"));
         }
         // Label
-        content.push(_jsx("span", { className: styles.label, children: link.label }, "label"));
-        // Right Icon
+        if (link.label) {
+            content.push(_jsx("span", { className: styles.label, children: link.label }, "label"));
+        }
+        // Right icon
         if (link.iconRight) {
-            content.push(_jsx("i", { className: `${link.iconRight} ${styles.iconRight}` }, "icon-right"));
+            content.push(_jsx("i", { className: `${link.iconRight} ${styles.iconRight}` }, "right-icon"));
         }
         return content;
     };
-    // Render dropdown menu
-    const renderDropdown = (subNav, depth = 1, parentId = '') => {
-        if (!subNav || subNav.length === 0)
-            return null;
-        const alignmentClass = isRightAligned ? styles.rightAligned :
-            isLeftAligned ? styles.leftAligned :
-                isTopAligned ? styles.topAligned :
-                    isBottomAligned ? styles.bottomAligned : '';
-        return (_jsx("ul", { className: `${styles.dropdown} ${alignmentClass} ${isMobile && expandedItems.has(parentId) ? styles.mobileOpen : ''}`, style: subLinkStyle, role: "menu", "aria-orientation": isMobile ? "vertical" : "horizontal", children: subNav.map((item, index) => {
-                const itemId = `${parentId}-${depth}-${index}`;
-                const hasSubNav = item.subNav && item.subNav.length > 0;
-                const isExpanded = expandedItems.has(itemId);
-                return (_jsxs("li", { className: `${styles.dropdownItem} ${hasSubNav ? styles.hasChildren : ''}`, children: [_jsxs("a", { href: item.href, className: `${styles.dropdownLink} ${item.className || ''}`, role: "menuitem", tabIndex: 0, "aria-haspopup": hasSubNav ? "true" : "false", "aria-expanded": hasSubNav ? isExpanded : undefined, onClick: (e) => {
-                                if (hasSubNav && isMobile) {
-                                    e.preventDefault();
-                                    toggleMobileDropdown(itemId);
-                                }
-                                if (item.onClick) {
-                                    item.onClick(e);
-                                }
-                            }, onKeyDown: (e) => handleKeyDown(e, !!hasSubNav, itemId), title: item.title || item.label, children: [renderLinkContent(item), hasSubNav && (_jsx("span", { className: `${styles.dropdownIndicator} ${isExpanded ? styles.expanded : ''}`, children: isMobile ? '▼' : '▶' }))] }), hasSubNav && renderDropdown(item.subNav, depth + 1, itemId)] }, itemId));
-            }) }));
+    // NavItem component to render either a button (for dropdown parents) or anchor (for links)
+    const NavItem = ({ link, id, depth = 0 }) => {
+        const hasChildren = Boolean(link.subNav?.length);
+        const isExpanded = expandedItems.includes(id);
+        const isDropdownParent = hasChildren && !link.href;
+        // Button for dropdown parents without href
+        if (isDropdownParent) {
+            return (_jsxs("button", { className: `${styles.navButton} ${link.className || ''}`, onClick: (e) => toggleDropdown(id, e), onKeyDown: (e) => handleKeyDown(e, true, id), "aria-haspopup": "true", "aria-expanded": isExpanded, type: "button", children: [renderLinkContent(link), _jsx("span", { className: `${styles.arrow} ${isExpanded ? styles.expanded : ''}`, children: depth > 0 ? '►' : '▼' })] }));
+        }
+        // Regular link
+        return (_jsxs("a", { href: link.href || '#', className: link.className || '', onClick: (e) => {
+                if (hasChildren) {
+                    toggleDropdown(id, e);
+                }
+                link.onClick?.(e);
+            }, onKeyDown: (e) => handleKeyDown(e, hasChildren, id), "aria-haspopup": hasChildren ? "true" : undefined, "aria-expanded": hasChildren ? isExpanded : undefined, title: link.title || link.label || '', children: [renderLinkContent(link), hasChildren && (_jsx("span", { className: `${styles.arrow} ${isExpanded ? styles.expanded : ''}`, children: depth > 0 ? '►' : '▼' }))] }));
+    };
+    // Recursive component to render menu items
+    const MenuItems = ({ items, depth = 0, parent = '' }) => {
+        return items.map((item, index) => {
+            const id = parent ? `${parent}-${index}` : `item-${index}`;
+            const hasChildren = Boolean(item.subNav?.length);
+            const isExpanded = expandedItems.includes(id);
+            return (_jsxs("li", { className: `${hasChildren ? styles.hasChildren : ''} ${isExpanded ? styles.expanded : ''}`, children: [_jsx(NavItem, { link: item, id: id, depth: depth }), hasChildren && item.subNav && (_jsx("ul", { className: `
+                ${styles.dropdown} 
+                ${isExpanded ? styles.expanded : ''}
+                ${!isMobile ? (isRightAligned ? styles.rightAligned :
+                            isLeftAligned ? styles.leftAligned :
+                                isTopAligned ? styles.topAligned :
+                                    isBottomAligned ? styles.bottomAligned : '') : ''}
+              `, style: depth > 0 && !isMobile ? subLinkStyle : undefined, children: _jsx(MenuItems, { items: item.subNav, depth: depth + 1, parent: id }) }))] }, id));
+        });
     };
     // Get theme class
     const getThemeClass = () => {
         switch (theme) {
-            case 'light':
-                return styles.lightTheme;
-            case 'dark':
-                return styles.darkTheme;
-            case 'auto':
-            default:
-                return styles.autoTheme;
+            case 'light': return styles.lightTheme;
+            case 'dark': return styles.darkTheme;
+            default: return styles.autoTheme;
         }
     };
-    return (_jsxs("nav", { ref: navRef, className: `${styles.navContainer} ${getThemeClass()} ${className}`, "aria-label": "Main navigation", role: "navigation", children: [showSkipNav && (_jsx("a", { href: "#main-content", className: styles.skipNav, children: "Skip to main content" })), isMobile && enableMobileCollapse && (_jsxs("div", { className: styles.mobileHeader, children: [links.find(link => link.svgLogoIcon) && (_jsx("div", { className: styles.mobileBrand, children: renderLinkContent(links.find(link => link.svgLogoIcon)) })), _jsxs("button", { className: `${styles.hamburgerBtn} ${mobileMenuOpen ? styles.active : ''}`, onClick: toggleMobileMenu, "aria-expanded": mobileMenuOpen, "aria-label": mobileMenuOpen ? "Close menu" : "Open menu", "aria-controls": "main-navigation", type: "button", children: [_jsx("span", { className: styles.hamburgerLine }), _jsx("span", { className: styles.hamburgerLine }), _jsx("span", { className: styles.hamburgerLine })] })] })), _jsx("ul", { id: "main-navigation", className: `${styles.baseLinks} ${isMobile && enableMobileCollapse ? styles.mobileNav : ''} ${mobileMenuOpen ? styles.mobileOpen : ''}`, style: baseLinkStyle, role: "menubar", "aria-orientation": isMobile ? "vertical" : "horizontal", children: links.map((link, index) => {
-                    const itemId = `main-${index}`;
-                    const hasSubNav = link.subNav && link.subNav.length > 0;
-                    const isExpanded = expandedItems.has(itemId);
-                    return (_jsxs("li", { className: `${styles.baseItem} ${hasSubNav ? styles.hasChildren : ''}`, children: [_jsxs("a", { href: link.href, className: `${styles.baseLink} ${link.className || ''}`, role: "menuitem", tabIndex: 0, "aria-haspopup": hasSubNav ? "true" : "false", "aria-expanded": hasSubNav ? isExpanded : undefined, onClick: (e) => {
-                                    if (hasSubNav && isMobile) {
-                                        e.preventDefault();
-                                        toggleMobileDropdown(itemId);
-                                    }
-                                    if (link.onClick) {
-                                        link.onClick(e);
-                                    }
-                                }, onKeyDown: (e) => handleKeyDown(e, !!hasSubNav, itemId), title: link.title || link.label, children: [renderLinkContent(link), hasSubNav && (_jsx("span", { className: `${styles.dropdownIndicator} ${isExpanded ? styles.expanded : ''}`, children: isMobile ? '▼' : '▼' }))] }), hasSubNav && renderDropdown(link.subNav, 1, itemId)] }, itemId));
-                }) })] }));
+    return (_jsxs("nav", { ref: navRef, className: `
+        ${styles.navContainer} 
+        ${getThemeClass()} 
+        ${isDemoContext ? styles.demoContext : ''}
+        ${className}
+      `, "aria-label": "Main navigation", children: [showSkipNav && (_jsx("a", { href: "#main-content", className: styles.skipNav, children: "Skip to main content" })), isMobile && enableMobileCollapse && (_jsxs("div", { className: styles.mobileHeader, children: [links.find(link => link.svgLogoIcon) && (_jsx("div", { className: styles.mobileBrand, children: renderLinkContent(links.find(link => link.svgLogoIcon)) })), _jsxs("button", { className: `${styles.hamburger} ${mobileMenuOpen ? styles.active : ''}`, onClick: toggleMobileMenu, "aria-expanded": mobileMenuOpen, "aria-label": mobileMenuOpen ? "Close menu" : "Open menu", type: "button", children: [_jsx("span", { className: styles.hamburgerLine }), _jsx("span", { className: styles.hamburgerLine }), _jsx("span", { className: styles.hamburgerLine })] })] })), _jsx("ul", { className: `
+          ${styles.navList} 
+          ${isMobile && enableMobileCollapse ? styles.mobileNav : ''} 
+          ${mobileMenuOpen ? styles.mobileOpen : ''}
+        `, style: baseLinkStyle, role: "menubar", children: _jsx(MenuItems, { items: links }) })] }));
 };
 export default NavLinks;

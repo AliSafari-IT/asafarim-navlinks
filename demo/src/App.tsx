@@ -26,20 +26,17 @@ const App: React.FC = () => {
   const nestedLinks: NavLinkType[] = [
     { label: 'Home', href: '#home' },
     {
-      label: 'Products',
-      href: '#products',
+      label: 'Products', // No href - this is a dropdown parent
       subNav: [
         { label: 'Electronics', href: '#electronics' },
         { label: 'Clothing', href: '#clothing' },
         {
-          label: 'Books',
-          href: '#books',
+          label: 'Books', // No href - this is a dropdown parent
           subNav: [
             { label: 'Fiction', href: '#fiction' },
             { label: 'Non-Fiction', href: '#non-fiction' },
             {
-              label: 'Technical',
-              href: '#technical',
+              label: 'Technical', // No href - this is a dropdown parent
               subNav: [
                 { label: 'Programming', href: '#programming' },
                 { label: 'Design', href: '#design' },
@@ -63,21 +60,18 @@ const App: React.FC = () => {
     },
     {
       label: 'Products',
-      href: '#products',
       emoji: '🛍️',
       subNav: [
         { label: 'Web Development', href: '#web-dev', emoji: '🌐' },
         { label: 'Mobile Apps', href: '#mobile', emoji: '📱' },
         {
           label: 'Enterprise Solutions',
-          href: '#enterprise',
           emoji: '🏢',
           subNav: [
             { label: 'ERP Systems', href: '#erp', emoji: '📊' },
             { label: 'CRM Solutions', href: '#crm', emoji: '👥' },
             {
               label: 'Analytics',
-              href: '#analytics',
               emoji: '📈',
               subNav: [
                 { label: 'Business Intelligence', href: '#bi', emoji: '🧠' },
@@ -85,7 +79,6 @@ const App: React.FC = () => {
                 { label: 'Machine Learning', href: '#ml', emoji: '🤖' },
                 {
                   label: 'AI Tools',
-                  href: '#ai',
                   emoji: '🎯',
                   subNav: [
                     { label: 'Natural Language Processing', href: '#nlp', emoji: '💬' },
@@ -101,7 +94,6 @@ const App: React.FC = () => {
     },
     {
       label: 'Services',
-      href: '#services',
       emoji: '🛠️',
       subNav: [
         { label: 'Consulting', href: '#consulting', emoji: '💡' },
@@ -111,7 +103,6 @@ const App: React.FC = () => {
     },
     {
       label: 'Resources',
-      href: '#resources',
       emoji: '📚',
       subNav: [
         { label: 'Documentation', href: '#docs', emoji: '📖' },
@@ -191,6 +182,7 @@ const App: React.FC = () => {
             links={basicLinks} 
             theme={theme}
             enableMobileCollapse={true}
+            isDemoContext={true}
           />
         </div>
         <CodeBlock 
@@ -218,6 +210,7 @@ const basicLinks = [
             links={linksWithIcons} 
             theme={theme}
             enableMobileCollapse={true}
+            isDemoContext={true}
           />
         </div>
         <CodeBlock 
@@ -243,26 +236,24 @@ const basicLinks = [
             links={nestedLinks} 
             theme={theme}
             enableMobileCollapse={true}
+            isDemoContext={true}
           />
         </div>
         <CodeBlock 
           code={`const nestedLinks = [
   { label: 'Home', href: '#home' },
   {
-    label: 'Products',
-    href: '#products',
+    label: 'Products', // No href - dropdown parent
     subNav: [
       { label: 'Electronics', href: '#electronics' },
       { label: 'Clothing', href: '#clothing' },
       {
-        label: 'Books',
-        href: '#books',
+        label: 'Books', // No href - dropdown parent
         subNav: [
           { label: 'Fiction', href: '#fiction' },
           { label: 'Non-Fiction', href: '#non-fiction' },
           {
-            label: 'Technical',
-            href: '#technical',
+            label: 'Technical', // No href - dropdown parent
             subNav: [
               { label: 'Programming', href: '#programming' },
               { label: 'Design', href: '#design' },
@@ -289,6 +280,7 @@ const basicLinks = [
             links={comprehensiveLinks} 
             theme={theme}
             enableMobileCollapse={true}
+            isDemoContext={true}
           />
         </div>
       </div>
@@ -307,6 +299,7 @@ const basicLinks = [
                 theme={theme}
                 isLeftAligned={true}
                 enableMobileCollapse={true}
+                isDemoContext={true}
               />
             </div>
           </div>
@@ -318,6 +311,7 @@ const basicLinks = [
                 theme={theme}
                 isRightAligned={true}
                 enableMobileCollapse={true}
+                isDemoContext={true}
               />
             </div>
           </div>
@@ -329,6 +323,7 @@ const basicLinks = [
                 theme={theme}
                 isTopAligned={true}
                 enableMobileCollapse={true}
+                isDemoContext={true}
               />
             </div>
           </div>
@@ -340,6 +335,7 @@ const basicLinks = [
                 theme={theme}
                 isBottomAligned={true}
                 enableMobileCollapse={true}
+                isDemoContext={true}
               />
             </div>
           </div>
@@ -454,9 +450,9 @@ const basicLinks = [
             <p>A modern, accessible navigation component for React</p>
           </div>
           <div className="footer-links">
-            <a href="#docs">Documentation</a>
-            <a href="#github">GitHub</a>
-            <a href="#npm">NPM</a>
+            <a href="https://alisafari-it.github.io/asafarim-navlinks/" target='_blank'>Documentation</a>
+            <a href="https://github.com/AliSafari-IT/asafarim-navlinks" target='_blank'>GitHub</a>
+            <a href="https://www.npmjs.com/package/asafarim-navlinks" target='_blank'>NPM</a>
           </div>
         </div>
       </div>
